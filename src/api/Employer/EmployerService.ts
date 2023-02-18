@@ -1,6 +1,19 @@
 import ApiService, { ApiData } from '@/api/ApiService';
 import { convertToBlob } from '@/utils/miscellaneous';
 
+export type EmployerData = {
+  name: string;
+  companyDescription: string;
+  logo: Blob;
+  webAddress: string;
+  userId: number;
+  country: string;
+  city: string;
+  state: string;
+  postalCode: string;
+  address: string;
+};
+
 export type CreateEmployerData = {
   companyName: string;
   companyWebsite: string;
