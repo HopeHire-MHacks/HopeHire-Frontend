@@ -18,7 +18,7 @@ const SingleSignOn = () => {
   const googleLogin = useGoogleLogin({
     flow: 'auth-code',
     onSuccess: async codeResponse => {
-      const response = await axios.post(baseUrl + '/login/oauth2/google', {
+      const response = await axios.post(baseUrl + 'login/oauth2/google', {
         code: codeResponse.code,
       });
       if (!response || !response.data.accessToken) {

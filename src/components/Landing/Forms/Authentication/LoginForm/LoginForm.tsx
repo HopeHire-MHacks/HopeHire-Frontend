@@ -4,6 +4,7 @@ import { useApi } from '@/api/ApiHandler';
 import AuthService from '@/api/Authentication/AuthService';
 import Logo from '@/assets/icon.png';
 import { useHistory } from 'react-router';
+import SingleSignOn from '@components/Landing/Forms/SingleSignOn';
 
 const LoginForm = () => {
   const [login] = useApi(() => AuthService.login(email, password), true, true, true);
@@ -78,6 +79,8 @@ const LoginForm = () => {
               </button>
             </div>
           </form>
+
+          <SingleSignOn />
 
           <div className='mt-6'>
             <div className='relative'>

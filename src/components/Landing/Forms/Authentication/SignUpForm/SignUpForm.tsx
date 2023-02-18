@@ -4,6 +4,7 @@ import { useApi } from '@/api/ApiHandler';
 import AuthService, { UserSignUpData } from '@/api/Authentication/AuthService';
 import Logo from '@/assets/icon.png';
 import { useHistory } from 'react-router';
+import SingleSignOn from '@components/Landing/Forms/SingleSignOn';
 
 const SignUpForm = () => {
   const [email, setEmail] = useState('');
@@ -97,6 +98,9 @@ const SignUpForm = () => {
               </button>
             </div>
           </form>
+
+          <SingleSignOn />
+
           <div className='mt-4'>
             <div className='relative'>
               <div className='relative flex justify-center text-sm'>
