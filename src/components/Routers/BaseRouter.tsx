@@ -20,13 +20,13 @@ function isTokenExpired(token: string) {
 }
 
 const BaseRouter = () => {
-  const [user, setUser] = useRecoilState(userAtom);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, setUser] = useRecoilState(userAtom);
   const [getSelf] = useApi(() => UserService.getSelf(), false, false, false);
 
   const token = getLocalStorageValue(ApiService.authTokenKey);
   const isLoggedIn = token && !isTokenExpired(token);
   let isOnboarded = false;
-  const currentUser = getLocalStorageValue('user');
 
   const getUser = async () => {
     const res = await getSelf();
@@ -38,7 +38,6 @@ const BaseRouter = () => {
     const userFromStorage = JSON.parse(eval('(' + serializedUser + ')'));
     setUser(prev => ({ ...prev, ...userFromStorage }));
     isOnboarded = userFromStorage.employee !== null || userFromStorage.employer !== null;
-    console.log('isOnboarded', isOnboarded);
   };
 
   useEffect(() => {
