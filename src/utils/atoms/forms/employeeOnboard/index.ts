@@ -1,0 +1,1 @@
+export { employeeOnboardAtom } from './atom';
