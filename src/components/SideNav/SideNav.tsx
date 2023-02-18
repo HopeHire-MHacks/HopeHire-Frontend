@@ -22,7 +22,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
 }
 
-const withMainPageLayout = (RenderComponent: React.ComponentType, navigation: NavigationProp[]) => {
+const SideNav = (RenderComponent: React.ComponentType, navigation: NavigationProp[]) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const hoc = (props: any) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -105,7 +105,7 @@ const withMainPageLayout = (RenderComponent: React.ComponentType, navigation: Na
         </Transition.Root>
 
         {/* Static sidebar for desktop */}
-        <div className='hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col'>
+        <div className='hidden md:absolute md:inset-y-0 md:flex md:w-64 md:flex-col'>
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className='flex flex-grow flex-col overflow-y-auto bg-gray-100 pt-5'>
             <div className='flex flex-shrink-0 items-center px-4'>
@@ -178,4 +178,4 @@ const withMainPageLayout = (RenderComponent: React.ComponentType, navigation: Na
   return hoc;
 };
 
-export default withMainPageLayout;
+export default SideNav;

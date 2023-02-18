@@ -4,7 +4,7 @@ import { routes } from '@/constants/routes';
 import NewListing from '@/components/Employer/NewListing';
 
 import { BriefcaseIcon, PlusCircleIcon, UserCircleIcon } from '@heroicons/react/24/outline';
-import withMainPageLayout from '@/components/withMainPageLayout/withMainPageLayout';
+import SideNav from '@components/SideNav';
 
 const EmptyComponent = () => <></>;
 
@@ -29,4 +29,4 @@ const Employer: React.FC = () => {
   );
 };
 
-export default withMainPageLayout(Employer, navigation);
+export default SideNav(Employer, navigation);
