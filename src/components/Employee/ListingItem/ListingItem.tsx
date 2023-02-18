@@ -4,6 +4,25 @@ import { ReactComponent as HealthIcon } from '@/assets/health_icon.svg';
 
 import industryTypes from '@/constants/industryTypes';
 
+const statusColor = (status: string) => {
+  switch (status) {
+    case 'Pending':
+      return 'bg-yellow-100 text-yellow-800';
+    case 'Rejected':
+      return 'bg-red-100 text-red-800';
+    case 'Accepted':
+      return 'bg-green-100 text-green-800';
+    default:
+      return 'bg-gray-100 text-gray-800';
+  }
+};
+interface Application {
+  id: number;
+  employeeId: number;
+  jobId: number;
+  remarks: string;
+  status: string;
+}
 interface Job {
   id: number;
   positionName: string;
@@ -32,9 +51,10 @@ interface Job {
 
 interface Props {
   position: Job;
+  application?: Application;
 }
 
-const ListingItem = ({ position }: Props) => {
+const ListingItem = ({ position, application }: Props) => {
   return (
     <>
       <li key={position.id}>
@@ -76,8 +96,17 @@ const ListingItem = ({ position }: Props) => {
                   )}
                 </div>
                 <div className='mt-2 flex items-center text-md text-gray-500 sm:mt-0'>
-                  <CalendarIcon className='mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400' aria-hidden='true' />
-                  <p>Closing Tomorrow</p>
+                  {!application && (
+                    <>
+                      <CalendarIcon className='mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400' aria-hidden='true' />
+                      <p>Closing Tomorrow</p>
+                    </>
+                  )}
+                  {application && (
+                    <p className={'inline-flex rounded-full px-2 text-xs font-semibold leading-5 ' + statusColor(application.status)}>
+                      {application.status}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>

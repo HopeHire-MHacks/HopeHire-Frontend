@@ -2,7 +2,7 @@ import React from 'react';
 import CardListWithHeader from '../CardListWithHeader';
 import ListingItem from '../ListingItem';
 
-const positions = [
+export const positions = [
   {
     id: 1,
     positionName: 'Software Engineer',

@@ -4,7 +4,8 @@ import { routes } from '@/constants/routes';
 
 import { BriefcaseIcon, PlusCircleIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import withMainPageLayout from '@/components/withMainPageLayout/withMainPageLayout';
-import Listings from '@/components/Employee/Listings';
+import JobListings from '@/components/Employee/JobListings';
+import Applications from '@/components/Applications';
 
 const EmptyComponent = () => <></>;
 
@@ -18,8 +19,8 @@ const Employee: React.FC = () => {
   return (
     <div className='h-full w-full flex flex-row'>
       <Switch>
-        <Route exact path={routes.employee.base + routes.employee.listings} component={Listings} />
-        <Route exact path={routes.employee.base + routes.employee.applications} component={EmptyComponent} />
+        <Route exact path={routes.employee.base + routes.employee.listings} component={JobListings} />
+        <Route exact path={routes.employee.base + routes.employee.applications} component={Applications} />
         <Route exact path={routes.employee.base + routes.employee.profile} component={EmptyComponent} />
         <Route exact path='*'>
           <Redirect to={routes.employee.base + routes.employee.listings} />
