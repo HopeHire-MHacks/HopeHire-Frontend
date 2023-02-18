@@ -1,4 +1,5 @@
 import ApiService, { ApiData } from '@/api/ApiService';
+import { routes } from '@/constants/routes';
 
 export type ApplicationData = {
   jobId: number;
@@ -71,7 +72,7 @@ export default class ApplicationService {
     try {
       const response = await ApiService.request(
         {
-          url: `employees/${this.getApplicationUrl()}`,
+          url: `${routes.employee}/${this.getApplicationUrl()}`,
           method: 'GET',
         },
         true,
