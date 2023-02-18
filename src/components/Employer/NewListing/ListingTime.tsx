@@ -24,10 +24,10 @@ const PhysicalDemands = () => {
             className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500'
             checked={newListingState.openImmediately}
             onChange={() =>
-              setNewListingState({
-                ...newListingState,
+              setNewListingState(prev => ({
+                ...prev,
                 openImmediately: true,
-              })
+              }))
             }
           />
           <label htmlFor='dialysis-support-no' className='ml-3 block text-sm font-medium text-gray-700'>
@@ -42,10 +42,10 @@ const PhysicalDemands = () => {
             className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500'
             checked={!newListingState.openImmediately}
             onChange={() =>
-              setNewListingState({
-                ...newListingState,
+              setNewListingState(prev => ({
+                ...prev,
                 openImmediately: false,
-              })
+              }))
             }
           />
           <label htmlFor='dialysis-support-yes' className='ml-3 block text-sm font-medium text-gray-700'>

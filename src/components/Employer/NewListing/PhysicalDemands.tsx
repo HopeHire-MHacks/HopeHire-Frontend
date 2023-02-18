@@ -16,7 +16,7 @@ const PhysicalDemands = () => {
             type='radio'
             className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500'
             checked={newListingState.physicalDemands == 'Minimal'}
-            onChange={() => setNewListingState({ ...newListingState, physicalDemands: 'Minimal' })}
+            onChange={() => setNewListingState(prev => ({ ...prev, physicalDemands: 'Minimal' }))}
           />
           <label htmlFor='minimal' className='ml-3 block text-sm font-medium text-gray-700'>
             Minimal
@@ -29,7 +29,7 @@ const PhysicalDemands = () => {
             type='radio'
             className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500'
             checked={newListingState.physicalDemands == 'Light'}
-            onChange={() => setNewListingState({ ...newListingState, physicalDemands: 'Light' })}
+            onChange={() => setNewListingState(prev => ({ ...prev, physicalDemands: 'Light' }))}
           />
           <label htmlFor='light' className='ml-3 block text-sm font-medium text-gray-700'>
             Light
@@ -42,7 +42,7 @@ const PhysicalDemands = () => {
             type='radio'
             className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500'
             checked={newListingState.physicalDemands == 'Moderate'}
-            onChange={() => setNewListingState({ ...newListingState, physicalDemands: 'Moderate' })}
+            onChange={() => setNewListingState(prev => ({ ...prev, physicalDemands: 'Moderate' }))}
           />
           <label htmlFor='moderate' className='ml-3 block text-sm font-medium text-gray-700'>
             Moderate
@@ -55,7 +55,7 @@ const PhysicalDemands = () => {
             type='radio'
             className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500'
             checked={newListingState.physicalDemands == 'Heavy'}
-            onChange={() => setNewListingState({ ...newListingState, physicalDemands: 'Heavy' })}
+            onChange={() => setNewListingState(prev => ({ ...prev, physicalDemands: 'Heavy' }))}
           />
           <label htmlFor='heavy' className='ml-3 block text-sm font-medium text-gray-700'>
             Heavy
@@ -68,7 +68,7 @@ const PhysicalDemands = () => {
             type='radio'
             className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500'
             checked={newListingState.physicalDemands == 'Very Heavy'}
-            onChange={() => setNewListingState({ ...newListingState, physicalDemands: 'Very Heavy' })}
+            onChange={() => setNewListingState(prev => ({ ...prev, physicalDemands: 'Very Heavy' }))}
           />
           <label htmlFor='very-heavy' className='ml-3 block text-sm font-medium text-gray-700'>
             Very Heavy

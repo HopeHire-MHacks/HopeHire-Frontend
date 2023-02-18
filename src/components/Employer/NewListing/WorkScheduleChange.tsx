@@ -19,7 +19,7 @@ const WorkScheduleChange = () => {
             type='radio'
             className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500'
             checked={newListingState.changeSchedule}
-            onChange={() => setNewListingState({ ...newListingState, changeSchedule: true })}
+            onChange={() => setNewListingState(prev => ({ ...prev, changeSchedule: true }))}
           />
           <label htmlFor='change-schedule-yes' className='ml-3 block text-sm font-medium text-gray-700'>
             Yes
@@ -32,7 +32,7 @@ const WorkScheduleChange = () => {
             type='radio'
             className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500'
             checked={!newListingState.changeSchedule}
-            onChange={() => setNewListingState({ ...newListingState, changeSchedule: false })}
+            onChange={() => setNewListingState(prev => ({ ...prev, changeSchedule: false }))}
           />
           <label htmlFor='change-schedule-no' className='ml-3 block text-sm font-medium text-gray-700'>
             No

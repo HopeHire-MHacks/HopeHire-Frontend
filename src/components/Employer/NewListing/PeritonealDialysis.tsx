@@ -33,7 +33,7 @@ const PeritonealDiaylsis = () => {
             type='radio'
             className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500'
             checked={!newListingState.dialysisSupport}
-            onChange={() => setNewListingState({ ...newListingState, dialysisSupport: false })}
+            onChange={() => setNewListingState(prev => ({ ...prev, dialysisSupport: false }))}
           />
           <label htmlFor='dialysis-support-no' className='ml-3 block text-sm font-medium text-gray-700'>
             No

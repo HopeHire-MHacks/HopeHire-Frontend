@@ -20,7 +20,7 @@ const SalaryExpections = () => {
               checked={salaryState == 0}
               onChange={() => {
                 setSalaryState(0);
-                setNewListingState({ ...newListingState, maxSalary: null });
+                setNewListingState(prev => ({ ...prev, maxSalary: null }));
               }}
             />
             <label htmlFor='fixed' className='ml-3 block text-sm font-medium text-gray-700'>
@@ -49,7 +49,7 @@ const SalaryExpections = () => {
               checked={salaryState == 2}
               onChange={() => {
                 setSalaryState(2);
-                setNewListingState({ ...newListingState, minSalary: null, maxSalary: null });
+                setNewListingState(prev => ({ ...prev, minSalary: null, maxSalary: null }));
               }}
             />
             <label htmlFor='none-yet' className='ml-3 block text-sm font-medium text-gray-700'>
@@ -72,7 +72,7 @@ const SalaryExpections = () => {
                 id='min-salary'
                 autoComplete='min-salary'
                 className='block w-full min-w-0 flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
-                onChange={e => setNewListingState({ ...newListingState, minSalary: parseInt(e.target.value) })}
+                onChange={e => setNewListingState(prev => ({ ...prev, minSalary: parseInt(e.target.value) }))}
                 value={newListingState.minSalary ? newListingState.minSalary : ''}
               />
             </div>
@@ -90,7 +90,7 @@ const SalaryExpections = () => {
                   id='max-salary'
                   autoComplete='max-salary'
                   className='block w-full min-w-0 flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
-                  onChange={e => setNewListingState({ ...newListingState, maxSalary: parseInt(e.target.value) })}
+                  onChange={e => setNewListingState(prev => ({ ...prev, maxSalary: parseInt(e.target.value) }))}
                   value={newListingState.maxSalary ? newListingState.maxSalary : ''}
                 />
               </div>
