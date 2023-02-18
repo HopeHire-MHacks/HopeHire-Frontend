@@ -6,6 +6,7 @@ import { BriefcaseIcon, PlusCircleIcon, UserCircleIcon } from '@heroicons/react/
 import withMainPageLayout from '@/components/withMainPageLayout/withMainPageLayout';
 import JobListings from '@/components/Employee/JobListings';
 import Applications from '@/components/Applications';
+import JobListing from '@/components/JobListing';
 
 const EmptyComponent = () => <></>;
 
@@ -20,6 +21,9 @@ const Employee: React.FC = () => {
     <div className='h-full w-full flex flex-row'>
       <Switch>
         <Route exact path={routes.employee.base + routes.employee.listings} component={JobListings} />
+        <Route exact path={routes.employee.base + routes.employee.listings + '/:id'}>
+          <JobListing />
+        </Route>
         <Route exact path={routes.employee.base + routes.employee.applications} component={Applications} />
         <Route exact path={routes.employee.base + routes.employee.profile} component={EmptyComponent} />
         <Route exact path='*'>

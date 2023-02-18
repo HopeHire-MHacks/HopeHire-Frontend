@@ -23,7 +23,7 @@ interface Application {
   remarks: string;
   status: string;
 }
-interface Job {
+export interface Job {
   id: number;
   positionName: string;
   jobType: string;
