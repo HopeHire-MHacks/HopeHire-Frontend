@@ -1,26 +1,19 @@
 import { atom } from 'recoil';
+import { CreateEmployerData } from '@/api/Employer/EmployerService';
 
-interface EmployerFormState {
-  companyName: string;
-  companyWebsite: string;
-  companyDescription: string;
-  logo: string;
-  postalCode: string;
-  address: string;
-  numberOfEmployees: number;
-  latLong: number[];
-}
-
-export const employerOnboardAtom = atom<EmployerFormState>({
+export const employerOnboardAtom = atom<CreateEmployerData>({
   key: 'employerOnboardAtom',
   default: {
-    companyName: '',
-    companyWebsite: '',
+    name: '',
     companyDescription: '',
     logo: '',
+    webAddress: '',
+    country: '',
+    city: '',
+    state: '',
     postalCode: '',
     address: '',
     numberOfEmployees: 0,
-    latLong: [0, 0],
+    latLong: [],
   },
 });

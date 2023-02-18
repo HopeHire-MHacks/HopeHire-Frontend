@@ -3,6 +3,7 @@ import { employeeOnboardAtom } from '@/utils/atoms/forms/employeeOnboard';
 import { useRecoilState } from 'recoil';
 import { ToasterType, toasterAtom } from '@/utils/atoms/toaster';
 import DateTime from '@/utils/DateTime';
+import AutoFillAddress from '@components/Onboard/YourInformation/AutoFillAddress';
 
 interface EmployeeInformationProps {
   onNext: () => void;
@@ -12,11 +13,11 @@ const EmployeeInformation = ({ onNext }: EmployeeInformationProps) => {
   const [employeeOnboard, setEmployeeOnboard] = useRecoilState(employeeOnboardAtom);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setToaster] = useRecoilState(toasterAtom);
-  const dateOfBirth = DateTime.newDateTimeFromDate(employeeOnboard.dateOfBirth);
+  const dateOfBirth = DateTime.newDateTimeFromDate(new Date(employeeOnboard.dateOfBirth));
   const dateOfBirthString = dateOfBirth.toTimezoneDate('Asia/Singapore').format('YYYY-MM-DD');
 
   const getNewDateOfBirth = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newDateOfBirth = new Date(e.target.value);
+    const newDateOfBirth = DateTime.newDateTimeFromDate(new Date(e.target.value)).toString();
     setEmployeeOnboard(prev => ({ ...prev, dateOfBirth: newDateOfBirth }));
   };
 
@@ -48,7 +49,11 @@ const EmployeeInformation = ({ onNext }: EmployeeInformationProps) => {
       employeeOnboard.dialysisFrequency === 0 ||
       employeeOnboard.profilePhoto.length === 0 ||
       employeeOnboard.resume.length === 0 ||
-      employeeOnboard.postalCode.length === 0
+      employeeOnboard.postalCode.length === 0 ||
+      employeeOnboard.address.length === 0 ||
+      employeeOnboard.city.length === 0 ||
+      employeeOnboard.state.length === 0 ||
+      employeeOnboard.country.length === 0
     ) {
       setToaster({ isShown: true, type: ToasterType.ERROR, message: 'Please fill in all the fields', title: 'Error' });
       return;
@@ -58,7 +63,7 @@ const EmployeeInformation = ({ onNext }: EmployeeInformationProps) => {
 
   return (
     <div className='w-full flex justify-center'>
-      <form className='space-y-6 max-w-7xl mt-10' action='#' method='POST'>
+      <div className='space-y-6 max-w-7xl mt-10'>
         <div className='bg-white px-4 py-5 shadow sm:rounded-lg sm:p-6'>
           <div className='md:grid md:grid-cols-3 md:gap-6'>
             <div className='md:col-span-1'>
@@ -126,79 +131,18 @@ const EmployeeInformation = ({ onNext }: EmployeeInformationProps) => {
                     className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
                   />
                 </div>
-
-                <div className='col-span-6 sm:col-span-4'>
-                  <label htmlFor='country' className='block text-sm font-medium text-gray-700'>
-                    Country
-                  </label>
-                  <select
-                    disabled
-                    id='country'
-                    name='country'
-                    autoComplete='country-name'
-                    className='mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
-                  >
-                    <option>Singapore</option>
-                  </select>
-                </div>
-
-                <div className='col-span-6'>
-                  <label htmlFor='street-address' className='block text-sm font-medium text-gray-700'>
-                    Street address
-                  </label>
-                  <input
-                    type='text'
-                    name='street-address'
-                    id='street-address'
-                    autoComplete='street-address'
-                    className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
-                  />
-                </div>
-
-                <div className='col-span-6 sm:col-span-6 lg:col-span-2'>
-                  <label htmlFor='city' className='block text-sm font-medium text-gray-700'>
-                    City
-                  </label>
-                  <input
-                    disabled
-                    value='Singapore'
-                    type='text'
-                    name='city'
-                    id='city'
-                    autoComplete='address-level2'
-                    className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
-                  />
-                </div>
-
-                <div className='col-span-6 sm:col-span-3 lg:col-span-2'>
-                  <label htmlFor='region' className='block text-sm font-medium text-gray-700'>
-                    State / Province
-                  </label>
-                  <input
-                    disabled
-                    value='Singapore'
-                    type='text'
-                    name='region'
-                    id='region'
-                    autoComplete='address-level1'
-                    className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
-                  />
-                </div>
-
-                <div className='col-span-6 sm:col-span-3 lg:col-span-2'>
-                  <label htmlFor='postal-code' className='block text-sm font-medium text-gray-700'>
-                    ZIP / Postal code
-                  </label>
-                  <input
-                    value={employeeOnboard.postalCode}
-                    onChange={e => setEmployeeOnboard(prev => ({ ...prev, postalCode: e.target.value }))}
-                    type='text'
-                    name='postal-code'
-                    id='postal-code'
-                    autoComplete='postal-code'
-                    className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
-                  />
-                </div>
+                <AutoFillAddress
+                  address={employeeOnboard.address}
+                  city={employeeOnboard.city}
+                  country={employeeOnboard.country}
+                  postalCode={employeeOnboard.postalCode}
+                  state={employeeOnboard.state}
+                  onSetAddress={address => setEmployeeOnboard(prev => ({ ...prev, address }))}
+                  onSetCity={city => setEmployeeOnboard(prev => ({ ...prev, city }))}
+                  onSetCountry={country => setEmployeeOnboard(prev => ({ ...prev, country }))}
+                  onSetPostalCode={postalCode => setEmployeeOnboard(prev => ({ ...prev, postalCode }))}
+                  onSetState={state => setEmployeeOnboard(prev => ({ ...prev, state }))}
+                />
               </div>
             </div>
           </div>
@@ -329,7 +273,7 @@ const EmployeeInformation = ({ onNext }: EmployeeInformationProps) => {
             Next
           </button>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

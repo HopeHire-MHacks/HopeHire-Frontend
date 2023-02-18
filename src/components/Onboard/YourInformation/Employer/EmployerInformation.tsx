@@ -4,37 +4,31 @@ import { employerOnboardAtom } from '@/utils/atoms/forms/employerOnboard';
 import { toasterAtom, ToasterType } from '@/utils/atoms/toaster';
 import { useApi } from '@/api/ApiHandler';
 import EmployerService, { CreateEmployerData } from '@/api/Employer/EmployerService';
+import AutoFillAddress from '../AutoFillAddress';
 
 const EmployerInformation = () => {
   const [employerOnboard, setEmployerOnboard] = useRecoilState(employerOnboardAtom);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setToaster] = useRecoilState(toasterAtom);
-  const [createEmployer] = useApi((data: CreateEmployerData) => EmployerService.createEmployer(data ?? null), false, true, false);
+  const [createEmployer] = useApi((data: CreateEmployerData) => EmployerService.createEmployer(data ?? null), true, true, true);
 
   const onSubmit = async () => {
     if (
-      employerOnboard.companyName.length === 0 ||
-      employerOnboard.companyWebsite.length === 0 ||
+      employerOnboard.name.length === 0 ||
+      employerOnboard.webAddress.length === 0 ||
       employerOnboard.companyDescription.length === 0 ||
       employerOnboard.logo.length === 0 ||
+      employerOnboard.numberOfEmployees === 0 ||
       employerOnboard.postalCode.length === 0 ||
-      employerOnboard.numberOfEmployees === 0
+      employerOnboard.country.length === 0 ||
+      employerOnboard.city.length === 0 ||
+      employerOnboard.address.length === 0 ||
+      employerOnboard.state.length === 0
     ) {
       setToaster({ isShown: true, type: ToasterType.ERROR, message: 'Please enter all fields', title: 'Error' });
       return;
     }
-
-    const createEmployerData: CreateEmployerData = {
-      companyWebsite: employerOnboard.companyWebsite,
-      companyName: employerOnboard.companyName,
-      companyDescription: employerOnboard.companyDescription,
-      logo: employerOnboard.logo,
-      address: employerOnboard.postalCode,
-      numberOfEmployees: employerOnboard.numberOfEmployees,
-      latLong: employerOnboard.latLong,
-      userId: 1,
-    };
-    const res = await createEmployer(createEmployerData);
+    const res = await createEmployer(employerOnboard);
     if (res) {
       console.log(res);
     }
@@ -57,7 +51,7 @@ const EmployerInformation = () => {
 
   return (
     <div className='w-full flex justify-center'>
-      <form className='space-y-6 max-w-7xl mt-10' action='#' method='POST'>
+      <div className='space-y-6 max-w-7xl mt-10'>
         <div className='bg-white px-4 py-5 shadow sm:rounded-lg sm:p-6'>
           <div className='md:grid md:grid-cols-3 md:gap-6'>
             <div className='md:col-span-1'>
@@ -71,8 +65,8 @@ const EmployerInformation = () => {
                     Company name
                   </label>
                   <input
-                    value={employerOnboard.companyName}
-                    onChange={e => setEmployerOnboard(prev => ({ ...prev, companyName: e.target.value }))}
+                    value={employerOnboard.name}
+                    onChange={e => setEmployerOnboard(prev => ({ ...prev, name: e.target.value }))}
                     type='text'
                     name='company-name'
                     id='company-name'
@@ -93,79 +87,18 @@ const EmployerInformation = () => {
                     className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
                   />
                 </div>
-
-                <div className='col-span-6 sm:col-span-4'>
-                  <label htmlFor='country' className='block text-sm font-medium text-gray-700'>
-                    Country
-                  </label>
-                  <select
-                    disabled
-                    id='country'
-                    name='country'
-                    autoComplete='country-name'
-                    className='mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
-                  >
-                    <option>Singapore</option>
-                  </select>
-                </div>
-
-                <div className='col-span-6'>
-                  <label htmlFor='street-address' className='block text-sm font-medium text-gray-700'>
-                    Street address
-                  </label>
-                  <input
-                    type='text'
-                    name='street-address'
-                    id='street-address'
-                    autoComplete='street-address'
-                    className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
-                  />
-                </div>
-
-                <div className='col-span-6 sm:col-span-6 lg:col-span-2'>
-                  <label htmlFor='city' className='block text-sm font-medium text-gray-700'>
-                    City
-                  </label>
-                  <input
-                    disabled
-                    value='Singapore'
-                    type='text'
-                    name='city'
-                    id='city'
-                    autoComplete='address-level2'
-                    className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
-                  />
-                </div>
-
-                <div className='col-span-6 sm:col-span-3 lg:col-span-2'>
-                  <label htmlFor='region' className='block text-sm font-medium text-gray-700'>
-                    State / Province
-                  </label>
-                  <input
-                    disabled
-                    value='Singapore'
-                    type='text'
-                    name='region'
-                    id='region'
-                    autoComplete='address-level1'
-                    className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
-                  />
-                </div>
-
-                <div className='col-span-6 sm:col-span-3 lg:col-span-2'>
-                  <label htmlFor='postal-code' className='block text-sm font-medium text-gray-700'>
-                    ZIP / Postal code
-                  </label>
-                  <input
-                    value={employerOnboard.postalCode}
-                    onChange={e => setEmployerOnboard(prev => ({ ...prev, postalCode: e.target.value }))}
-                    type='text'
-                    name='postal-code'
-                    id='postal-code'
-                    autoComplete='postal-code'
-                    className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
-                  />
-                </div>
+                <AutoFillAddress
+                  address={employerOnboard.address}
+                  city={employerOnboard.city}
+                  country={employerOnboard.country}
+                  postalCode={employerOnboard.postalCode}
+                  state={employerOnboard.state}
+                  onSetAddress={address => setEmployerOnboard(prev => ({ ...prev, address }))}
+                  onSetCity={city => setEmployerOnboard(prev => ({ ...prev, city }))}
+                  onSetCountry={country => setEmployerOnboard(prev => ({ ...prev, country }))}
+                  onSetPostalCode={postalCode => setEmployerOnboard(prev => ({ ...prev, postalCode }))}
+                  onSetState={state => setEmployerOnboard(prev => ({ ...prev, state }))}
+                />
               </div>
             </div>
           </div>
@@ -187,8 +120,8 @@ const EmployerInformation = () => {
                       http://
                     </span>
                     <input
-                      value={employerOnboard.companyWebsite}
-                      onChange={e => setEmployerOnboard(prev => ({ ...prev, companyWebsite: e.target.value }))}
+                      value={employerOnboard.webAddress}
+                      onChange={e => setEmployerOnboard(prev => ({ ...prev, webAddress: e.target.value }))}
                       type='text'
                       name='company-website'
                       id='company-website'
@@ -278,7 +211,7 @@ const EmployerInformation = () => {
             Submit
           </button>
         </div>
-      </form>
+      </div>
     </div>
   );
 };
