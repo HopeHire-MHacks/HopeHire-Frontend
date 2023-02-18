@@ -4,6 +4,7 @@ import { EventDropArg } from '@fullcalendar/react';
 import { b64toBlob } from './blob';
 
 import moment from 'moment';
+import DateTime from './DateTime';
 export function getLocalStorageValue(key: string): string | null {
   const res = localStorage.getItem(key);
   return res ? JSON.parse(res) : null;
@@ -25,6 +26,12 @@ export const getEventData = (e: EventDropArg | EventResizeDoneArg): EventData =>
     end: moment(e.event.end).toDate(),
     editable: e.event.startEditable,
   };
+};
+
+export const convertEventData = (e: EventData[]): string[] => {
+  return e
+    .map(eventData => [DateTime.newDateTimeFromDate(eventData.start).toString(), DateTime.newDateTimeFromDate(eventData.end).toString()])
+    .flat();
 };
 
 export const convertToBlob = (base64String: string): Blob | null => {

@@ -1,12 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DatePicker, { DayValue } from '@amir04lm26/react-modern-calendar-date-picker';
 
 import { newListingAtom } from '@/utils/atoms/forms/newListing';
 import { useRecoilState } from 'recoil';
+import DateTime from '@/utils/DateTime';
 
 const PhysicalDemands = () => {
   const [newListingState, setNewListingState] = useRecoilState(newListingAtom);
   const [openDatePicker, setOpenDatePicker] = useState<DayValue>(null);
+
+  useEffect(() => {
+    if (openDatePicker) {
+      setNewListingState(prev => ({
+        ...prev,
+        openingTime: DateTime.newDateTimeFromDate(
+          new Date(`${openDatePicker.year}-${openDatePicker.month}-${openDatePicker.day}`),
+        ).toString(),
+      }));
+    }
+  }, [openDatePicker]);
 
   return (
     <fieldset className='col-span-6'>
@@ -27,6 +39,7 @@ const PhysicalDemands = () => {
               setNewListingState(prev => ({
                 ...prev,
                 openImmediately: true,
+                openingTime: DateTime.newDateTimeFromDate(new Date()).toString(),
               }))
             }
           />

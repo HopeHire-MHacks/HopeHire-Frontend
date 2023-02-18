@@ -1,6 +1,8 @@
 import ApiService, { ApiData } from '@/api/ApiService';
+import { EventData } from '@components/Calendar/Calendar';
 import { EmployerData } from '../Employer/EmployerService';
 
+export type SalaryTypes = 'fixed' | 'ranged' | 'none-yet';
 export type JobData = {
   id: number;
   positionName: string;
@@ -39,7 +41,7 @@ export type CreateJobData = {
   hasDialysisSupport: boolean;
   hasFlexibleSchedule: boolean;
   physicalDemands: string;
-  salaryType: string;
+  salaryType: SalaryTypes;
   country: string;
   city: string;
   state: string;
@@ -48,8 +50,14 @@ export type CreateJobData = {
   skills: number[];
   latLong: number[];
   salaryRange: number[];
-  isOpen: boolean;
-  scheduledType: string;
+  availableTimes: string[];
+  openingTime: string;
+
+  // Non-API fields
+  openImmediately: boolean;
+  minSalary: number | null;
+  maxSalary: number | null;
+  workScheduleCalendar: EventData[];
 };
 
 export default class JobService {
@@ -82,8 +90,10 @@ export default class JobService {
             skills: createJobData.skills,
             latLong: createJobData.latLong,
             salaryRange: createJobData.salaryRange,
-            isOpen: createJobData.isOpen,
-            scheduledType: createJobData.scheduledType,
+            isOpen: true,
+            openingTime: createJobData.openingTime,
+            scheduledType: '',
+            availableTimes: createJobData.availableTimes,
           },
         },
         true,
