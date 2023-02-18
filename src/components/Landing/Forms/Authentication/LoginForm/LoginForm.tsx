@@ -25,7 +25,9 @@ const LoginForm = () => {
         setUser(prev => ({ ...prev, ...self.data }));
       }
     }
-    window.location.reload();
+    window.setTimeout(() => {
+      window.location.reload();
+    }, 1500);
   };
 
   return (

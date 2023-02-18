@@ -36,7 +36,9 @@ const SingleSignOn = () => {
       if (res && res.data) {
         setUser(prev => ({ ...prev, ...res.data }));
       }
-      window.location.reload();
+      window.setTimeout(() => {
+        window.location.reload();
+      }, 1500);
     },
   });
 
