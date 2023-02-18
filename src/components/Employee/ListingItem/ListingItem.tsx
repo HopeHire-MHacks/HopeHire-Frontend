@@ -3,6 +3,8 @@ import { CalendarIcon, MapPinIcon, UsersIcon } from '@heroicons/react/20/solid';
 import { ReactComponent as HealthIcon } from '@/assets/health_icon.svg';
 
 import industryTypes from '@/constants/industryTypes';
+import { useHistory } from 'react-router-dom';
+import { routes } from '@/constants/routes';
 
 const statusColor = (status: string) => {
   switch (status) {
@@ -55,10 +57,16 @@ interface Props {
 }
 
 const ListingItem = ({ position, application }: Props) => {
+  const history = useHistory();
+
+  const onClick = () => {
+    console.log('here');
+    history.push(routes.employee.base + routes.employee.listings + '/' + position.id);
+  };
   return (
     <>
       <li key={position.id}>
-        <a href='#' className='block hover:bg-gray-50'>
+        <a onClick={onClick} className='block hover:bg-gray-50'>
           <div className='px-4 py-4 sm:px-6 sm:pl-2 flex'>
             <div className='flex items-center w-12 justify-between'>
               <img

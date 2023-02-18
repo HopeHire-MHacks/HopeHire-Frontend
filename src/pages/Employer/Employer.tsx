@@ -6,7 +6,7 @@ import Listings from '@/components/Employer/Listings';
 
 import { BriefcaseIcon, PlusCircleIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import SideNav from '@components/SideNav';
-
+import JobListing from '@/components/JobListing';
 const EmptyComponent = () => <></>;
 
 const navigation = [
@@ -21,6 +21,9 @@ const Employer: React.FC = () => {
       <Switch>
         <Route exact path={routes.employer.base + routes.employer.newListing} component={NewListing} />
         <Route exact path={routes.employer.base + routes.employer.listings} component={Listings} />
+        <Route exact path={routes.employer.base + routes.employer.listings + '/:id'}>
+          <JobListing />
+        </Route>
         <Route exact path={routes.employer.base + routes.employer.profile} component={EmptyComponent} />
         <Route exact path='*'>
           <Redirect to={routes.employer.base + routes.employer.listings} />
