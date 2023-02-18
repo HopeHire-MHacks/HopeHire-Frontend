@@ -67,6 +67,7 @@
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/typography": "^0.5.9",
+    "@types/google.maps": "^3.52.0",
     "@types/react-router-dom": "^5.3.3",
     "@types/serialize-javascript": "^5.0.2",
     "eslint-plugin-prettier": "^4.2.1"
