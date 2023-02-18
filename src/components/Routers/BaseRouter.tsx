@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { routes } from '@/constants/routes';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import ApiService from '@/api/ApiService';
-import { getLocalStorageValue, setLocalStorageValue } from '@/utils/miscellaneous';
+import { getLocalStorageValue } from '@/utils/miscellaneous';
 import { useRecoilState } from 'recoil';
 import { userAtom } from '@/utils/atoms/user';
 import { useApi } from '@/api/ApiHandler';
