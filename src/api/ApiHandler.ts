@@ -4,6 +4,7 @@ import { toasterAtom, ToasterType } from '@/utils/atoms/toaster';
 import { ApiData } from '@/api/ApiService';
 import { useHistory } from 'react-router-dom';
 import { routes } from '@/constants/routes';
+import { userAtom } from '@/utils/atoms/user';
 
 export interface isSuccess {
   isSuccess: boolean;
@@ -19,6 +20,8 @@ export function useApi<T>(
   const [isLoading, setIsLoading] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setToasterState] = useRecoilState(toasterAtom);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [__, setUser] = useRecoilState(userAtom);
   const history = useHistory();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -47,6 +50,12 @@ export function useApi<T>(
       }
       if (error?.status === 403) {
         history.push(routes.authentication.login);
+        setUser({
+          id: 0,
+          email: '',
+          employee: null,
+          employer: null,
+        });
       }
       console.log(error);
       return { ...error?.data, isSuccess: false };
