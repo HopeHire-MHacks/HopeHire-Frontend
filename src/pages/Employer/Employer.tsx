@@ -9,9 +9,9 @@ import SideNav from '@components/SideNav';
 const EmptyComponent = () => <></>;
 
 const navigation = [
-  { name: 'New Listing', href: routes.employer.base + routes.employer.newListing, icon: PlusCircleIcon, current: true },
-  { name: 'Listings', href: routes.employer.base + routes.employer.listings, icon: BriefcaseIcon, current: false },
-  { name: 'Profile', href: routes.employer.base + routes.employer.profile, icon: UserCircleIcon, current: false },
+  { name: 'New Listing', href: routes.employer.base + routes.employer.newListing, icon: PlusCircleIcon },
+  { name: 'Listings', href: routes.employer.base + routes.employer.listings, icon: BriefcaseIcon },
+  { name: 'Profile', href: routes.employer.base + routes.employer.profile, icon: UserCircleIcon },
 ];
 
 const Employer: React.FC = () => {

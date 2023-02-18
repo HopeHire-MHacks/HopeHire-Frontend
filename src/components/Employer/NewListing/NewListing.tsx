@@ -59,6 +59,7 @@ const NewListing = () => {
                 <Calendar availabilities={workScheduleCalendar} setAvailabilities={setWorkScheduleCalendar} periodTitle='Work' />
               </div>
 
+              {/* Additional Details */}
               <div className='col-span-6'>
                 <h2 className='text-2xl font-bold leading-10 tracking-tight text-gray-900'>Additional Details</h2>
               </div>
