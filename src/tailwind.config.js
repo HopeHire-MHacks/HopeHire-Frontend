@@ -5,7 +5,7 @@ const TailWindTheme = {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography'), require('@tailwindcss/aspect-ratio')],
 };
 
 module.exports = TailWindTheme;
