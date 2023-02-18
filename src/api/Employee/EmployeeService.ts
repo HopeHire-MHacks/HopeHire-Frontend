@@ -1,4 +1,5 @@
 import ApiService, { ApiData } from '@/api/ApiService';
+import { EventData } from '@/components/Calendar';
 import { convertToBlob } from '@/utils/miscellaneous';
 
 export type EmployeeData = {
@@ -32,6 +33,13 @@ export type CreateEmployeeData = {
   dialysisFrequency: number;
   profilePhoto: string;
   resume: string;
+  country: string;
+  city: string;
+  state: string;
+  postalCode: string;
+  address: string;
+  availableTimesCalendar: EventData[];
+  resumeName: string;
 };
 
 export default class EmployeeService {
@@ -61,7 +69,11 @@ export default class EmployeeService {
             dialysisFrequency: createEmployerData.dialysisFrequency,
             profilePhoto: imageBlob,
             resume: resumeBlob,
-            userId: 1,
+            country: createEmployerData.country,
+            city: createEmployerData.city,
+            state: createEmployerData.state,
+            postalCode: createEmployerData.postalCode,
+            address: createEmployerData.address,
           },
         },
         true,
