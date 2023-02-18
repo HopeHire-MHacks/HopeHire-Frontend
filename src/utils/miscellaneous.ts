@@ -1,5 +1,9 @@
+import { EventData } from '@components/Calendar';
+import { EventResizeDoneArg } from '@fullcalendar/interaction';
+import { EventDropArg } from '@fullcalendar/react';
 import { b64toBlob } from './blob';
 
+import moment from 'moment';
 export function getLocalStorageValue(key: string): string | null {
   const res = localStorage.getItem(key);
   return res ? JSON.parse(res) : null;
@@ -12,6 +16,16 @@ export function setLocalStorageValue(key: string, value: unknown) {
 export function removeLocalStorageValue(key: string) {
   localStorage.removeItem(key);
 }
+
+export const getEventData = (e: EventDropArg | EventResizeDoneArg): EventData => {
+  return {
+    id: e.event.id,
+    title: e.event.title,
+    start: moment(e.event.start).toDate(),
+    end: moment(e.event.end).toDate(),
+    editable: e.event.startEditable,
+  };
+};
 
 export const convertToBlob = (base64String: string): Blob | null => {
   // Split the base64 string in data and contentType
