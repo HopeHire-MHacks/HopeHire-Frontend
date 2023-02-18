@@ -81,7 +81,7 @@ const SideNav = (RenderComponent: React.ComponentType, navigation: NavigationPro
                           key={item.name}
                           to={item.href}
                           activeClassName='bg-indigo-800 text-white hover:bg-indigo-800 hover:text-white'
-                          className='text-indigo-100 hover:bg-indigo-600 group flex items-center px-2 py-2 text-base font-medium rounded-md'
+                          className='text-indigo-100 hover:bg-indigo-600 flex items-center px-2 py-2 text-base font-medium rounded-md'
                         >
                           <item.icon className='mr-4 h-6 w-6 flex-shrink-0 true-gray-600' aria-hidden='true' />
                           {item.name}
@@ -111,10 +111,11 @@ const SideNav = (RenderComponent: React.ComponentType, navigation: NavigationPro
                   <NavLink
                     key={item.name}
                     to={item.href}
-                    activeClassName='bg-gray-200 text-gray-900 hover:bg-gray-200 hover:text-gray-900'
-                    className='text-gray-600 hover:bg-gray-50 hover:text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md'
+                    activeClassName='text-gray-900 bg-gray-200 hover:bg-gray-200'
+                    className={`text-gray-600 hover:bg-gray-50
+                    group flex items-center px-2 py-2 text-base font-medium rounded-md`}
                   >
-                    <item.icon className='mr-3 h-6 w-6 flex-shrink-0 text-indigo-300' aria-hidden='true' />
+                    <item.icon className='text-gray-400 mr-4 h-6 w-6' aria-hidden='true' />
                     {item.name}
                   </NavLink>
                 ))}
