@@ -22,7 +22,7 @@ const Employer: React.FC = () => {
         <Route exact path={routes.employer.base + routes.employer.listings} component={EmptyComponent} />
         <Route exact path={routes.employer.base + routes.employer.profile} component={EmptyComponent} />
         <Route exact path='*'>
-          <Redirect to={routes.employer.base + routes.employer.newListing} />
+          <Redirect to={routes.employer.base + routes.employer.listings} />
         </Route>
       </Switch>
     </div>
