@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { toasterAtom, ToasterType } from '@/utils/atoms/toaster';
 import { ApiData } from '@/api/ApiService';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { routes } from '@/constants/routes';
 
 export interface isSuccess {
@@ -19,7 +19,7 @@ export function useApi<T>(
   const [isLoading, setIsLoading] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setToasterState] = useRecoilState(toasterAtom);
-  const navigate = useNavigate();
+  const history = useHistory();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async function fetchApi(data?: any): Promise<ApiData<T> & isSuccess> {
@@ -46,7 +46,7 @@ export function useApi<T>(
         console.error({ message: error.data.message });
       }
       if (error?.status === 403) {
-        navigate(routes.authentication.login);
+        history.push(routes.authentication.login);
       }
       console.log(error);
       return { ...error?.data, isSuccess: false };
