@@ -15,7 +15,7 @@ const BaseRouter = () => {
       <Route exact path={routes.authentication.login} component={Login} />
       <Route exact path={routes.authentication.signup} component={Register} />
       <Route exact path={routes.onboard} component={Onboard} />
-      <Route exact path={routes.employer.base} component={Employer} />
+      <Route path={routes.employer.base} component={Employer} />
       <Route exact path='*'>
         <Redirect to={routes.home} />
       </Route>
