@@ -1,41 +1,24 @@
 import { atom } from 'recoil';
-import { EventData } from '@/components/Calendar';
+import { CreateEmployeeData } from '@/api/Employee/EmployeeService';
 
-interface EmployeeFormState {
-  name: string;
-  personalStatement: string;
-  skills: number[];
-  interests: number[];
-  isAvailable: boolean;
-  dateOfBirth: Date;
-  remarks: string;
-  availableTimes: string[];
-  preferredLocation: number[];
-  dialysisFrequency: number;
-  profilePhoto: string;
-  resume: string;
-  resumeName: string;
-  postalCode: string;
-  availableTimesCalendar: EventData[];
-}
-
-export const employeeOnboardAtom = atom<EmployeeFormState>({
+export const employeeOnboardAtom = atom<CreateEmployeeData>({
   key: 'employeeOnboardAtom',
   default: {
     name: '',
     personalStatement: '',
     skills: [],
     interests: [],
-    isAvailable: true,
-    dateOfBirth: new Date(),
+    dateOfBirth: '2000-11-11',
     remarks: '',
     availableTimes: [],
-    preferredLocation: [0, 0],
+    preferredLocation: [],
     dialysisFrequency: 0,
     profilePhoto: '',
     resume: '',
-    resumeName: 'NO_FILE_SELECTED',
+    country: '',
+    city: '',
+    state: '',
     postalCode: '',
-    availableTimesCalendar: [],
+    address: '',
   },
 });

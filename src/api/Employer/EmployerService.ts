@@ -15,14 +15,17 @@ export type EmployerData = {
 };
 
 export type CreateEmployerData = {
-  companyName: string;
-  companyWebsite: string;
+  name: string;
   companyDescription: string;
   logo: string;
+  webAddress: string;
+  country: string;
+  city: string;
+  state: string;
+  postalCode: string;
   address: string;
-  userId: number;
-  latLong: number[];
   numberOfEmployees: number;
+  latLong: number[];
 };
 
 export default class EmployerService {
@@ -39,13 +42,17 @@ export default class EmployerService {
           url: `${this.getEmployerUrl()}`,
           method: 'POST',
           data: {
-            name: createEmployerData.companyName,
+            name: createEmployerData.name,
             companyDescription: createEmployerData.companyDescription,
             logo: imageBlob,
             address: createEmployerData.address,
             numberOfEmployees: createEmployerData.numberOfEmployees,
             latLong: createEmployerData.latLong,
-            userId: createEmployerData.userId,
+            webAddress: createEmployerData.webAddress,
+            country: createEmployerData.country,
+            city: createEmployerData.city,
+            state: createEmployerData.state,
+            postalCode: createEmployerData.postalCode,
           },
         },
         true,

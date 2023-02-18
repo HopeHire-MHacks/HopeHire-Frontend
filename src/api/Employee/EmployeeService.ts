@@ -32,6 +32,11 @@ export type CreateEmployeeData = {
   dialysisFrequency: number;
   profilePhoto: string;
   resume: string;
+  country: string;
+  city: string;
+  state: string;
+  postalCode: string;
+  address: string;
 };
 
 export default class EmployeeService {
@@ -61,7 +66,11 @@ export default class EmployeeService {
             dialysisFrequency: createEmployerData.dialysisFrequency,
             profilePhoto: imageBlob,
             resume: resumeBlob,
-            userId: 1,
+            country: createEmployerData.country,
+            city: createEmployerData.city,
+            state: createEmployerData.state,
+            postalCode: createEmployerData.postalCode,
+            address: createEmployerData.address,
           },
         },
         true,
