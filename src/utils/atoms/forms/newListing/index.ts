@@ -1,1 +1,1 @@
-export { newListingAtom } from './atom';
+export { newListingAtom, defaultState } from './atom';

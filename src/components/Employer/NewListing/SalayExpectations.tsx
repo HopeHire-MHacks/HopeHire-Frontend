@@ -1,11 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { newListingAtom } from '@/utils/atoms/forms/newListing';
 import { useRecoilState } from 'recoil';
 
 const SalaryExpections = () => {
   const [newListingState, setNewListingState] = useRecoilState(newListingAtom);
-  const [salaryState, setSalaryState] = useState(0);
+
+  useEffect(() => {
+    const { minSalary, maxSalary } = newListingState;
+    let salaryRange: number[] = [];
+    if (minSalary && maxSalary) {
+      salaryRange = [minSalary, maxSalary];
+    } else if (minSalary) {
+      salaryRange = [minSalary];
+    }
+    setNewListingState(prev => ({ ...prev, salaryRange }));
+  }, [newListingState.minSalary, newListingState.maxSalary]);
 
   return (
     <>
@@ -17,10 +27,9 @@ const SalaryExpections = () => {
               name='salary'
               type='radio'
               className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500'
-              checked={salaryState == 0}
+              checked={newListingState.salaryType == 'fixed'}
               onChange={() => {
-                setSalaryState(0);
-                setNewListingState(prev => ({ ...prev, maxSalary: null }));
+                setNewListingState(prev => ({ ...prev, maxSalary: null, salaryType: 'fixed' }));
               }}
             />
             <label htmlFor='fixed' className='ml-3 block text-sm font-medium text-gray-700'>
@@ -33,8 +42,8 @@ const SalaryExpections = () => {
               name='salary'
               type='radio'
               className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500'
-              checked={salaryState == 1}
-              onChange={() => setSalaryState(1)}
+              checked={newListingState.salaryType == 'ranged'}
+              onChange={() => setNewListingState(prev => ({ ...prev, salaryType: 'ranged' }))}
             />
             <label htmlFor='ranged' className='ml-3 block text-sm font-medium text-gray-700'>
               Ranged
@@ -46,10 +55,9 @@ const SalaryExpections = () => {
               name='salary'
               type='radio'
               className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500'
-              checked={salaryState == 2}
+              checked={newListingState.salaryType == 'none-yet'}
               onChange={() => {
-                setSalaryState(2);
-                setNewListingState(prev => ({ ...prev, minSalary: null, maxSalary: null }));
+                setNewListingState(prev => ({ ...prev, minSalary: null, maxSalary: null, salaryType: 'none-yet' }));
               }}
             />
             <label htmlFor='none-yet' className='ml-3 block text-sm font-medium text-gray-700'>
@@ -59,7 +67,7 @@ const SalaryExpections = () => {
         </div>
       </fieldset>
 
-      {salaryState != 2 && (
+      {newListingState.salaryType != 'none-yet' && (
         <div className='col-span-6 flex flex-row'>
           <div className='col-span-1'>
             <div className='mt-1 flex rounded-md shadow-sm'>
@@ -77,8 +85,8 @@ const SalaryExpections = () => {
               />
             </div>
           </div>
-          {salaryState != 0 && <p className='ml-3 mr-3 m-auto block text-sm font-medium text-gray-700'>-</p>}
-          {salaryState != 0 && (
+          {newListingState.salaryType != 'fixed' && <p className='ml-3 mr-3 m-auto block text-sm font-medium text-gray-700'>-</p>}
+          {newListingState.salaryType != 'fixed' && (
             <div className='col-span-1'>
               <div className='mt-1 flex rounded-md shadow-sm'>
                 <span className='inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-gray-500 sm:text-sm'>

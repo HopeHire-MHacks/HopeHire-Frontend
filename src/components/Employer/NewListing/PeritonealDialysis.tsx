@@ -19,8 +19,8 @@ const PeritonealDiaylsis = () => {
             name='dialysis-support'
             type='radio'
             className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500'
-            checked={newListingState.dialysisSupport}
-            onChange={() => setNewListingState(prev => ({ ...prev, dialysisSupport: true }))}
+            checked={newListingState.hasDialysisSupport}
+            onChange={() => setNewListingState(prev => ({ ...prev, hasDialysisSupport: true }))}
           />
           <label htmlFor='dialysis-support-yes' className='ml-3 block text-sm font-medium text-gray-700'>
             Yes
@@ -32,8 +32,8 @@ const PeritonealDiaylsis = () => {
             name='dialysis-support'
             type='radio'
             className='h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500'
-            checked={!newListingState.dialysisSupport}
-            onChange={() => setNewListingState(prev => ({ ...prev, dialysisSupport: false }))}
+            checked={!newListingState.hasDialysisSupport}
+            onChange={() => setNewListingState(prev => ({ ...prev, hasDialysisSupport: false }))}
           />
           <label htmlFor='dialysis-support-no' className='ml-3 block text-sm font-medium text-gray-700'>
             No

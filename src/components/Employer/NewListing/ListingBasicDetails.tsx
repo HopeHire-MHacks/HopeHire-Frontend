@@ -20,8 +20,8 @@ const ListingBasicDetails = () => {
           id='position-name'
           autoComplete='position-name'
           className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
-          onChange={e => setNewListingState(prev => ({ ...prev, name: e.target.value }))}
-          value={newListingState.name}
+          onChange={e => setNewListingState(prev => ({ ...prev, positionName: e.target.value }))}
+          value={newListingState.positionName}
         />
       </div>
 
@@ -52,11 +52,13 @@ const ListingBasicDetails = () => {
           name='industry-type'
           autoComplete='industry-type'
           className='mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
-          onChange={e => setNewListingState(prev => ({ ...prev, industryType: e.target.value }))}
+          onChange={e => setNewListingState(prev => ({ ...prev, industryType: parseInt(e.target.value) }))}
           value={newListingState.industryType}
         >
-          {industryTypes.map(industryType => (
-            <option key={industryType}>{industryType}</option>
+          {industryTypes.map((industryType, i) => (
+            <option value={i} key={industryType}>
+              {industryType}
+            </option>
           ))}
         </select>
       </div>
@@ -71,8 +73,8 @@ const ListingBasicDetails = () => {
             name='job-description'
             rows={3}
             className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
-            onChange={e => setNewListingState(prev => ({ ...prev, description: e.target.value }))}
-            value={newListingState.description}
+            onChange={e => setNewListingState(prev => ({ ...prev, jobDescription: e.target.value }))}
+            value={newListingState.jobDescription}
           />
         </div>
       </div>
@@ -87,8 +89,8 @@ const ListingBasicDetails = () => {
             name='job-requirements'
             rows={3}
             className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
-            onChange={e => setNewListingState(prev => ({ ...prev, requirements: e.target.value }))}
-            value={newListingState.requirements}
+            onChange={e => setNewListingState(prev => ({ ...prev, jobRequirements: e.target.value }))}
+            value={newListingState.jobRequirements}
           />
         </div>
       </div>
@@ -103,8 +105,8 @@ const ListingBasicDetails = () => {
             name='job-flexibility'
             rows={3}
             className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
-            onChange={e => setNewListingState(prev => ({ ...prev, flexiblity: e.target.value }))}
-            value={newListingState.flexiblity}
+            onChange={e => setNewListingState(prev => ({ ...prev, jobFlexibility: e.target.value }))}
+            value={newListingState.jobFlexibility}
           />
         </div>
       </div>
