@@ -19,26 +19,21 @@ export default class ApiService {
   public static async request(
     requestConfig: AxiosRequestConfig,
     isAuth = false,
-    isUpdatePassword = false,
+    altUrl = '',
     contentType = 'application/json',
   ): Promise<any> {
     const accessToken: string | null = getLocalStorageValue(this.authTokenKey) ?? null;
-    const updatePasswordToken: string | null = requestConfig?.headers ? (requestConfig?.headers['x-auth-token'] as string) : null;
-
+    console.log(altUrl);
     if (isAuth && !accessToken) {
       return Promise.reject({ data: { message: 'Not authenticated' } });
-    }
-
-    if (isUpdatePassword && !updatePasswordToken) {
-      return Promise.reject({ data: { message: 'Missing token! Not a valid request' } });
     }
 
     try {
       const config: AxiosRequestConfig = {
         ...requestConfig,
-        baseURL: baseUrl,
+        baseURL: altUrl.length !== 0 ? altUrl : baseUrl,
         headers: {
-          'x-auth-token': `${isUpdatePassword ? updatePasswordToken : accessToken}`,
+          'x-auth-token': accessToken,
           'Content-Type': contentType,
           ...requestConfig.headers,
         },
