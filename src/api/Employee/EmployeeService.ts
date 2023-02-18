@@ -1,4 +1,5 @@
 import ApiService, { ApiData } from '@/api/ApiService';
+import { EventData } from '@/components/Calendar';
 import { convertToBlob } from '@/utils/miscellaneous';
 
 export type EmployeeData = {
@@ -37,6 +38,8 @@ export type CreateEmployeeData = {
   state: string;
   postalCode: string;
   address: string;
+  availableTimesCalendar: EventData[];
+  resumeName: string;
 };
 
 export default class EmployeeService {

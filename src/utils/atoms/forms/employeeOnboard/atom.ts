@@ -20,5 +20,7 @@ export const employeeOnboardAtom = atom<CreateEmployeeData>({
     state: '',
     postalCode: '',
     address: '',
+    availableTimesCalendar: [],
+    resumeName: '',
   },
 });
