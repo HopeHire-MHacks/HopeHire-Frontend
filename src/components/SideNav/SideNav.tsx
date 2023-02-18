@@ -2,6 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { useRecoilState } from 'recoil';
 import { userAtom } from '@/utils/atoms/user';
+import { NavLink } from 'react-router-dom';
 
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ReactComponent as Logo } from '@/assets/icon.svg';
@@ -15,14 +16,9 @@ interface NavigationProp {
       titleId?: string | undefined;
     }
   >;
-  current: boolean;
 }
 
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ');
-}
-
-const withMainPageLayout = (RenderComponent: React.ComponentType, navigation: NavigationProp[]) => {
+const SideNav = (RenderComponent: React.ComponentType, navigation: NavigationProp[]) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const hoc = (props: any) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -81,17 +77,15 @@ const withMainPageLayout = (RenderComponent: React.ComponentType, navigation: Na
                   <div className='mt-5 h-0 flex-1 overflow-y-auto'>
                     <nav className='space-y-1 px-2'>
                       {navigation.map(item => (
-                        <a
+                        <NavLink
                           key={item.name}
-                          href={item.href}
-                          className={classNames(
-                            item.current ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-600',
-                            'group flex items-center px-2 py-2 text-base font-medium rounded-md',
-                          )}
+                          to={item.href}
+                          activeClassName='bg-indigo-800 text-white hover:bg-indigo-800 hover:text-white'
+                          className='text-indigo-100 hover:bg-indigo-600 flex items-center px-2 py-2 text-base font-medium rounded-md'
                         >
-                          <item.icon className='mr-4 h-6 w-6 flex-shrink-0 text-indigo-300' aria-hidden='true' />
+                          <item.icon className='mr-4 h-6 w-6 flex-shrink-0 true-gray-600' aria-hidden='true' />
                           {item.name}
-                        </a>
+                        </NavLink>
                       ))}
                     </nav>
                   </div>
@@ -114,17 +108,16 @@ const withMainPageLayout = (RenderComponent: React.ComponentType, navigation: Na
             <div className='mt-5 flex flex-1 flex-col'>
               <nav className='flex-1 space-y-1 px-2 pb-4'>
                 {navigation.map(item => (
-                  <a
+                  <NavLink
                     key={item.name}
-                    href={item.href}
-                    className={classNames(
-                      item.current ? 'bg-gray-200 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                      'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
-                    )}
+                    to={item.href}
+                    activeClassName='text-gray-900 bg-gray-200 hover:bg-gray-200'
+                    className={`text-gray-600 hover:bg-gray-50
+                    group flex items-center px-2 py-2 text-base font-medium rounded-md`}
                   >
-                    <item.icon className='mr-3 h-6 w-6 flex-shrink-0 text-indigo-300' aria-hidden='true' />
+                    <item.icon className='text-gray-400 mr-4 h-6 w-6' aria-hidden='true' />
                     {item.name}
-                  </a>
+                  </NavLink>
                 ))}
               </nav>
             </div>
@@ -178,4 +171,4 @@ const withMainPageLayout = (RenderComponent: React.ComponentType, navigation: Na
   return hoc;
 };
 
-export default withMainPageLayout;
+export default SideNav;
