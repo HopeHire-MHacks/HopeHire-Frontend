@@ -21,5 +21,8 @@ export const routes = {
   },
   employee: {
     base: '/employee',
+    listings: '/listings',
+    applications: '/applications',
+    profile: '/profile',
   },
 };
