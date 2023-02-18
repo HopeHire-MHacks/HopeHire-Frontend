@@ -7,6 +7,7 @@ import { useApi } from '@/api/ApiHandler';
 import UserService from '@/api/User/UserService';
 import EmployerService, { CreateEmployerData } from '@/api/Employer/EmployerService';
 import AutoFillAddress from '../AutoFillAddress';
+import { Buffer } from 'buffer';
 
 const EmployerInformation = () => {
   const [employerOnboard, setEmployerOnboard] = useRecoilState(employerOnboardAtom);
@@ -53,15 +54,15 @@ const EmployerInformation = () => {
     if (!file) return;
 
     const reader = new FileReader();
+    reader.readAsArrayBuffer(file);
     reader.onload = function () {
       if (reader.result === null) {
         return;
       }
-      console.log(reader.result);
-      console.log(typeof reader.result);
-      console.log(Buffer.from(reader.result as ArrayBuffer));
+      // console.log(Buffer.from(reader.result as ArrayBuffer));
 
-      const data = reader.result as unknown as ArrayBuffer;
+      const data = Buffer.from(reader.result as ArrayBuffer);
+      console.log(data);
       setEmployerOnboard(prev => ({ ...prev, logo: data }));
     };
 

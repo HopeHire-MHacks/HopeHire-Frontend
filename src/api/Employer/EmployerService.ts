@@ -17,7 +17,7 @@ export type EmployerData = {
 export type CreateEmployerData = {
   name: string;
   companyDescription: string;
-  logo: ArrayBuffer | null;
+  logo: Buffer | null;
   webAddress: string;
   country: string;
   city: string;
