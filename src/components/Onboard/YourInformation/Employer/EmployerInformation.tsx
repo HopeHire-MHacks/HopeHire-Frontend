@@ -10,7 +10,7 @@ const EmployerInformation = () => {
   const [employerOnboard, setEmployerOnboard] = useRecoilState(employerOnboardAtom);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setToaster] = useRecoilState(toasterAtom);
-  const [createEmployer] = useApi((data: CreateEmployerData) => EmployerService.createEmployer(data ?? null), false, true, false);
+  const [createEmployer] = useApi((data: CreateEmployerData) => EmployerService.createEmployer(data ?? null), true, true, true);
 
   const onSubmit = async () => {
     if (
