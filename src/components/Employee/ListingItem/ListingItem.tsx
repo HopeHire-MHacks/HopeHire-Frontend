@@ -79,7 +79,7 @@ const ListingItem = ({ position, application }: Props) => {
             </div>
             <div className='w-full pl-3'>
               <div className='flex items-center justify-between'>
-                <p className='truncate text-md font-medium text-indigo-600'>{position.positionName}</p>
+                <p className='truncate text-sm font-medium text-indigo-600'>{position.positionName}</p>
                 <div className='ml-2 flex flex-shrink-0'>
                   <p className='inline-flex rounded-full bg-green-100 px-2 text-xs font-semibold leading-5 text-green-800'>
                     {position.scheduledType}
@@ -88,22 +88,22 @@ const ListingItem = ({ position, application }: Props) => {
               </div>
               <div className='mt-2 sm:flex sm:justify-between'>
                 <div className='sm:flex'>
-                  <p className='flex items-center text-md text-gray-500'>
+                  <p className='flex items-center text-sm text-gray-500'>
                     <UsersIcon className='mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400' aria-hidden='true' />
                     {industryTypes[position.industryType]}
                   </p>
-                  <p className='mt-2 flex items-center text-md text-gray-500 sm:mt-0 sm:ml-6'>
+                  <p className='mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6'>
                     <MapPinIcon className='mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400' aria-hidden='true' />
                     {position.city}
                   </p>
                   {position.hasDialysisSupport && (
-                    <p className={'mt-2 flex items-center text-md text-green-500 sm:mt-0 sm:ml-6'}>
+                    <p className={'mt-2 flex items-center text-sm text-green-500 sm:mt-0 sm:ml-6'}>
                       <HealthIcon fill='#22C55E' className='mr-1.5 h-6 w-6 flex-shrink-0 text-gray-400' aria-hidden='true' />
                       Peritoneal Dialysis-Friendly
                     </p>
                   )}
                 </div>
-                <div className='mt-2 flex items-center text-md text-gray-500 sm:mt-0'>
+                <div className='mt-2 flex items-center text-sm text-gray-500 sm:mt-0'>
                   {!application && (
                     <>
                       <CalendarIcon className='mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400' aria-hidden='true' />
