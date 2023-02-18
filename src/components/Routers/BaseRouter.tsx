@@ -1,6 +1,7 @@
 import React from 'react';
 import { routes } from '@/constants/routes';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import Employer from '@/pages/Employer';
 
 import Home from '@pages/Landing/Home';
 import Login from '@pages/Landing/Login';
@@ -14,6 +15,7 @@ const BaseRouter = () => {
       <Route exact path={routes.authentication.login} component={Login} />
       <Route exact path={routes.authentication.signup} component={Register} />
       <Route exact path={routes.onboard} component={Onboard} />
+      <Route exact path={routes.employer.base} component={Employer} />
       <Route exact path='*'>
         <Redirect to={routes.home} />
       </Route>
