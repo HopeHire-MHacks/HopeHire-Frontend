@@ -7,6 +7,9 @@ export type EmployerData = {
   logo: Blob;
   webAddress: string;
   userId: number;
+  id: number;
+  latLong: number[];
+  numberOfEmployees: number;
   country: string;
   city: string;
   state: string;
