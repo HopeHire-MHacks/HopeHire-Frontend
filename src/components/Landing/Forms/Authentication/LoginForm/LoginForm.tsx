@@ -4,7 +4,6 @@ import { useApi } from '@/api/ApiHandler';
 import AuthService from '@/api/Authentication/AuthService';
 import UserService from '@/api/User/UserService';
 import Logo from '@/assets/icon.png';
-import { useHistory } from 'react-router';
 import SingleSignOn from '@components/Landing/Forms/SingleSignOn';
 import { useRecoilState } from 'recoil';
 import { userAtom } from '@/utils/atoms/user';
@@ -16,19 +15,17 @@ const LoginForm = () => {
   const [_, setUser] = useRecoilState(userAtom);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const history = useHistory();
 
   const handleSubmit = async () => {
     const loginRes = await login();
     const self = await getSelf();
     if (loginRes && loginRes.data) {
-      console.log(loginRes);
       if (self && self.data) {
         console.log(self);
         setUser(prev => ({ ...prev, ...self.data }));
-        history.push(routes.onboard);
       }
     }
+    window.location.reload();
   };
 
   return (

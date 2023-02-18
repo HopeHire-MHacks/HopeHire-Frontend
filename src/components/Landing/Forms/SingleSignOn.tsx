@@ -5,15 +5,18 @@ import ApiService from '@/api/ApiService';
 import { setLocalStorageValue } from '@/utils/miscellaneous';
 import { toasterAtom, ToasterType } from '@/utils/atoms/toaster';
 import { useRecoilState } from 'recoil';
-import { routes } from '@/constants/routes';
-import { useHistory } from 'react-router-dom';
+import { useApi } from '@/api/ApiHandler';
+import UserService from '@/api/User/UserService';
+import { userAtom } from '@/utils/atoms/user';
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
 const SingleSignOn = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setToaster] = useRecoilState(toasterAtom);
-  const history = useHistory();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [__, setUser] = useRecoilState(userAtom);
+  const [getSelf] = useApi(() => UserService.getSelf(), false, false, false);
 
   const googleLogin = useGoogleLogin({
     flow: 'auth-code',
@@ -29,7 +32,11 @@ const SingleSignOn = () => {
       const accessToken: string = response.data.accessToken;
       setLocalStorageValue(ApiService.authTokenKey, accessToken);
       setToaster({ isShown: true, message: 'Successfully Logged In', title: 'Success', type: ToasterType.SUCCESS });
-      history.push(routes.onboard);
+      const res = await getSelf();
+      if (res && res.data) {
+        setUser(prev => ({ ...prev, ...res.data }));
+      }
+      window.location.reload();
     },
   });
 
