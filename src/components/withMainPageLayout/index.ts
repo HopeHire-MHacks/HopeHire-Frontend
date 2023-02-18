@@ -1,1 +1,1 @@
-export default "./MainPageLayout"
+export default './MainPageLayout';
