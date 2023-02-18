@@ -31,8 +31,8 @@ export type CreateEmployeeData = {
   availableTimes: string[];
   preferredLocation: number[];
   dialysisFrequency: number;
-  profilePhoto: string;
-  resume: string;
+  profilePhoto: ArrayBuffer | null;
+  resume: ArrayBuffer | null;
   country: string;
   city: string;
   state: string;
@@ -48,8 +48,8 @@ export default class EmployeeService {
   }
 
   public static async createEmployee(createEmployerData: CreateEmployeeData): Promise<ApiData> {
-    const imageBlob = convertToBlob(createEmployerData.profilePhoto);
-    const resumeBlob = convertToBlob(createEmployerData.resume);
+    // const imageBlob = convertToBlob(createEmployerData.profilePhoto);
+    // const resumeBlob = convertToBlob(createEmployerData.resume);
 
     try {
       const response = await ApiService.request(
@@ -67,8 +67,8 @@ export default class EmployeeService {
             availableTimes: createEmployerData.availableTimes,
             preferredLocation: createEmployerData.preferredLocation,
             dialysisFrequency: createEmployerData.dialysisFrequency,
-            profilePicture: imageBlob,
-            resume: resumeBlob,
+            profilePicture: createEmployerData.profilePhoto,
+            resume: createEmployerData.resume,
             country: createEmployerData.country,
             city: createEmployerData.city,
             state: createEmployerData.state,

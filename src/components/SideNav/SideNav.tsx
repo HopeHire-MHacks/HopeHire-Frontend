@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { useRecoilState } from 'recoil';
 import { userAtom } from '@/utils/atoms/user';
@@ -24,6 +24,20 @@ const SideNav = (RenderComponent: React.ComponentType, navigation: NavigationPro
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [user, _] = useRecoilState(userAtom);
     const [sidebarOpen, setSidebarOpen] = useState(false);
+
+    const [imageSrc, setImageSrc] = useState('');
+
+    useEffect(() => {
+      if (user.employer !== null) {
+        console.log(user);
+        const data = new Uint8Array(user.employer.logo.data);
+        const blob = new Blob([data], { type: 'image/jpeg' });
+
+        const imageUrl = URL.createObjectURL(blob);
+        setImageSrc(imageUrl);
+      }
+    }, [user]);
+
     return (
       <div>
         <Transition.Root show={sidebarOpen} as={Fragment}>
@@ -124,11 +138,7 @@ const SideNav = (RenderComponent: React.ComponentType, navigation: NavigationPro
             <div className='flex flex-shrink-0 border-t border-gray-200 p-4'>
               <div className='flex items-center'>
                 <div>
-                  <img
-                    className='inline-block h-9 w-9 rounded-full'
-                    src='https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80'
-                    alt=''
-                  />
+                  <img className='inline-block h-9 w-9 rounded-full' src={imageSrc} alt='' />
                 </div>
                 <div className='ml-3'>
                   <p className='text-sm font-medium text-gray-700 group-hover:text-gray-900'>

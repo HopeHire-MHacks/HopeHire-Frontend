@@ -25,13 +25,20 @@ const EmployeeInformation = ({ onNext }: EmployeeInformationProps) => {
     const target = e.target.files;
     const file = target && target[0];
     if (!file) return;
+
     const reader = new FileReader();
-    reader.readAsDataURL(file);
+    reader.readAsArrayBuffer(file);
     reader.onload = function () {
+      if (reader.result === null) {
+        return;
+      }
+      console.log(reader.result);
+
+      const data = reader.result as unknown as ArrayBuffer;
       if (isPhoto) {
-        setEmployeeOnboard(prev => ({ ...prev, profilePhoto: reader.result as string }));
+        setEmployeeOnboard(prev => ({ ...prev, profilePhoto: data }));
       } else {
-        setEmployeeOnboard(prev => ({ ...prev, resume: reader.result as string, resumeName: file.name }));
+        setEmployeeOnboard(prev => ({ ...prev, resume: data, resumeName: file.name }));
       }
     };
     reader.onerror = function (error) {
@@ -47,8 +54,8 @@ const EmployeeInformation = ({ onNext }: EmployeeInformationProps) => {
       employeeOnboard.personalStatement.length === 0 ||
       employeeOnboard.remarks.length === 0 ||
       employeeOnboard.dialysisFrequency === 0 ||
-      employeeOnboard.profilePhoto.length === 0 ||
-      employeeOnboard.resume.length === 0 ||
+      employeeOnboard.profilePhoto === null ||
+      employeeOnboard.resume === null ||
       employeeOnboard.postalCode.length === 0 ||
       employeeOnboard.address.length === 0 ||
       employeeOnboard.city.length === 0 ||
@@ -175,7 +182,9 @@ const EmployeeInformation = ({ onNext }: EmployeeInformationProps) => {
                 <label className='block text-sm font-medium text-gray-700'>Photo</label>
                 <div className='mt-1 flex items-center space-x-5'>
                   <span className='inline-block h-12 w-12 overflow-hidden rounded-full bg-gray-100'>
-                    <img className='object-cover' src={employeeOnboard.profilePhoto} />
+                    {employeeOnboard.profilePhoto !== null && (
+                      <img className='object-cover11' src={URL.createObjectURL(new Blob([employeeOnboard.profilePhoto]))} />
+                    )}
                   </span>
                 </div>
               </div>

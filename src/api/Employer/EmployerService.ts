@@ -4,7 +4,7 @@ import { convertToBlob } from '@/utils/miscellaneous';
 export type EmployerData = {
   name: string;
   companyDescription: string;
-  logo: Blob;
+  logo: { type: string; data: number[] };
   webAddress: string;
   userId: number;
   country: string;
@@ -17,7 +17,7 @@ export type EmployerData = {
 export type CreateEmployerData = {
   name: string;
   companyDescription: string;
-  logo: string;
+  logo: ArrayBuffer | null;
   webAddress: string;
   country: string;
   city: string;
@@ -34,9 +34,10 @@ export default class EmployerService {
   }
 
   public static async createEmployer(createEmployerData: CreateEmployerData): Promise<ApiData> {
-    const imageBlob = convertToBlob(createEmployerData.logo);
+    // const imageBlob = convertToBlob(createEmployerData.logo);
 
     try {
+      console.log(createEmployerData.logo);
       const response = await ApiService.request(
         {
           url: `${this.getEmployerUrl()}`,
@@ -44,7 +45,7 @@ export default class EmployerService {
           data: {
             name: createEmployerData.name,
             companyDescription: createEmployerData.companyDescription,
-            logo: imageBlob,
+            logo: createEmployerData.logo,
             address: createEmployerData.address,
             numberOfEmployees: createEmployerData.numberOfEmployees,
             latLong: createEmployerData.latLong,

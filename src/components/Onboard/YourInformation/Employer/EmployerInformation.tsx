@@ -23,7 +23,7 @@ const EmployerInformation = () => {
       employerOnboard.name.length === 0 ||
       employerOnboard.webAddress.length === 0 ||
       employerOnboard.companyDescription.length === 0 ||
-      employerOnboard.logo.length === 0 ||
+      employerOnboard.logo === null ||
       employerOnboard.numberOfEmployees === 0 ||
       employerOnboard.postalCode.length === 0 ||
       employerOnboard.country.length === 0 ||
@@ -51,11 +51,20 @@ const EmployerInformation = () => {
     const target = e.target.files;
     const file = target && target[0];
     if (!file) return;
+
     const reader = new FileReader();
-    reader.readAsDataURL(file);
     reader.onload = function () {
-      setEmployerOnboard(prev => ({ ...prev, logo: reader.result as string }));
+      if (reader.result === null) {
+        return;
+      }
+      console.log(reader.result);
+      console.log(typeof reader.result);
+      console.log(Buffer.from(reader.result as ArrayBuffer));
+
+      const data = reader.result as unknown as ArrayBuffer;
+      setEmployerOnboard(prev => ({ ...prev, logo: data }));
     };
+
     reader.onerror = function (error) {
       setToaster({ isShown: true, type: ToasterType.ERROR, message: 'Error uploading logo', title: 'Error' });
       console.log('Error: ', error);
@@ -165,7 +174,10 @@ const EmployerInformation = () => {
                 <label className='block text-sm font-medium text-gray-700'>Photo</label>
                 <div className='mt-1 flex items-center space-x-5'>
                   <span className='inline-block h-12 w-12 overflow-hidden rounded-full bg-gray-100'>
-                    <img className='object-cover' src={employerOnboard.logo} />
+                    {/* <img className='object-cover' src={employerOnboard.logo} /> */}
+                    {employerOnboard.logo !== null && (
+                      <img className='object-cover11' src={URL.createObjectURL(new Blob([employerOnboard.logo]))} />
+                    )}
                   </span>
                 </div>
               </div>
