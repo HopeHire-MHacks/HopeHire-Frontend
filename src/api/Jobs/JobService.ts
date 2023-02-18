@@ -118,6 +118,21 @@ export default class JobService {
     }
   }
 
+  public static async getJobByEmployerId(id: number): Promise<ApiData> {
+    try {
+      const response = await ApiService.request(
+        {
+          url: `employers/${id}/${this.getJobUrl()}`,
+          method: 'GET',
+        },
+        true,
+      );
+      return response;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
   public static async getRecommendedJobs(employeesId: number): Promise<ApiData> {
     try {
       const response = await ApiService.request(
