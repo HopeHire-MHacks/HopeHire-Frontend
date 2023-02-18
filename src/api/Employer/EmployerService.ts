@@ -77,4 +77,37 @@ export default class EmployerService {
       return Promise.reject(error);
     }
   }
+
+  public static async getEmployerById(id: number): Promise<ApiData> {
+    try {
+      const response = await ApiService.request(
+        {
+          url: `${this.getEmployerUrl()}/${id}`,
+          method: 'GET',
+        },
+        true,
+      );
+      return response;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  public static async getRecommendedEmployees(employerId: number): Promise<ApiData> {
+    try {
+      const response = await ApiService.request(
+        {
+          url: `employees/recommended/employers`,
+          data: {
+            employer_id: employerId,
+          },
+          method: 'GET',
+        },
+        true,
+      );
+      return response;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
 }
