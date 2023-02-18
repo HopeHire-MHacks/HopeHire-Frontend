@@ -13,6 +13,7 @@ import Home from '@pages/Landing/Home';
 import Login from '@pages/Landing/Login';
 import Register from '@pages/Landing/SignUp';
 import Onboard from '@pages/Onboard';
+import Employee from '@/pages/Employee';
 
 function isTokenExpired(token: string) {
   const expiry = JSON.parse(atob(token.split('.')[1])).exp;
@@ -60,6 +61,7 @@ const BaseRouter = () => {
 
       {isLoggedIn && !isOnboarded && <Route exact path={routes.onboard} component={Onboard} />}
       {isLoggedIn && user?.employer !== null && <Route path={routes.employer.base} component={Employer} />}
+      {isLoggedIn && user?.employee !== null && <Route path={routes.employee.base} component={Employee} />}
       <Route exact path='*'>
         <Redirect to={defaultRoute()} />
       </Route>
