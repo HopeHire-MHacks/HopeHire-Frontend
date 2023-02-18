@@ -3,7 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { routes } from '@/constants/routes';
 
 import { BriefcaseIcon, PlusCircleIcon, UserCircleIcon } from '@heroicons/react/24/outline';
-import withMainPageLayout from '@/components/withMainPageLayout/withMainPageLayout';
+import SideNav from '@/components/SideNav';
 import JobListings from '@/components/Employee/JobListings';
 import Applications from '@/components/Applications';
 import JobListing from '@/components/JobListing';
@@ -34,4 +34,4 @@ const Employee: React.FC = () => {
   );
 };
 
-export default withMainPageLayout(Employee, navigation);
+export default SideNav(Employee, navigation);
