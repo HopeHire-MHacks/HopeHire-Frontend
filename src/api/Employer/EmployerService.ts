@@ -7,6 +7,9 @@ export type EmployerData = {
   logo: Blob;
   webAddress: string;
   userId: number;
+  id: number;
+  latLong: number[];
+  numberOfEmployees: number;
   country: string;
   city: string;
   state: string;
@@ -68,6 +71,39 @@ export default class EmployerService {
       const response = await ApiService.request(
         {
           url: this.getEmployerUrl(),
+          method: 'GET',
+        },
+        true,
+      );
+      return response;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  public static async getEmployerById(id: number): Promise<ApiData> {
+    try {
+      const response = await ApiService.request(
+        {
+          url: `${this.getEmployerUrl()}/${id}`,
+          method: 'GET',
+        },
+        true,
+      );
+      return response;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  public static async getRecommendedEmployees(employerId: number): Promise<ApiData> {
+    try {
+      const response = await ApiService.request(
+        {
+          url: `employees/recommended/employers`,
+          data: {
+            employer_id: employerId,
+          },
           method: 'GET',
         },
         true,

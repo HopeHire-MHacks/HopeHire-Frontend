@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { v4 as uuid } from 'uuid';
 import AllCountriesSelect from '@components/Onboard/YourInformation/AllCountriesSelect';
 import { Loader } from '@googlemaps/js-api-loader';
 import { ToasterType, toasterAtom } from '@/utils/atoms/toaster';
@@ -54,7 +55,6 @@ const AutoFillAddress = ({
         fields: ['address_components', 'geometry'],
         types: ['address'],
       });
-      addressField.focus();
 
       // When the user selects an address from the drop-down, populate the
       // address fields in the form.
@@ -146,7 +146,7 @@ const AutoFillAddress = ({
           id='address'
           type='text'
           name='street-address'
-          autoComplete='street-address'
+          autoComplete={uuid()}
           className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
         />
       </div>
@@ -161,7 +161,7 @@ const AutoFillAddress = ({
           type='text'
           name='city'
           id='city'
-          autoComplete='address-level2'
+          autoComplete={uuid()}
           className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
         />
       </div>
@@ -176,7 +176,7 @@ const AutoFillAddress = ({
           type='text'
           name='region'
           id='region'
-          autoComplete='address-level1'
+          autoComplete={uuid()}
           className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
         />
       </div>
@@ -191,7 +191,7 @@ const AutoFillAddress = ({
           type='text'
           name='postal-code'
           id='postal-code'
-          autoComplete='postal-code'
+          autoComplete={uuid()}
           className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
         />
       </div>
