@@ -3,17 +3,20 @@ import { routes } from '@/constants/routes';
 import { useApi } from '@/api/ApiHandler';
 import AuthService, { UserSignUpData } from '@/api/Authentication/AuthService';
 import Logo from '@/assets/icon.png';
+import { useHistory } from 'react-router';
 
 const SignUpForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [signUp] = useApi((data: UserSignUpData) => AuthService.register(data), true, true, true);
+  const history = useHistory();
 
   const handleSubmit = async () => {
     const res = await signUp({ email, password, passwordConfirmation });
     if (res && res.data) {
       console.log(res);
+      history.push(routes.authentication.login);
     }
   };
 
