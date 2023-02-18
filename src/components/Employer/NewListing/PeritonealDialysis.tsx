@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useRecoilState } from 'recoil';
-import { newListingAtom } from '@/utils/atoms/toaster/atom';
+import { newListingAtom } from '@/utils/atoms/forms/newListing';
 
 const PeritonealDiaylsis = () => {
   const [newListingState, setNewListingState] = useRecoilState(newListingAtom);
