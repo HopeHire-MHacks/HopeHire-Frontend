@@ -19,4 +19,7 @@ export const routes = {
     applications: '/applications',
     profile: '/profile',
   },
+  employee: {
+    base: '/employee',
+  },
 };

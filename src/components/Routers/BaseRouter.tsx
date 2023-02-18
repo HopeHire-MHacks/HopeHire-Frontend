@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { routes } from '@/constants/routes';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import ApiService from '@/api/ApiService';
-import { getLocalStorageValue, setLocalStorageValue } from '@/utils/miscellaneous';
+import { getLocalStorageValue } from '@/utils/miscellaneous';
 import { useRecoilState } from 'recoil';
 import { userAtom } from '@/utils/atoms/user';
 import { useApi } from '@/api/ApiHandler';
 import UserService from '@/api/User/UserService';
-import serialize from 'serialize-javascript';
 
+import Employer from '@/pages/Employer';
 import Home from '@pages/Landing/Home';
 import Login from '@pages/Landing/Login';
 import Register from '@pages/Landing/SignUp';
@@ -20,42 +20,48 @@ function isTokenExpired(token: string) {
 }
 
 const BaseRouter = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setUser] = useRecoilState(userAtom);
-  const [getSelf] = useApi(() => UserService.getSelf(), false, false, false);
-
+  const [user, setUser] = useRecoilState(userAtom);
   const token = getLocalStorageValue(ApiService.authTokenKey);
-  const isLoggedIn = token && !isTokenExpired(token);
-  let isOnboarded = false;
+
+  const [isLoggedIn] = useState<boolean>((token && !isTokenExpired(token)) || false);
+  const [isOnboarded, setIsOnboarded] = useState<boolean>(false);
+  const [getSelf] = useApi(() => UserService.getSelf(), false, false, false);
 
   const getUser = async () => {
     const res = await getSelf();
     if (res && res.data) {
-      const serialized = serialize(res.data);
-      setLocalStorageValue('user', JSON.stringify(serialized));
+      setUser(prev => ({ ...prev, ...res.data }));
     }
-    const serializedUser = getLocalStorageValue('user');
-    const userFromStorage = JSON.parse(eval('(' + serializedUser + ')'));
-    setUser(prev => ({ ...prev, ...userFromStorage }));
-    isOnboarded = userFromStorage.employee !== null || userFromStorage.employer !== null;
+    setIsOnboarded(user.employee !== null || user.employer !== null);
   };
 
   useEffect(() => {
     getUser();
   }, []);
 
-  if (!isLoggedIn) {
-    setLocalStorageValue(ApiService.authTokenKey, '');
-  }
+  const defaultRoute = () => {
+    if (isLoggedIn && !isOnboarded) {
+      return routes.onboard;
+    } else if (user?.employer !== null) {
+      return routes.employer.base;
+    } else if (user?.employee !== null) {
+      return routes.employee.base;
+    }
+    return routes.home;
+  };
 
   return (
     <Switch>
       <Route exact path={routes.home} component={Home} />
-      <Route exact path={routes.authentication.login} component={Login} />
-      <Route exact path={routes.authentication.signup} component={Register} />
+
+      {/* You should only see login signup pages if you are not logged in */}
+      {!isLoggedIn && <Route exact path={routes.authentication.login} component={Login} />}
+      {!isLoggedIn && <Route exact path={routes.authentication.signup} component={Register} />}
+
       {isLoggedIn && !isOnboarded && <Route exact path={routes.onboard} component={Onboard} />}
+      {isLoggedIn && user?.employer !== null && <Route path={routes.employer.base} component={Employer} />}
       <Route exact path='*'>
-        <Redirect to={isLoggedIn ? routes.onboard : routes.home} />
+        <Redirect to={defaultRoute()} />
       </Route>
     </Switch>
   );
