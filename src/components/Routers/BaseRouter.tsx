@@ -29,17 +29,16 @@ const BaseRouter = () => {
   const currentUser = getLocalStorageValue('user');
 
   const getUser = async () => {
-    if (!currentUser) {
-      const res = await getSelf();
-      if (res && res.data) {
-        const serialized = serialize(res.data);
-        setLocalStorageValue('user', JSON.stringify(serialized));
-      }
+    const res = await getSelf();
+    if (res && res.data) {
+      const serialized = serialize(res.data);
+      setLocalStorageValue('user', JSON.stringify(serialized));
     }
     const serializedUser = getLocalStorageValue('user');
-    const userFromStorage = eval('(' + serializedUser + ')');
+    const userFromStorage = JSON.parse(eval('(' + serializedUser + ')'));
     setUser(prev => ({ ...prev, ...userFromStorage }));
-    isOnboarded = user.employee !== null || user.employer !== null;
+    isOnboarded = userFromStorage.employee !== null || userFromStorage.employer !== null;
+    console.log('isOnboarded', isOnboarded);
   };
 
   useEffect(() => {
