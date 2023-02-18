@@ -3,16 +3,20 @@ import { routes } from '@/constants/routes';
 import { useApi } from '@/api/ApiHandler';
 import AuthService from '@/api/Authentication/AuthService';
 import Logo from '@/assets/icon.png';
+import { useHistory } from 'react-router';
+import SingleSignOn from '@components/Landing/Forms/SingleSignOn';
 
 const LoginForm = () => {
   const [login] = useApi(() => AuthService.login(email, password), true, true, true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const history = useHistory();
 
   const handleSubmit = async () => {
     const res = await login();
     if (res && res.data) {
       console.log(res);
+      history.push(routes.onboard);
     }
   };
 
@@ -75,6 +79,8 @@ const LoginForm = () => {
               </button>
             </div>
           </form>
+
+          <SingleSignOn />
 
           <div className='mt-6'>
             <div className='relative'>

@@ -1,6 +1,25 @@
 import ApiService, { ApiData } from '@/api/ApiService';
 import { convertToBlob } from '@/utils/miscellaneous';
 
+export type EmployeeData = {
+  name: string;
+  userId: number;
+  personalStatement: string;
+  skills: number[];
+  interests: number[];
+  isAvailable: boolean;
+  dateOfBirth: string;
+  remarks: string;
+  availableTimes: string[];
+  preferredLocation: number[];
+  dialysisFrequency: number;
+  country: string;
+  city: string;
+  state: string;
+  postalCode: string;
+  address: string;
+};
+
 export type CreateEmployeeData = {
   name: string;
   personalStatement: string;

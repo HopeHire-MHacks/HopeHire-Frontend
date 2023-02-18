@@ -1,9 +1,13 @@
 import { removeLocalStorageValue, setLocalStorageValue } from '@/utils/miscellaneous';
 import ApiService, { ApiData } from '@/api/ApiService';
+import { EmployerData } from '@/api/Employer/EmployerService';
+import { EmployeeData } from '@/api/Employee/EmployeeService';
 
 export type UserData = {
   id: number;
   email: string;
+  employee: EmployeeData | null;
+  employer: EmployerData | null;
 };
 
 export interface UserSignUpData {

@@ -3,17 +3,21 @@ import { routes } from '@/constants/routes';
 import { useApi } from '@/api/ApiHandler';
 import AuthService, { UserSignUpData } from '@/api/Authentication/AuthService';
 import Logo from '@/assets/icon.png';
+import { useHistory } from 'react-router';
+import SingleSignOn from '@components/Landing/Forms/SingleSignOn';
 
 const SignUpForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [signUp] = useApi((data: UserSignUpData) => AuthService.register(data), true, true, true);
+  const history = useHistory();
 
   const handleSubmit = async () => {
     const res = await signUp({ email, password, passwordConfirmation });
     if (res && res.data) {
       console.log(res);
+      history.push(routes.authentication.login);
     }
   };
 
@@ -94,6 +98,9 @@ const SignUpForm = () => {
               </button>
             </div>
           </form>
+
+          <SingleSignOn />
+
           <div className='mt-4'>
             <div className='relative'>
               <div className='relative flex justify-center text-sm'>

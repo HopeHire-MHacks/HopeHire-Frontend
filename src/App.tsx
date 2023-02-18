@@ -4,16 +4,20 @@ import { RecoilRoot } from 'recoil';
 import Toaster from '@components/Toaster/Toaster';
 import BaseRouter from '@components/Routers/BaseRouter';
 import Modal from '@components/Modal';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 function App() {
+  const client_id = process.env.REACT_APP_GOOGLE_CLIENT_ID || '';
   return (
-    <RecoilRoot>
-      <Toaster />
-      <Modal />
-      <BrowserRouter>
-        <BaseRouter />
-      </BrowserRouter>
-    </RecoilRoot>
+    <GoogleOAuthProvider clientId={client_id}>
+      <RecoilRoot>
+        <Toaster />
+        <Modal />
+        <BrowserRouter>
+          <BaseRouter />
+        </BrowserRouter>
+      </RecoilRoot>
+    </GoogleOAuthProvider>
   );
 }
 
