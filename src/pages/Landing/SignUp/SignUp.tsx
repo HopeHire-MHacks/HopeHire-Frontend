@@ -11,7 +11,6 @@ const SignUp = () => {
       <NavigationBar></NavigationBar>
       <main>
         <SignUpForm></SignUpForm>
-        <BottomBackground></BottomBackground>
       </main>
     </div>
   );

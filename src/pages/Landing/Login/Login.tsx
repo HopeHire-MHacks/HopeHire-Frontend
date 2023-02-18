@@ -11,7 +11,6 @@ const Login = () => {
       <NavigationBar></NavigationBar>
       <main>
         <LoginForm></LoginForm>
-        <BottomBackground></BottomBackground>
       </main>
     </div>
   );
