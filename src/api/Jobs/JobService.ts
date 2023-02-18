@@ -1,26 +1,32 @@
 import ApiService, { ApiData } from '@/api/ApiService';
+import { EmployerData } from '../Employer/EmployerService';
 
 export type JobData = {
+  id: number;
   positionName: string;
   jobType: string;
   industryType: number;
   jobDescription: string;
   jobRequirements: string;
   jobFlexibility: string;
+  latLong: number[];
   hasDialysisSupport: boolean;
   hasFlexibleSchedule: boolean;
   physicalDemands: string;
   salaryType: string;
+  scheduledType: string;
+  openingTime: string;
+  isOpen: boolean;
+  skills: number[];
+  salaryRange: number[];
   country: string;
   city: string;
   state: string;
   postalCode: string;
-  address: string;
-  skills: number[];
-  latLong: number[];
-  salaryRange: number[];
-  isOpen: boolean;
-  scheduledType: string;
+  employerId: number;
+  createdAt: string;
+  updatedAt: string;
+  employer: EmployerData;
 };
 
 export type CreateJobData = {
