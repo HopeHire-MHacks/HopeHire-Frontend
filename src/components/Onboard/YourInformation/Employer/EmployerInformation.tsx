@@ -51,7 +51,7 @@ const EmployerInformation = () => {
 
   return (
     <div className='w-full flex justify-center'>
-      <form className='space-y-6 max-w-7xl mt-10' action='#' method='POST'>
+      <div className='space-y-6 max-w-7xl mt-10'>
         <div className='bg-white px-4 py-5 shadow sm:rounded-lg sm:p-6'>
           <div className='md:grid md:grid-cols-3 md:gap-6'>
             <div className='md:col-span-1'>
@@ -211,7 +211,7 @@ const EmployerInformation = () => {
             Submit
           </button>
         </div>
-      </form>
+      </div>
     </div>
   );
 };
