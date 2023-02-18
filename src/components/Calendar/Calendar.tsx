@@ -27,7 +27,7 @@ export interface EventData {
 
 const templateEvent = {
   id: uuid(),
-  title: 'Available',
+  periodTitle: 'Period',
   start: new Date(),
   end: new Date(),
   editable: true,
@@ -38,16 +38,17 @@ const templateEvent = {
 interface CalendarProps {
   availabilities: EventData[];
   setAvailabilities: Dispatch<SetStateAction<EventData[]>>;
+  periodTitle: string;
 }
 
-const Calendar = ({ availabilities, setAvailabilities }: CalendarProps) => {
+const Calendar = ({ availabilities, setAvailabilities, periodTitle }: CalendarProps) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setModalState] = useRecoilState(modalAtom);
 
   const handleDateClick = (e: DateClickArg) => {
     const startTime = moment(e.dateStr).toDate();
     const endTime = moment(e.dateStr).add(30, 'm').toDate();
-    const newEvent = { ...templateEvent, id: uuid(), start: startTime, end: endTime };
+    const newEvent = { ...templateEvent, id: uuid(), start: startTime, end: endTime, title: periodTitle };
     setAvailabilities(prev => [...prev, newEvent]);
   };
 
@@ -59,8 +60,8 @@ const Calendar = ({ availabilities, setAvailabilities }: CalendarProps) => {
     setModalState({
       isShown: true,
       type: ModalType.ERROR,
-      message: 'Are you sure you want to delete this availability?',
-      title: 'Delete Availability',
+      message: 'Are you sure you want to delete this time period?',
+      title: 'Delete Period',
       onPrimaryBtnClick: () => deleteEvent(),
     });
   };

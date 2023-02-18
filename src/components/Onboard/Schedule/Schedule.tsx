@@ -38,7 +38,7 @@ const Schedule = () => {
 
   return (
     <div>
-      <Calendar availabilities={availabilities} setAvailabilities={setAvailabilities} />
+      <Calendar availabilities={availabilities} setAvailabilities={setAvailabilities} periodTitle='Available' />
       <div className='flex justify-end py-5 mr-5 xl:mr-0'>
         <button
           onClick={e => {
