@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import DatePicker, { DayValue } from '@amir04lm26/react-modern-calendar-date-picker';
 
-import { newListingAtom } from '@/utils/atoms/toaster/atom';
+import { newListingAtom } from '@/utils/atoms/forms/newListing';
 import { useRecoilState } from 'recoil';
 
 const PhysicalDemands = () => {

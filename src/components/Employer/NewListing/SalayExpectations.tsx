@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { newListingAtom } from '@/utils/atoms/toaster/atom';
+import { newListingAtom } from '@/utils/atoms/forms/newListing';
 import { useRecoilState } from 'recoil';
 
 const SalaryExpections = () => {

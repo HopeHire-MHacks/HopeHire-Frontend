@@ -2,7 +2,7 @@ import React from 'react';
 import industryTypes from '@/constants/industryTypes';
 import jobTypes from '@/constants/jobTypes';
 
-import { newListingAtom } from '@/utils/atoms/toaster/atom';
+import { newListingAtom } from '@/utils/atoms/forms/newListing';
 import { useRecoilState } from 'recoil';
 
 const ListingBasicDetails = () => {
