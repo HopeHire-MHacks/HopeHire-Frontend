@@ -67,7 +67,7 @@ export default class EmployeeService {
             availableTimes: createEmployerData.availableTimes,
             preferredLocation: createEmployerData.preferredLocation,
             dialysisFrequency: createEmployerData.dialysisFrequency,
-            profilePhoto: imageBlob,
+            profilePicture: imageBlob,
             resume: resumeBlob,
             country: createEmployerData.country,
             city: createEmployerData.city,
