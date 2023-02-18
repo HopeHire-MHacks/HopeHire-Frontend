@@ -8,6 +8,7 @@ import { userAtom } from '@/utils/atoms/user';
 import { useApi } from '@/api/ApiHandler';
 import UserService from '@/api/User/UserService';
 import serialize from 'serialize-javascript';
+import Employer from '@/pages/Employer';
 
 import Home from '@pages/Landing/Home';
 import Login from '@pages/Landing/Login';
@@ -54,6 +55,7 @@ const BaseRouter = () => {
       <Route exact path={routes.authentication.login} component={Login} />
       <Route exact path={routes.authentication.signup} component={Register} />
       {isLoggedIn && !isOnboarded && <Route exact path={routes.onboard} component={Onboard} />}
+      {isLoggedIn && user?.employer !== null && <Route exact path={routes.employer.base} component={Employer} />}
       <Route exact path='*'>
         <Redirect to={isLoggedIn ? routes.onboard : routes.home} />
       </Route>
