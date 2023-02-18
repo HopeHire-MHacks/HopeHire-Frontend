@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { employerOnboardAtom } from '@/utils/atoms/forms/employerOnboard';
 import { toasterAtom, ToasterType } from '@/utils/atoms/toaster';
@@ -17,13 +17,14 @@ const EmployerInformation = () => {
   const [__, setToaster] = useRecoilState(toasterAtom);
   const [createEmployer] = useApi((data: CreateEmployerData) => EmployerService.createEmployer(data ?? null), true, true, true);
   const [getSelf] = useApi(() => UserService.getSelf(), false, false, false);
+  const [logoUrl, setLogoUrl] = useState<string>();
 
   const onSubmit = async () => {
     if (
       employerOnboard.name.length === 0 ||
       employerOnboard.webAddress.length === 0 ||
       employerOnboard.companyDescription.length === 0 ||
-      employerOnboard.logo.length === 0 ||
+      employerOnboard.logo === null ||
       employerOnboard.numberOfEmployees === 0 ||
       employerOnboard.postalCode.length === 0 ||
       employerOnboard.country.length === 0 ||
@@ -34,6 +35,7 @@ const EmployerInformation = () => {
       setToaster({ isShown: true, type: ToasterType.ERROR, message: 'Please enter all fields', title: 'Error' });
       return;
     }
+    console.log('what');
     const res = await createEmployer(employerOnboard);
     if (res) {
       console.log(res);
@@ -52,9 +54,11 @@ const EmployerInformation = () => {
     const file = target && target[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.readAsDataURL(file);
+    reader.readAsArrayBuffer(file);
     reader.onload = function () {
-      setEmployerOnboard(prev => ({ ...prev, logo: reader.result as string }));
+      const arrBuffer = reader.result as ArrayBuffer;
+      setLogoUrl(URL.createObjectURL(new Blob([arrBuffer])));
+      setEmployerOnboard(prev => ({ ...prev, logo: arrBuffer }));
     };
     reader.onerror = function (error) {
       setToaster({ isShown: true, type: ToasterType.ERROR, message: 'Error uploading logo', title: 'Error' });
@@ -165,7 +169,7 @@ const EmployerInformation = () => {
                 <label className='block text-sm font-medium text-gray-700'>Photo</label>
                 <div className='mt-1 flex items-center space-x-5'>
                   <span className='inline-block h-12 w-12 overflow-hidden rounded-full bg-gray-100'>
-                    <img className='object-cover' src={employerOnboard.logo} />
+                    <img className='object-cover' src={logoUrl} />
                   </span>
                 </div>
               </div>

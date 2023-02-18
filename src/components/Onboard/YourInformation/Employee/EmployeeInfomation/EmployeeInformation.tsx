@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { employeeOnboardAtom } from '@/utils/atoms/forms/employeeOnboard';
 import { useRecoilState } from 'recoil';
 import { ToasterType, toasterAtom } from '@/utils/atoms/toaster';
@@ -15,6 +15,7 @@ const EmployeeInformation = ({ onNext }: EmployeeInformationProps) => {
   const [_, setToaster] = useRecoilState(toasterAtom);
   const dateOfBirth = DateTime.newDateTimeFromDate(new Date(employeeOnboard.dateOfBirth));
   const dateOfBirthString = dateOfBirth.toTimezoneDate('Asia/Singapore').format('YYYY-MM-DD');
+  const [profilePicUrl, setProfilePicUrl] = useState<string>();
 
   const getNewDateOfBirth = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newDateOfBirth = DateTime.newDateTimeFromDate(new Date(e.target.value)).toString();
@@ -26,12 +27,14 @@ const EmployeeInformation = ({ onNext }: EmployeeInformationProps) => {
     const file = target && target[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.readAsDataURL(file);
+    reader.readAsArrayBuffer(file);
     reader.onload = function () {
+      const arrBuffer = reader.result as ArrayBuffer;
       if (isPhoto) {
-        setEmployeeOnboard(prev => ({ ...prev, profilePhoto: reader.result as string }));
+        setProfilePicUrl(URL.createObjectURL(new Blob([arrBuffer])));
+        setEmployeeOnboard(prev => ({ ...prev, profilePhoto: arrBuffer }));
       } else {
-        setEmployeeOnboard(prev => ({ ...prev, resume: reader.result as string, resumeName: file.name }));
+        setEmployeeOnboard(prev => ({ ...prev, resume: arrBuffer }));
       }
     };
     reader.onerror = function (error) {
@@ -47,8 +50,8 @@ const EmployeeInformation = ({ onNext }: EmployeeInformationProps) => {
       employeeOnboard.personalStatement.length === 0 ||
       employeeOnboard.remarks.length === 0 ||
       employeeOnboard.dialysisFrequency === 0 ||
-      employeeOnboard.profilePhoto.length === 0 ||
-      employeeOnboard.resume.length === 0 ||
+      employeeOnboard.profilePhoto === null ||
+      employeeOnboard.resume === null ||
       employeeOnboard.postalCode.length === 0 ||
       employeeOnboard.address.length === 0 ||
       employeeOnboard.city.length === 0 ||
@@ -175,7 +178,7 @@ const EmployeeInformation = ({ onNext }: EmployeeInformationProps) => {
                 <label className='block text-sm font-medium text-gray-700'>Photo</label>
                 <div className='mt-1 flex items-center space-x-5'>
                   <span className='inline-block h-12 w-12 overflow-hidden rounded-full bg-gray-100'>
-                    <img className='object-cover' src={employeeOnboard.profilePhoto} />
+                    <img className='object-cover' src={profilePicUrl} />
                   </span>
                 </div>
               </div>
