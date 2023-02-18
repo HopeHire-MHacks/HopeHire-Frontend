@@ -94,6 +94,7 @@ const NavigationBar = () => {
                 <div className='space-y-2 py-6'>
                   {navigation.map(item => (
                     <a
+                      onClick={e => smoothScroll(e, item.href)}
                       key={item.name}
                       href={item.href}
                       className='-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-400/10'
@@ -105,6 +106,7 @@ const NavigationBar = () => {
                 {!isAuthPage && (
                   <div className='py-6'>
                     <a
+                      onClick={() => history.push(routes.authentication.login)}
                       href='#'
                       className='-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-400/10'
                     >

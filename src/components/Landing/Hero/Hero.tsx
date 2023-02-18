@@ -2,8 +2,11 @@ import React from 'react';
 import BottomBackground from '../Background/BottomBackground';
 import TopBackground from '../Background/TopBackground';
 import Typewriter from 'typewriter-effect';
+import { useHistory } from 'react-router-dom';
+import { routes } from '@/constants/routes';
 
 const Hero = () => {
+  const history = useHistory();
   return (
     <div id='heros' className='relative py-12 sm:py-32 lg:pb-40'>
       <TopBackground></TopBackground>
@@ -23,6 +26,7 @@ const Hero = () => {
           <p className='mt-6 text-lg leading-8 text-gray-600'>Connecting kidney disease-affected employees with understanding employers</p>
           <div className='mt-10 flex items-center justify-center gap-x-6'>
             <a
+              onClick={() => history.push(routes.authentication.login)}
               href='#'
               className='rounded-md bg-indigo-600 px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
             >
