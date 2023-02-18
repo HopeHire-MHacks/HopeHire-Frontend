@@ -7,7 +7,6 @@ import { useRecoilState } from 'recoil';
 import { userAtom } from '@/utils/atoms/user';
 import { useApi } from '@/api/ApiHandler';
 import UserService from '@/api/User/UserService';
-import serialize from 'serialize-javascript';
 
 import Employer from '@/pages/Employer';
 import Home from '@pages/Landing/Home';
@@ -31,13 +30,9 @@ const BaseRouter = () => {
   const getUser = async () => {
     const res = await getSelf();
     if (res && res.data) {
-      const serialized = serialize(res.data);
-      setLocalStorageValue('user', JSON.stringify(serialized));
+      setUser(prev => ({ ...prev, ...res.data }));
     }
-    const serializedUser = getLocalStorageValue('user');
-    const userFromStorage = JSON.parse(eval('(' + serializedUser + ')'));
-    setUser(prev => ({ ...prev, ...userFromStorage }));
-    setIsOnboarded(userFromStorage.employee !== null || userFromStorage.employer !== null);
+    setIsOnboarded(user.employee !== null || user.employer !== null);
   };
 
   useEffect(() => {

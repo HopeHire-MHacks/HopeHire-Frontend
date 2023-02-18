@@ -1,5 +1,8 @@
 import { atom } from 'recoil';
 import { UserData } from '@/api/Authentication/AuthService';
+import { recoilPersist } from 'recoil-persist';
+
+const { persistAtom } = recoilPersist();
 
 export const userAtom = atom<UserData>({
   key: 'userAtom',
@@ -9,4 +12,5 @@ export const userAtom = atom<UserData>({
     employee: null,
     employer: null,
   },
+  effects_UNSTABLE: [persistAtom],
 });
