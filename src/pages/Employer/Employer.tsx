@@ -1,10 +1,10 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import SideBar from '@/components/SideBar';
 import { routes } from '@/constants/routes';
 import NewListing from '@/components/Employer/NewListing';
 
 import { BriefcaseIcon, PlusCircleIcon, UserCircleIcon } from '@heroicons/react/24/outline';
+import withMainPageLayout from '@/components/withMainPageLayout/withMainPageLayout';
 
 const EmptyComponent = () => <></>;
 
@@ -16,13 +16,7 @@ const navigation = [
 
 const Employer: React.FC = () => {
   return (
-    <div className='h-screen flex flex-row'>
-      <SideBar
-        navigation={navigation}
-        userName='Kristen Sappire'
-        userProfileImg='https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80'
-      />
-
+    <div className='h-full w-full flex flex-row'>
       <Switch>
         <Route exact path={routes.employer.base + routes.employer.newListing} component={NewListing} />
         <Route exact path={routes.employer.base + routes.employer.listings} component={EmptyComponent} />
@@ -35,4 +29,4 @@ const Employer: React.FC = () => {
   );
 };
 
-export default Employer;
+export default withMainPageLayout(Employer, navigation);
