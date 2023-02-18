@@ -55,8 +55,15 @@ const BaseRouter = () => {
   return (
     <Switch>
       <Route exact path={routes.home} component={Home} />
-      <Route exact path={routes.authentication.login} component={Login} />
-      <Route exact path={routes.authentication.signup} component={Register} />
+
+      {/* You should only see login signup pages if you are not logged in */}
+      {!isLoggedIn && (
+        <>
+          <Route exact path={routes.authentication.login} component={Login} />
+          <Route exact path={routes.authentication.signup} component={Register} />
+        </>
+      )}
+
       {isLoggedIn && !isOnboarded && <Route exact path={routes.onboard} component={Onboard} />}
       {isLoggedIn && user?.employer !== null && <Route path={routes.employer.base} component={Employer} />}
       <Route exact path='*'>
