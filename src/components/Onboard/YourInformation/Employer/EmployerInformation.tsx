@@ -2,15 +2,21 @@ import React from 'react';
 import { useRecoilState } from 'recoil';
 import { employerOnboardAtom } from '@/utils/atoms/forms/employerOnboard';
 import { toasterAtom, ToasterType } from '@/utils/atoms/toaster';
+import { userAtom } from '@/utils/atoms/user';
 import { useApi } from '@/api/ApiHandler';
+import UserService from '@/api/User/UserService';
 import EmployerService, { CreateEmployerData } from '@/api/Employer/EmployerService';
 import AutoFillAddress from '../AutoFillAddress';
 
 const EmployerInformation = () => {
   const [employerOnboard, setEmployerOnboard] = useRecoilState(employerOnboardAtom);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setToaster] = useRecoilState(toasterAtom);
+  const [_, setUser] = useRecoilState(userAtom);
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [__, setToaster] = useRecoilState(toasterAtom);
   const [createEmployer] = useApi((data: CreateEmployerData) => EmployerService.createEmployer(data ?? null), true, true, true);
+  const [getSelf] = useApi(() => UserService.getSelf(), false, false, false);
 
   const onSubmit = async () => {
     if (
@@ -31,6 +37,13 @@ const EmployerInformation = () => {
     const res = await createEmployer(employerOnboard);
     if (res) {
       console.log(res);
+      const user = await getSelf();
+      if (user && user.data) {
+        setUser(prev => ({ ...prev, ...user.data }));
+      }
+      window.setTimeout(() => {
+        window.location.reload();
+      }, 1500);
     }
   };
 
