@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { routes } from '@/constants/routes';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import ApiService from '@/api/ApiService';
@@ -21,13 +21,12 @@ function isTokenExpired(token: string) {
 }
 
 const BaseRouter = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setUser] = useRecoilState(userAtom);
-  const [getSelf] = useApi(() => UserService.getSelf(), false, false, false);
-
+  const [user, setUser] = useRecoilState(userAtom);
   const token = getLocalStorageValue(ApiService.authTokenKey);
-  const isLoggedIn = token && !isTokenExpired(token);
-  let isOnboarded = false;
+
+  const [isLoggedIn] = useState<boolean>((token && !isTokenExpired(token)) || false);
+  const [isOnboarded, setIsOnboarded] = useState<boolean>(false);
+  const [getSelf] = useApi(() => UserService.getSelf(), false, false, false);
 
   const getUser = async () => {
     const res = await getSelf();
@@ -38,7 +37,7 @@ const BaseRouter = () => {
     const serializedUser = getLocalStorageValue('user');
     const userFromStorage = JSON.parse(eval('(' + serializedUser + ')'));
     setUser(prev => ({ ...prev, ...userFromStorage }));
-    isOnboarded = userFromStorage.employee !== null || userFromStorage.employer !== null;
+    setIsOnboarded(userFromStorage.employee !== null || userFromStorage.employer !== null);
   };
 
   useEffect(() => {
@@ -49,15 +48,24 @@ const BaseRouter = () => {
     setLocalStorageValue(ApiService.authTokenKey, '');
   }
 
+  const defaultRoute = () => {
+    if (isLoggedIn && !isOnboarded) {
+      return routes.onboard;
+    } else if (user?.employer !== null) {
+      return routes.employer.base;
+    }
+    return routes.employee.base;
+  };
+
   return (
     <Switch>
       <Route exact path={routes.home} component={Home} />
       <Route exact path={routes.authentication.login} component={Login} />
       <Route exact path={routes.authentication.signup} component={Register} />
       {isLoggedIn && !isOnboarded && <Route exact path={routes.onboard} component={Onboard} />}
-      {isLoggedIn && user?.employer !== null && <Route exact path={routes.employer.base} component={Employer} />}
+      {isLoggedIn && user?.employer !== null && <Route path={routes.employer.base} component={Employer} />}
       <Route exact path='*'>
-        <Redirect to={isLoggedIn ? routes.onboard : routes.home} />
+        <Redirect to={defaultRoute()} />
       </Route>
     </Switch>
   );

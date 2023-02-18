@@ -1,5 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import { useRecoilState } from 'recoil';
+import { userAtom } from '@/utils/atoms/user';
 
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ReactComponent as Logo } from '@/assets/icon.svg';
@@ -22,6 +24,7 @@ function classNames(...classes: string[]) {
 
 const withMainPageLayout = (RenderComponent: React.ComponentType, navigation: NavigationProp[]) => {
   const hoc = (props: any) => {
+    const [user, _] = useRecoilState(userAtom);
     const [sidebarOpen, setSidebarOpen] = useState(false);
     return (
       <div>
@@ -133,7 +136,9 @@ const withMainPageLayout = (RenderComponent: React.ComponentType, navigation: Na
                   />
                 </div>
                 <div className='ml-3'>
-                  <p className='text-sm font-medium text-gray-700 group-hover:text-gray-900'>Whitney Francis</p>
+                  <p className='text-sm font-medium text-gray-700 group-hover:text-gray-900'>
+                    {user?.employee !== null ? user.employee.name : user?.employer !== null ? user.employer.name : 'Unknown User'}
+                  </p>
                 </div>
               </div>
             </div>
