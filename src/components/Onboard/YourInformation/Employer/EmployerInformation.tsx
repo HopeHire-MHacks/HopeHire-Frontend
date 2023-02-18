@@ -14,28 +14,21 @@ const EmployerInformation = () => {
 
   const onSubmit = async () => {
     if (
-      employerOnboard.companyName.length === 0 ||
-      employerOnboard.companyWebsite.length === 0 ||
+      employerOnboard.name.length === 0 ||
+      employerOnboard.webAddress.length === 0 ||
       employerOnboard.companyDescription.length === 0 ||
       employerOnboard.logo.length === 0 ||
+      employerOnboard.numberOfEmployees === 0 ||
       employerOnboard.postalCode.length === 0 ||
-      employerOnboard.numberOfEmployees === 0
+      employerOnboard.country.length === 0 ||
+      employerOnboard.city.length === 0 ||
+      employerOnboard.address.length === 0 ||
+      employerOnboard.state.length === 0
     ) {
       setToaster({ isShown: true, type: ToasterType.ERROR, message: 'Please enter all fields', title: 'Error' });
       return;
     }
-
-    const createEmployerData: CreateEmployerData = {
-      companyWebsite: employerOnboard.companyWebsite,
-      companyName: employerOnboard.companyName,
-      companyDescription: employerOnboard.companyDescription,
-      logo: employerOnboard.logo,
-      address: employerOnboard.postalCode,
-      numberOfEmployees: employerOnboard.numberOfEmployees,
-      latLong: employerOnboard.latLong,
-      userId: 1,
-    };
-    const res = await createEmployer(createEmployerData);
+    const res = await createEmployer(employerOnboard);
     if (res) {
       console.log(res);
     }
@@ -72,8 +65,8 @@ const EmployerInformation = () => {
                     Company name
                   </label>
                   <input
-                    value={employerOnboard.companyName}
-                    onChange={e => setEmployerOnboard(prev => ({ ...prev, companyName: e.target.value }))}
+                    value={employerOnboard.name}
+                    onChange={e => setEmployerOnboard(prev => ({ ...prev, name: e.target.value }))}
                     type='text'
                     name='company-name'
                     id='company-name'
@@ -94,7 +87,18 @@ const EmployerInformation = () => {
                     className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
                   />
                 </div>
-                <AutoFillAddress />
+                <AutoFillAddress
+                  address={employerOnboard.address}
+                  city={employerOnboard.city}
+                  country={employerOnboard.country}
+                  postalCode={employerOnboard.postalCode}
+                  state={employerOnboard.state}
+                  onSetAddress={address => setEmployerOnboard(prev => ({ ...prev, address }))}
+                  onSetCity={city => setEmployerOnboard(prev => ({ ...prev, city }))}
+                  onSetCountry={country => setEmployerOnboard(prev => ({ ...prev, country }))}
+                  onSetPostalCode={postalCode => setEmployerOnboard(prev => ({ ...prev, postalCode }))}
+                  onSetState={state => setEmployerOnboard(prev => ({ ...prev, state }))}
+                />
               </div>
             </div>
           </div>
@@ -116,8 +120,8 @@ const EmployerInformation = () => {
                       http://
                     </span>
                     <input
-                      value={employerOnboard.companyWebsite}
-                      onChange={e => setEmployerOnboard(prev => ({ ...prev, companyWebsite: e.target.value }))}
+                      value={employerOnboard.webAddress}
+                      onChange={e => setEmployerOnboard(prev => ({ ...prev, webAddress: e.target.value }))}
                       type='text'
                       name='company-website'
                       id='company-website'

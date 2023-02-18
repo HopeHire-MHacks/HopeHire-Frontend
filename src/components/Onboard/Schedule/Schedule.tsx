@@ -25,26 +25,12 @@ const Schedule = () => {
   }, [availabilities]);
 
   const onSubmit = async () => {
-    const data: CreateEmployeeData = {
-      name: employeeOnboard.name,
-      personalStatement: employeeOnboard.personalStatement,
-      skills: employeeOnboard.skills,
-      interests: employeeOnboard.interests,
-      dateOfBirth: DateTime.newDateTimeFromDate(employeeOnboard.dateOfBirth).toString(),
-      remarks: employeeOnboard.remarks,
-      availableTimes: employeeOnboard.availableTimes,
-      preferredLocation: employeeOnboard.preferredLocation,
-      dialysisFrequency: employeeOnboard.dialysisFrequency,
-      profilePhoto: employeeOnboard.profilePhoto,
-      resume: employeeOnboard.resume,
-    };
-
     if (employeeOnboard.availableTimes.length === 0) {
       setToaster({ isShown: true, type: ToasterType.ERROR, message: 'Please indicate your availability', title: 'Error' });
       return;
     }
 
-    const res = await createEmployee(data);
+    const res = await createEmployee(employeeOnboard);
     if (res) {
       console.log(res);
     }

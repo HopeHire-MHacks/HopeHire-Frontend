@@ -10,7 +10,31 @@ const gMaps = new Loader({
   libraries: ['places'],
 });
 
-const AutoFillAddress = () => {
+interface AutoFillAddressProps {
+  address: string;
+  city: string;
+  state: string;
+  postalCode: string;
+  country: string;
+  onSetAddress: (address: string) => void;
+  onSetCity: (city: string) => void;
+  onSetState: (state: string) => void;
+  onSetPostalCode: (postalCode: string) => void;
+  onSetCountry: (country: string) => void;
+}
+
+const AutoFillAddress = ({
+  address,
+  city,
+  state,
+  postalCode,
+  country,
+  onSetAddress,
+  onSetCity,
+  onSetState,
+  onSetPostalCode,
+  onSetCountry,
+}: AutoFillAddressProps) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setToaster] = useRecoilState(toasterAtom);
   let autocomplete: google.maps.places.Autocomplete;
@@ -44,10 +68,10 @@ const AutoFillAddress = () => {
   function fillInAddress() {
     // Get the place details from the autocomplete object.
     const place = autocomplete.getPlace();
-    let address1 = '';
+    let address = '';
     let postcode = '';
 
-    addressField.value = address1;
+    addressField.value = address;
     postalField.value = postcode;
     (document.querySelector('#city') as HTMLInputElement).value = '';
     (document.querySelector('#region') as HTMLInputElement).value = '';
@@ -61,11 +85,11 @@ const AutoFillAddress = () => {
       const componentType = component.types[0];
       switch (componentType) {
         case 'street_number': {
-          address1 = `${component.long_name} ${address1}`;
+          address = `${component.long_name} ${address}`;
           break;
         }
         case 'route': {
-          address1 += component.short_name;
+          address += component.short_name;
           break;
         }
         case 'postal_code': {
@@ -78,20 +102,25 @@ const AutoFillAddress = () => {
         }
         case 'locality': {
           (document.querySelector('#city') as HTMLInputElement).value = component.long_name;
+          onSetCity(component.long_name);
           break;
         }
         case 'administrative_area_level_1': {
-          (document.querySelector('#region') as HTMLInputElement).value = component.short_name;
+          (document.querySelector('#region') as HTMLInputElement).value = component.long_name;
+          onSetCity(component.long_name);
           break;
         }
         case 'country':
           (document.querySelector('#country') as HTMLInputElement).value = component.long_name;
+          onSetCountry(component.long_name);
           break;
       }
     }
 
-    addressField.value = address1;
+    addressField.value = address;
     postalField.value = postcode;
+    onSetAddress(address);
+    onSetPostalCode(postcode);
   }
 
   useEffect(() => {
@@ -104,7 +133,7 @@ const AutoFillAddress = () => {
         <label htmlFor='country' className='block text-sm font-medium text-gray-700'>
           Country
         </label>
-        <AllCountriesSelect />
+        <AllCountriesSelect country={country} onSetCountry={onSetCountry} />
       </div>
 
       <div className='col-span-6'>
@@ -112,6 +141,8 @@ const AutoFillAddress = () => {
           Street address
         </label>
         <input
+          value={address}
+          onChange={e => onSetAddress(e.target.value)}
           id='address'
           type='text'
           name='street-address'
@@ -125,6 +156,8 @@ const AutoFillAddress = () => {
           City
         </label>
         <input
+          value={city}
+          onChange={e => onSetCity(e.target.value)}
           type='text'
           name='city'
           id='city'
@@ -138,6 +171,8 @@ const AutoFillAddress = () => {
           State / Province
         </label>
         <input
+          value={state}
+          onChange={e => onSetState(e.target.value)}
           type='text'
           name='region'
           id='region'
@@ -151,6 +186,8 @@ const AutoFillAddress = () => {
           ZIP / Postal code
         </label>
         <input
+          value={postalCode}
+          onChange={e => onSetPostalCode(e.target.value)}
           type='text'
           name='postal-code'
           id='postal-code'

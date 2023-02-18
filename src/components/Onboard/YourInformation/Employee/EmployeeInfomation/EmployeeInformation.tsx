@@ -13,11 +13,11 @@ const EmployeeInformation = ({ onNext }: EmployeeInformationProps) => {
   const [employeeOnboard, setEmployeeOnboard] = useRecoilState(employeeOnboardAtom);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setToaster] = useRecoilState(toasterAtom);
-  const dateOfBirth = DateTime.newDateTimeFromDate(employeeOnboard.dateOfBirth);
+  const dateOfBirth = DateTime.newDateTimeFromDate(new Date(employeeOnboard.dateOfBirth));
   const dateOfBirthString = dateOfBirth.toTimezoneDate('Asia/Singapore').format('YYYY-MM-DD');
 
   const getNewDateOfBirth = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newDateOfBirth = new Date(e.target.value);
+    const newDateOfBirth = DateTime.newDateTimeFromDate(new Date(e.target.value)).toString();
     setEmployeeOnboard(prev => ({ ...prev, dateOfBirth: newDateOfBirth }));
   };
 
@@ -49,7 +49,11 @@ const EmployeeInformation = ({ onNext }: EmployeeInformationProps) => {
       employeeOnboard.dialysisFrequency === 0 ||
       employeeOnboard.profilePhoto.length === 0 ||
       employeeOnboard.resume.length === 0 ||
-      employeeOnboard.postalCode.length === 0
+      employeeOnboard.postalCode.length === 0 ||
+      employeeOnboard.address.length === 0 ||
+      employeeOnboard.city.length === 0 ||
+      employeeOnboard.state.length === 0 ||
+      employeeOnboard.country.length === 0
     ) {
       setToaster({ isShown: true, type: ToasterType.ERROR, message: 'Please fill in all the fields', title: 'Error' });
       return;
@@ -127,7 +131,18 @@ const EmployeeInformation = ({ onNext }: EmployeeInformationProps) => {
                     className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm'
                   />
                 </div>
-                <AutoFillAddress />
+                <AutoFillAddress
+                  address={employeeOnboard.address}
+                  city={employeeOnboard.city}
+                  country={employeeOnboard.country}
+                  postalCode={employeeOnboard.postalCode}
+                  state={employeeOnboard.state}
+                  onSetAddress={address => setEmployeeOnboard(prev => ({ ...prev, address }))}
+                  onSetCity={city => setEmployeeOnboard(prev => ({ ...prev, city }))}
+                  onSetCountry={country => setEmployeeOnboard(prev => ({ ...prev, country }))}
+                  onSetPostalCode={postalCode => setEmployeeOnboard(prev => ({ ...prev, postalCode }))}
+                  onSetState={state => setEmployeeOnboard(prev => ({ ...prev, state }))}
+                />
               </div>
             </div>
           </div>

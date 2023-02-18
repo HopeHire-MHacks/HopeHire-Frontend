@@ -1,8 +1,15 @@
 import React from 'react';
 
-const AllCountriesSelect = () => {
+interface AllCountriesSelectProps {
+  country: string;
+  onSetCountry: (country: string) => void;
+}
+
+const AllCountriesSelect = ({ country, onSetCountry }: AllCountriesSelectProps) => {
   return (
     <select
+      value={country}
+      onChange={e => onSetCountry(e.target.value)}
       id='country'
       name='country'
       autoComplete='country-name'
