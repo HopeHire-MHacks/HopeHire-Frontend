@@ -1,3 +1,4 @@
+import { EventData } from '@/components/Calendar';
 import { atom } from 'recoil';
 
 export const enum ToasterType {
@@ -30,12 +31,22 @@ interface newListingState {
   description: string;
   requirements: string;
   flexiblity: string;
+  country: string;
+  state: string;
+  city: string;
+  region: string;
   address: string;
+  postalCode: string;
   dialysisSupport: boolean;
   changeSchedule: boolean;
   physicalDemands: string;
   minSalary: number | null;
   maxSalary: number | null;
+  workScheduleCalendar: EventData[];
+  workSchedule: string[];
+  openImmediately: boolean;
+  openDatePicker: string;
+  openDate: string;
 }
 
 export const newListingAtom = atom<newListingState>({
@@ -47,12 +58,22 @@ export const newListingAtom = atom<newListingState>({
     description: '',
     requirements: '',
     flexiblity: '',
+    country: 'Singapore',
+    state: '',
+    city: '',
+    region: '',
     address: '',
+    postalCode: '',
     dialysisSupport: true,
     changeSchedule: true,
     physicalDemands: 'Light',
     minSalary: null,
     maxSalary: null,
+    workScheduleCalendar: [],
+    workSchedule: [],
+    openImmediately: true,
+    openDatePicker: '',
+    openDate: '',
   },
 });
 

@@ -1,7 +1,8 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import SideBar from '@/components/SideBar';
 import { routes } from '@/constants/routes';
+import NewListing from '@/components/Employer/NewListing';
 
 import { BriefcaseIcon, PlusCircleIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 
@@ -23,9 +24,12 @@ const Employer: React.FC = () => {
       />
 
       <Switch>
-        <Route exact path={routes.employer.newListing} component={EmptyComponent} />
-        <Route exact path={routes.employer.listings} component={EmptyComponent} />
-        <Route exact path={routes.employer.profile} component={EmptyComponent} />
+        <Route exact path={routes.employer.base + routes.employer.newListing} component={NewListing} />
+        <Route exact path={routes.employer.base + routes.employer.listings} component={EmptyComponent} />
+        <Route exact path={routes.employer.base + routes.employer.profile} component={EmptyComponent} />
+        <Route exact path='*'>
+          <Redirect to={routes.employer.base + routes.employer.newListing} />
+        </Route>
       </Switch>
     </div>
   );

@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "@amir04lm26/react-modern-calendar-date-picker/lib/DatePicker.css";
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
