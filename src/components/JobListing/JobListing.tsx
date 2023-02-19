@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import industryTypes from '@/constants/industryTypes';
 import { useParams } from 'react-router-dom';
 import EmployerDetails from '../Employer/EmployerDetails';
+import Accordion from '../Accordion';
 
 const job = {
   id: 4,
@@ -53,6 +54,7 @@ const job = {
 
 const JobListing = () => {
   const { id } = useParams<{ id: string }>();
+
   console.log(id);
   useEffect(() => {
     // TODO: fetch job listing by id
@@ -75,13 +77,7 @@ const JobListing = () => {
           </div>
         </div>
       </div>
-      <div className='overflow-hidden bg-white shadow sm:rounded-lg m-5'>
-        <div className='px-4 py-5 sm:px-6'>
-          <h3 className='text-lg font-medium leading-6 text-gray-900'>Job Information</h3>
-          <p className='mt-1 max-w-2xl text-md text-gray-500'>
-            Get the inside scoop on your next career move with our comprehensive job listing.
-          </p>
-        </div>
+      <Accordion title='Job Information' description='Get the inside scoop on your next career move with our comprehensive job listing.'>
         <div className='border-t border-gray-200'>
           <dl>
             <div className='bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
@@ -134,39 +130,9 @@ const JobListing = () => {
               <dt className='text-md font-medium text-gray-500'>Physical Demand</dt>
               <dd className='mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0'>{job.physicalDemands}</dd>
             </div>
-            {/* <div className='bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
-              <dt className='text-md font-medium text-gray-500'>Attachments</dt>
-              <dd className='mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0'>
-                <ul role='list' className='divide-y divide-gray-200 rounded-md border border-gray-200'>
-                  <li className='flex items-center justify-between py-3 pl-3 pr-4 text-md'>
-                    <div className='flex w-0 flex-1 items-center'>
-                      <PaperClipIcon className='h-5 w-5 flex-shrink-0 text-gray-400' aria-hidden='true' />
-                      <span className='ml-2 w-0 flex-1 truncate'>resume_back_end_developer.pdf</span>
-                    </div>
-                    <div className='ml-4 flex-shrink-0'>
-                      <a href='#' className='font-medium text-indigo-600 hover:text-indigo-500'>
-                        Download
-                      </a>
-                    </div>
-                  </li>
-                  <li className='flex items-center justify-between py-3 pl-3 pr-4 text-md'>
-                    <div className='flex w-0 flex-1 items-center'>
-                      <PaperClipIcon className='h-5 w-5 flex-shrink-0 text-gray-400' aria-hidden='true' />
-                      <span className='ml-2 w-0 flex-1 truncate'>coverletter_back_end_developer.pdf</span>
-                    </div>
-                    <div className='ml-4 flex-shrink-0'>
-                      <a href='#' className='font-medium text-indigo-600 hover:text-indigo-500'>
-                        Download
-                      </a>
-                    </div>
-                  </li>
-                </ul>
-              </dd>
-            </div> */}
           </dl>
         </div>
-      </div>
-
+      </Accordion>
       <EmployerDetails employer={job.employer} />
     </div>
   );
