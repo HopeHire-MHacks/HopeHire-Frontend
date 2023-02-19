@@ -71,10 +71,16 @@ const EmployerInformation = () => {
     }
   };
 
-  const onLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onLogoUpload = (e: React.ChangeEvent<HTMLInputElement>, fileSizeLimit = 5242880) => {
     const target = e.target.files;
     const file = target && target[0];
     if (!file) return;
+
+    if (file.size > fileSizeLimit) {
+      setToaster({ isShown: true, type: ToasterType.ERROR, message: 'Uploaded logo is too big!', title: 'Error' });
+      return;
+    }
+
     const reader = new FileReader();
     reader.readAsArrayBuffer(file);
     reader.onload = function () {
