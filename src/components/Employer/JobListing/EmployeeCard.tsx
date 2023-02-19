@@ -4,7 +4,7 @@ import { EmployeeData } from '@/api/Employee/EmployeeService';
 import { BeakerIcon, MapPinIcon } from '@heroicons/react/24/outline';
 import { SOFT_SKILLS } from '@/constants/seedData';
 
-const EmployeeCard = ({ employee }: { employee: EmployeeData }) => {
+const EmployeeCard = ({ employee, onClick }: { employee: EmployeeData; onClick?: () => void }) => {
   const [imageUrl, setImageUrl] = useState('');
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const EmployeeCard = ({ employee }: { employee: EmployeeData }) => {
   }, [employee]);
 
   return (
-    <li>
+    <li onClick={onClick} className='cursor-pointer'>
       <a className='block hover:bg-gray-50'>
         <div className='px-4 py-4 sm:px-6 sm:pl-2 flex'>
           <div className='flex items-center w-12 justify-between'>

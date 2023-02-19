@@ -10,6 +10,8 @@ import EmployerService from '@/api/Employer/EmployerService';
 import ApplicationService from '@/api/Applications/ApplicationService';
 import Accordion from '@/components/Accordion';
 import { EmployeeData } from '@/api/Employee/EmployeeService';
+import { useHistory } from 'react-router-dom';
+import { routes } from '@/constants/routes';
 
 const JobListing = () => {
   const { id } = useParams<{ id: string }>();
@@ -18,6 +20,8 @@ const JobListing = () => {
   const [applicants, setApplicants] = useState<EmployeeData[]>();
   const [user] = useRecoilState(userAtom);
   const [imageUrl, setImageUrl] = useState('');
+  const history = useHistory();
+
   const [getJob] = useApi((jobId: number) => JobService.getJobById(jobId), true, true, true);
   const [getApplicants] = useApi((jobId: number) => ApplicationService.getApplicationByJobId(jobId), true, true, true);
   const [getRecommendedEmployees] = useApi((jobId: number) => EmployerService.getRecommendedEmployees(jobId), true, true, true);
@@ -83,7 +87,13 @@ const JobListing = () => {
             <div className='overflow-hidden bg-white shadow sm:rounded-md'>
               <ul role='list' className='divide-y divide-gray-200'>
                 {applicants.length !== 0 ? (
-                  applicants.map(employee => <EmployeeCard key={employee.userId} employee={employee} />)
+                  applicants.map(employee => (
+                    <EmployeeCard
+                      onClick={() => history.push(`${routes.employer.base}${routes.employer.listing}/employee/${employee.id}`)}
+                      key={employee.userId}
+                      employee={employee}
+                    />
+                  ))
                 ) : (
                   <div className='w-full p-5 flex justify-center'>No Applicants Yet</div>
                 )}
@@ -105,7 +115,11 @@ const JobListing = () => {
             <div className='overflow-hidden bg-white shadow sm:rounded-md'>
               <ul role='list' className='divide-y divide-gray-200'>
                 {recommendedEmployees.map(employee => (
-                  <EmployeeCard key={employee.userId} employee={employee} />
+                  <EmployeeCard
+                    onClick={() => history.push(`${routes.employer.base}${routes.employer.listing}/employee/${employee.id}`)}
+                    key={employee.userId}
+                    employee={employee}
+                  />
                 ))}
               </ul>
             </div>

@@ -21,6 +21,7 @@ export type EmployeeData = {
   state: string;
   postalCode: string;
   address: string;
+  id: number;
 };
 
 export type CreateEmployeeData = {
@@ -91,6 +92,21 @@ export default class EmployeeService {
       const response = await ApiService.request(
         {
           url: this.getEmployeeUrl(),
+          method: 'GET',
+        },
+        true,
+      );
+      return response;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  public static async getEmployeeById(id: number): Promise<ApiData> {
+    try {
+      const response = await ApiService.request(
+        {
+          url: `${this.getEmployeeUrl()}/${id}`,
           method: 'GET',
         },
         true,
