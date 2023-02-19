@@ -47,7 +47,7 @@ const Listings = () => {
     <div className='m-5 w-full'>
       <h2 className='text-3xl font-bold leading-10 tracking-tight text-gray-900'>Your Listings</h2>
       <div className='mt-5 overflow-hidden bg-white shadow sm:rounded-md w-full'>
-        <ul role='list' className='divide-y divide-gray-200 w-full'>
+        <ul role='list' className='divide-y divide-gray-200 w-full cursor-pointer'>
           {positions.map(position => (
             <li key={position.id}>
               <a onClick={() => onClick(position.id)} className='block hover:bg-gray-50'>
@@ -76,7 +76,9 @@ const Listings = () => {
                         SGD{' '}
                         {position.salaryType == 'fixed'
                           ? position.salaryRange[0]
-                          : position.salaryRange[0] + ' ~ ' + position.salaryRange[1]}
+                          : position.salaryType == 'range'
+                          ? position.salaryRange[0] + ' ~ ' + position.salaryRange[1]
+                          : 'Negotiable'}
                       </p>
                       <p className='mt-2 flex items-center text-xs text-gray-500 sm:mt-0 sm:ml-6'>
                         <MapPinIcon className='mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400' aria-hidden='true' />
