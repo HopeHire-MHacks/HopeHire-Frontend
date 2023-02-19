@@ -137,6 +137,7 @@ const EmployerInformation = () => {
                   onSetCountry={country => setEmployerOnboard(prev => ({ ...prev, country }))}
                   onSetPostalCode={postalCode => setEmployerOnboard(prev => ({ ...prev, postalCode }))}
                   onSetState={state => setEmployerOnboard(prev => ({ ...prev, state }))}
+                  onSetLatLong={(lat, long) => setEmployerOnboard(prev => ({ ...prev, latLong: [lat, long] }))}
                 />
               </div>
             </div>

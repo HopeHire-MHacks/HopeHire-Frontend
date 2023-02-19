@@ -22,6 +22,7 @@ interface AutoFillAddressProps {
   onSetState: (state: string) => void;
   onSetPostalCode: (postalCode: string) => void;
   onSetCountry: (country: string) => void;
+  onSetLatLong: (lat: number, long: number) => void;
 }
 
 const AutoFillAddress = ({
@@ -35,6 +36,7 @@ const AutoFillAddress = ({
   onSetState,
   onSetPostalCode,
   onSetCountry,
+  onSetLatLong,
 }: AutoFillAddressProps) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setToaster] = useRecoilState(toasterAtom);
@@ -68,6 +70,7 @@ const AutoFillAddress = ({
   function fillInAddress() {
     // Get the place details from the autocomplete object.
     const place = autocomplete.getPlace();
+    onSetLatLong(place.geometry?.location?.lat() || 0, place.geometry?.location?.lng() || 0);
     let address = '';
     let postcode = '';
 

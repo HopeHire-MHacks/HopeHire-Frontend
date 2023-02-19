@@ -169,6 +169,7 @@ const EmployeeInformation = ({ onNext }: EmployeeInformationProps) => {
                   onSetCountry={country => setEmployeeOnboard(prev => ({ ...prev, country }))}
                   onSetPostalCode={postalCode => setEmployeeOnboard(prev => ({ ...prev, postalCode }))}
                   onSetState={state => setEmployeeOnboard(prev => ({ ...prev, state }))}
+                  onSetLatLong={(lat, long) => setEmployeeOnboard(prev => ({ ...prev, preferredLocation: [lat, long] }))}
                 />
               </div>
             </div>
