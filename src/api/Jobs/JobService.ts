@@ -15,11 +15,12 @@ export type JobData = {
   hasDialysisSupport: boolean;
   hasFlexibleSchedule: boolean;
   physicalDemands: string;
-  salaryType: string;
+  salaryType: SalaryTypes;
   scheduledType: string;
   openingTime: string;
   isOpen: boolean;
   skills: number[];
+  address: string;
   salaryRange: number[];
   country: string;
   city: string;
@@ -157,6 +158,21 @@ export default class JobService {
           data: {
             employee_id: employeesId,
           },
+          method: 'GET',
+        },
+        true,
+      );
+      return response;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  public static async getOpenJobs(): Promise<ApiData> {
+    try {
+      const response = await ApiService.request(
+        {
+          url: `${this.getJobUrl()}/open`,
           method: 'GET',
         },
         true,

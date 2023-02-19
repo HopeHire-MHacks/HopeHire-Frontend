@@ -1,11 +1,13 @@
+import React, { useEffect, useState } from 'react';
+
 import { useApi } from '@/api/ApiHandler';
 import UserService from '@/api/User/UserService';
 import { userAtom } from '@/utils/atoms/user';
-import React, { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
 const EmployerProfile = () => {
   const [user, setUser] = useRecoilState(userAtom);
+  const [imageUrl, setImageUrl] = useState('');
   const [getSelf] = useApi(() => UserService.getSelf(), false, false, false);
 
   const getUser = async () => {
@@ -19,6 +21,20 @@ const EmployerProfile = () => {
     getUser();
   }, []);
 
+  useEffect(() => {
+    let data = null;
+    if (user.employer?.logo != null) {
+      data = user.employer?.logo.data;
+    }
+
+    if (data == null) {
+      return;
+    }
+
+    const blob = new Blob([new Uint8Array(data)], { type: 'image/jpeg' });
+    setImageUrl(URL.createObjectURL(blob));
+  }, [user.employer?.logo]);
+
   return (
     user.employer && (
       <>
@@ -26,11 +42,7 @@ const EmployerProfile = () => {
           <div className='ml-3'>
             <div className='flex items-center'>
               <div className='flex-shrink-0'>
-                <img
-                  className='h-12 w-12 rounded-full'
-                  src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
-                  alt=''
-                />
+                <img className='h-12 w-12 rounded-full' src={imageUrl} alt='' />
               </div>
               <div className='ml-4'>
                 <h3 className='text-lg font-medium leading-6 text-gray-900'>{user.employer.name}</h3>

@@ -6,7 +6,7 @@ import Listings from '@/components/Employer/Listings';
 
 import { BriefcaseIcon, PlusCircleIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import SideNav from '@components/SideNav';
-import JobListing from '@/components/JobListing';
+import JobListing from '@/components/Employer/JobListing';
 import EmployerProfile from '@/components/Employer/EmployerProfile/EmployerProfile';
 
 const navigation = [
