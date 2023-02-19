@@ -22,10 +22,16 @@ const EmployeeInformation = ({ onNext }: EmployeeInformationProps) => {
     setEmployeeOnboard(prev => ({ ...prev, dateOfBirth: newDateOfBirth }));
   };
 
-  const onFileUpload = (e: React.ChangeEvent<HTMLInputElement>, isPhoto = true) => {
+  const onFileUpload = (e: React.ChangeEvent<HTMLInputElement>, isPhoto = true, fileSizeLimit = 5242880) => {
     const target = e.target.files;
     const file = target && target[0];
     if (!file) return;
+
+    if (file.size > fileSizeLimit) {
+      setToaster({ isShown: true, type: ToasterType.ERROR, message: 'Uploaded image is too big!', title: 'Error' });
+      return;
+    }
+
     const reader = new FileReader();
     reader.readAsArrayBuffer(file);
     reader.onload = function () {
@@ -34,7 +40,7 @@ const EmployeeInformation = ({ onNext }: EmployeeInformationProps) => {
         setProfilePicUrl(URL.createObjectURL(new Blob([arrBuffer])));
         setEmployeeOnboard(prev => ({ ...prev, profilePhoto: arrBuffer }));
       } else {
-        setEmployeeOnboard(prev => ({ ...prev, resume: arrBuffer }));
+        setEmployeeOnboard(prev => ({ ...prev, resume: arrBuffer, resumeName: file.name }));
       }
     };
     reader.onerror = function (error) {

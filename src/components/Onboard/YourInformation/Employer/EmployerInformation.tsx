@@ -35,10 +35,8 @@ const EmployerInformation = () => {
       setToaster({ isShown: true, type: ToasterType.ERROR, message: 'Please enter all fields', title: 'Error' });
       return;
     }
-    console.log('what');
     const res = await createEmployer(employerOnboard);
     if (res) {
-      console.log(res);
       const user = await getSelf();
       if (user && user.data) {
         setUser(prev => ({ ...prev, ...user.data }));
@@ -49,10 +47,16 @@ const EmployerInformation = () => {
     }
   };
 
-  const onLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onLogoUpload = (e: React.ChangeEvent<HTMLInputElement>, fileSizeLimit = 5242880) => {
     const target = e.target.files;
     const file = target && target[0];
     if (!file) return;
+
+    if (file.size > fileSizeLimit) {
+      setToaster({ isShown: true, type: ToasterType.ERROR, message: 'Uploaded logo is too big!', title: 'Error' });
+      return;
+    }
+
     const reader = new FileReader();
     reader.readAsArrayBuffer(file);
     reader.onload = function () {
