@@ -19,7 +19,6 @@ const JobListing = () => {
   const [job, setJob] = useState<JobData>();
   const [recommendedEmployees, setRecommendedEmployees] = useState<EmployeeData[]>();
   const [applicants, setApplicants] = useState<ApplicationData[]>();
-  const [user] = useRecoilState(userAtom);
   const [imageUrl, setImageUrl] = useState('');
   const history = useHistory();
 
