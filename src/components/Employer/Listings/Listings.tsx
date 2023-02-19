@@ -73,11 +73,10 @@ const Listings = () => {
                       </p>
                       <p className='mt-2 flex items-center text-xs text-gray-500 sm:mt-0 sm:ml-6'>
                         <CurrencyDollarIcon className='mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400' aria-hidden='true' />
-                        SGD{' '}
                         {position.salaryType == 'fixed'
-                          ? position.salaryRange[0]
-                          : position.salaryType == 'range'
-                          ? position.salaryRange[0] + ' ~ ' + position.salaryRange[1]
+                          ? `SGD ${position.salaryRange[0]}`
+                          : position.salaryType == 'ranged'
+                          ? `SGD ${position.salaryRange[0]} ~ ${position.salaryRange[1]}`
                           : 'Negotiable'}
                       </p>
                       <p className='mt-2 flex items-center text-xs text-gray-500 sm:mt-0 sm:ml-6'>
@@ -111,7 +110,7 @@ const Listings = () => {
                     <div className='mt-2 flex items-center text-xs text-gray-500 sm:mt-0'>
                       <CalendarIcon className='mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400' aria-hidden='true' />
                       <p>
-                        Opened on <time dateTime={position.openingTime}>{position.openingTime.substring(0, 10)}</time>
+                        Date Open: <time dateTime={position.openingTime}>{position.openingTime.substring(0, 10)}</time>
                       </p>
                     </div>
                   </div>

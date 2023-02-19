@@ -20,6 +20,7 @@ export type JobData = {
   openingTime: string;
   isOpen: boolean;
   skills: number[];
+  address: string;
   salaryRange: number[];
   country: string;
   city: string;

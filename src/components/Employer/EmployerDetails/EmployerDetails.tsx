@@ -1,23 +1,8 @@
 import React from 'react';
-
-interface Employer {
-  id: number;
-  name: string;
-  companyDescription: string;
-  logo: Blob | null;
-  address: string;
-  userId: number;
-  numberOfEmployees: number;
-  latLong: number[];
-  country: string;
-  city: string;
-  state: string;
-  postalCode: string;
-  webAddress: string;
-}
+import { EmployerData } from '@/api/Employer/EmployerService';
 
 interface Props {
-  employer: Employer;
+  employer: EmployerData;
 }
 
 const EmployerProfile = ({ employer }: Props) => {
