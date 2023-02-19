@@ -29,18 +29,14 @@ const JobListing = () => {
   }, []);
 
   useEffect(() => {
-    let data = null;
-    if (user.employer?.logo != null) {
-      data = user.employer?.logo.data;
-    }
-
-    if (data == null) {
+    if (job?.employer?.logo == null) {
       return;
     }
 
+    const data = job.employer.logo.data;
     const blob = new Blob([new Uint8Array(data)], { type: 'image/jpeg' });
     setImageUrl(URL.createObjectURL(blob));
-  }, [user.employer?.logo]);
+  }, [job]);
 
   const onClick = () => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

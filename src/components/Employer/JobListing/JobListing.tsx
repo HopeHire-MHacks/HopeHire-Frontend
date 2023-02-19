@@ -47,8 +47,8 @@ const JobListing = () => {
 
   useEffect(() => {
     let data = null;
-    if (user.employer?.logo != null) {
-      data = user.employer?.logo.data;
+    if (job?.employer?.logo != null) {
+      data = job.employer?.logo.data;
     }
 
     if (data == null) {
@@ -57,7 +57,7 @@ const JobListing = () => {
 
     const blob = new Blob([new Uint8Array(data)], { type: 'image/jpeg' });
     setImageUrl(URL.createObjectURL(blob));
-  }, [user.employer?.logo]);
+  }, [job]);
 
   return (
     <div>

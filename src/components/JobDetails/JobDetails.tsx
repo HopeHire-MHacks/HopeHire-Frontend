@@ -9,7 +9,6 @@ interface Props {
 }
 
 export const salaryString = (salaryType: string, salaryRange: number[]) => {
-  console.log(salaryType);
   switch (salaryType) {
     case 'Ranged':
       return '$' + salaryRange[0] + ' - $' + salaryRange[1];
