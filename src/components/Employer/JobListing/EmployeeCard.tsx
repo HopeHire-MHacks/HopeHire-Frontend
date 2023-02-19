@@ -9,8 +9,8 @@ const EmployeeCard = ({ employee, onClick }: { employee: EmployeeData; onClick?:
 
   useEffect(() => {
     let data = null;
-    if (employee.profilePhoto != null) {
-      data = employee.profilePhoto.data;
+    if (employee.profilePicture != null) {
+      data = employee.profilePicture.data;
     }
 
     if (data == null) {

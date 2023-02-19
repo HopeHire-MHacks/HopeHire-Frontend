@@ -22,7 +22,6 @@ export type EmployeeData = {
   state: string;
   postalCode: string;
   address: string;
-  id: number;
 };
 
 export type CreateEmployeeData = {
