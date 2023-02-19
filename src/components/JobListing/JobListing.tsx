@@ -3,15 +3,12 @@ import { useParams } from 'react-router-dom';
 import EmployerDetails from '../Employer/EmployerDetails';
 import { useApi } from '@/api/ApiHandler';
 import JobService, { JobData } from '@/api/Jobs/JobService';
-import { userAtom } from '@/utils/atoms/user';
-import { useRecoilState } from 'recoil';
 import JobDetails from '@components/JobDetails';
 import ApplicationService, { CreateApplicationData } from '@/api/Applications/ApplicationService';
 
 const JobListing = () => {
   const { id } = useParams<{ id: string }>();
   const [job, setJob] = useState<JobData>();
-  const [user] = useRecoilState(userAtom);
   const [imageUrl, setImageUrl] = useState('');
   const [getJob] = useApi((id: number) => JobService.getJobById(id), true, true, true);
   const [createApplication] = useApi((data: CreateApplicationData) => ApplicationService.createApplication(data ?? null), true, true, true);
