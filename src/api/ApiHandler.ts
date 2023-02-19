@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import { toasterAtom, ToasterType } from '@/utils/atoms/toaster';
 import ApiService, { ApiData } from '@/api/ApiService';
 import { useHistory } from 'react-router-dom';
 import { routes } from '@/constants/routes';
 import { userAtom } from '@/utils/atoms/user';
-import { setLocalStorageValue } from '@/utils/miscellaneous';
+import { removeLocalStorageValue } from '@/utils/miscellaneous';
 
 export interface isSuccess {
   isSuccess: boolean;
@@ -22,7 +22,7 @@ export function useApi<T>(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setToasterState] = useRecoilState(toasterAtom);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [__, setUser] = useRecoilState(userAtom);
+  const resetUserAtom = useResetRecoilState(userAtom);
   const history = useHistory();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -48,14 +48,10 @@ export function useApi<T>(
       if (error?.data?.message && withFailureNotification) {
         setToasterState({ title: 'Error', message: error.data.message, type: ToasterType.ERROR, isShown: true });
         console.error({ message: error.data.message });
-      } else if (error?.status === 403 || error?.status === 401) {
-        setLocalStorageValue(ApiService.authTokenKey, undefined);
-        setUser({
-          id: 0,
-          email: '',
-          employee: null,
-          employer: null,
-        });
+      }
+      if (error?.status === 403 || error?.status === 401) {
+        removeLocalStorageValue(ApiService.authTokenKey);
+        resetUserAtom();
         history.push(routes.authentication.login);
       } else {
         setToasterState({

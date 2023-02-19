@@ -61,6 +61,15 @@ export default class AuthService {
           ...userRegisterData,
         },
       });
+
+      if (!response || !response.data.accessToken) {
+        //login failed
+        throw new Error('signup failed!');
+      }
+
+      // store the x-auth-token in localStorage
+      const accessToken: string = response.data.accessToken;
+      setLocalStorageValue(ApiService.authTokenKey, accessToken);
       return response;
     } catch (error) {
       return Promise.reject(error);
