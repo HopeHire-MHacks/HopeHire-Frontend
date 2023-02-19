@@ -2,39 +2,45 @@ import React from 'react';
 
 const stories = [
   {
-    title: 'Improve your customer experience 1',
+    title: 'Rising Above Adversity: The Story of Sitia',
     description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint harum rerum voluptatem quo recusandae magni placeat saepe molestiae, sed excepturi cumque corporis perferendis hic.',
-    imageUrl:
-      'https://images.unsplash.com/photo-1492724441997-5dc865305da7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1679&q=80',
+      'Sitia had always been a hard worker, but when she was diagnosed with kidney disease, she worried about how it would affect her career. She was able to find a supportive employer who made accommodations for her health needs. Today, Sitia is excelling in her career and is grateful for the platform that helped her find her footing again. She wishes that others to stand strong against such adversity and face difficulties one step at a time.',
+    imageUrl: '/assets/stories/sitia_main.jpg',
     author: {
-      name: 'Daniela Metz',
-      imageUrl:
-        'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+      name: 'Sitia',
+      imageUrl: '/assets/stories/sitia.jpg',
+    },
+  },
+  // {
+  //   title: "A New Lease on Life: Raj Patel's story",
+  //   description:
+  //     'Raj Patel was once a successful executive, but his life took a turn when she was diagnosed with kidney disease. After years of struggling to find employment that would accommodate his health needs. HopeHire not only assisted him with job opportunities but also gave him a sense of community and support. Today, Karen is thriving in a new career and grateful for the second chance.',
+  //   imageUrl:
+  //     'https://images.unsplash.com/photo-1492724441997-5dc865305da7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1679&q=80',
+  //   author: {
+  //     name: 'Raj Patel',
+  //     imageUrl:
+  //       'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+  //   },
+  // },
+  {
+    title: 'How Michael Johnson Found Purpose and Hope ',
+    description:
+      'Michaej Johnson had almost given up hope of finding a job that would accommodate his dialysis treatments. Through the HopeHire, he found a job that not only understood his condition but also allowed him to pursue his passion for cooking. Today, James is the head chef at a popular restaurant and is grateful for the opportunities provided by the job portal.',
+    imageUrl: '/assets/stories/michael_main.png',
+    author: {
+      name: 'Michael Johnson',
+      imageUrl: '/assets/stories/michael_johnson.jpg',
     },
   },
   {
-    title: 'Improve your customer experience 2',
+    title: 'Reshaping Her Future Through Adversity',
     description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint harum rerum voluptatem quo recusandae magni placeat saepe molestiae, sed excepturi cumque corporis perferendis hic.',
-    imageUrl:
-      'https://images.unsplash.com/photo-1492724441997-5dc865305da7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1679&q=80',
+      'Sarah Gomez had been unemployed for months and was struggling to find a job that would accommodate her dialysis treatments. Eventually, she found a job as a freelance web designer and discovered her passion for entrepreneurship. Now, Sarah has started her own web design business and is grateful for the job portal that helped her find employment and discover her true calling. Sarah is now looking to expand her business beyond design and is looking forward to the future.',
+    imageUrl: '/assets/stories/sarah_main.jpg',
     author: {
-      name: 'Daniela Metz',
-      imageUrl:
-        'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-  },
-  {
-    title: 'Improve your customer experience 3',
-    description:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint harum rerum voluptatem quo recusandae magni placeat saepe molestiae, sed excepturi cumque corporis perferendis hic.',
-    imageUrl:
-      'https://images.unsplash.com/photo-1492724441997-5dc865305da7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1679&q=80',
-    author: {
-      name: 'Daniela Metz',
-      imageUrl:
-        'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+      name: 'Sarah Gomez',
+      imageUrl: '/assets/stories/sarah_gomez.jpg',
     },
   },
 ];
@@ -47,9 +53,9 @@ const Stories = () => {
       </div>
       <div className='relative mx-auto max-w-7xl'>
         <div className='text-center'>
-          <h2 className='text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl'>Featured Stories</h2>
+          <h2 className='text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl'>Featuring You</h2>
           <p className='mx-auto mt-3 max-w-2xl text-xl text-gray-500 sm:mt-4'>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa libero labore natus atque, ducimus sed.
+            Some aspiring stories of individuals that we could not help but to share.
           </p>
         </div>
         <div className='mx-auto mt-12 grid max-w-lg gap-5 lg:max-w-none lg:grid-cols-3'>

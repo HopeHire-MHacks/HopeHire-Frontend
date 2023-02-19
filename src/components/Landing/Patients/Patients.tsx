@@ -45,31 +45,33 @@ const Patients = () => {
           <div className='mt-8 lg:mt-0'>
             <div className='mx-auto max-w-prose text-base lg:max-w-none'>
               <p className='text-lg text-gray-500'>
-                Sagittis scelerisque nulla cursus in enim consectetur quam. Dictum urna sed consectetur neque tristique pellentesque.
-                Blandit amet, sed aenean erat arcu morbi.
+                At HopeHire, we understand the challenges that kidney patients face when it comes to finding employment opportunities.
+                That&#39;s why we created a job portal that&#39;s specifically designed with the health and physical conditions of kidney
+                patients in mind.
               </p>
             </div>
             <div className='prose prose-indigo mx-auto mt-5 text-gray-500 lg:col-start-1 lg:row-start-1 lg:max-w-none'>
               <p>
-                Sollicitudin tristique eros erat odio sed vitae, consequat turpis elementum. Lorem nibh vel, eget pretium arcu vitae. Eros
-                eu viverra donec ut volutpat donec laoreet quam urna.
+                Our recommendation AI serves potential job opportunities that match your skillset, experience, and most importantly, your
+                health needs. We believe that everyone deserves an equal opportunity to find fulfilling work, regardless of their health
+                conditions.
               </p>
               <p>
-                Bibendum eu nulla feugiat justo, elit adipiscing. Ut tristique sit nisi lorem pulvinar. Urna, laoreet fusce nibh leo. Dictum
-                et et et sit. Faucibus sed non gravida lectus dignissim imperdiet a.
+                By creating a professional profile on HopeHire, you can easily manage your job applications and get noticed by employers who
+                understand and accommodate your health needs. Let us help you find hope and the opportunity to thrive in your career.
               </p>
-              <p>Dictum magnis risus phasellus vitae quam morbi. Quis lorem lorem arcu, metus, egestas netus cursus. In.</p>
+              <p>With HopeHire, these are just some ways of how we can assist in your job search</p>
               <ul role='list'>
-                <li>Quis elit egestas venenatis mattis dignissim.</li>
-                <li>Cras cras lobortis vitae vivamus ultricies facilisis tempus.</li>
-                <li>Orci in sit morbi dignissim metus diam arcu pretium.</li>
+                <li>Recommendation of suitable jobs and employers</li>
+                <li>Detailed listing of jobs and the accomodation available for you</li>
+                <li>Simple and inituitive interface to navigate and apply for jobs</li>
               </ul>
-              <p>
+              {/* <p>
                 Rhoncus nisl, libero egestas diam fermentum dui. At quis tincidunt vel ultricies. Vulputate aliquet velit faucibus semper.
                 Pellentesque in venenatis vestibulum consectetur nibh id. In id ut tempus egestas. Enim sit aliquam nec, a. Morbi enim
                 fermentum lacus in. Viverra.
-              </p>
-              <h3>How we helped</h3>
+              </p> */}
+              {/* <h3>How we helped</h3>
               <p>
                 Tincidunt integer commodo, cursus etiam aliquam neque, et. Consectetur pretium in volutpat, diam. Montes, magna cursus nulla
                 feugiat dignissim id lobortis amet. Laoreet sem est phasellus eu proin massa, lectus. Diam rutrum posuere donec ultricies
@@ -78,7 +80,7 @@ const Patients = () => {
               <p>
                 Sagittis scelerisque nulla cursus in enim consectetur quam. Dictum urna sed consectetur neque tristique pellentesque.
                 Blandit amet, sed aenean erat arcu morbi.
-              </p>
+              </p> */}
             </div>
           </div>
         </div>

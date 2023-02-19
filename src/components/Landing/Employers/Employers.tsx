@@ -1,10 +1,10 @@
 import React from 'react';
 
 const stats = [
-  { label: 'Founded', value: '2021' },
-  { label: 'Employees', value: '5' },
-  { label: 'Beta Users', value: '521' },
-  { label: 'Raised', value: '$25M' },
+  { label: 'Founded', value: '2023' },
+  { label: 'Employees', value: '4' },
+  { label: 'Beta Users', value: '~' },
+  { label: 'Raised', value: '~' },
 ];
 
 const Employers = () => {
@@ -40,9 +40,7 @@ const Employers = () => {
               <div className='absolute inset-0 bg-indigo-500 mix-blend-multiply' />
               <div className='absolute inset-0 bg-gradient-to-t from-indigo-600 via-indigo-600 opacity-90' />
               <div className='relative px-8'>
-                <div>
-                  <img className='h-12' src='https://tailwindui.com/img/logos/workcation.svg?color=white' alt='Workcation' />
-                </div>
+                <div>{/* <img className='h-12' src='https://tailwindui.com/img/logos/workcation.svg?color=white' alt='HopeHire' /> */}</div>
                 <blockquote className='mt-8'>
                   <div className='relative text-lg font-medium text-white md:flex-grow'>
                     <svg
@@ -53,14 +51,11 @@ const Employers = () => {
                     >
                       <path d='M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z' />
                     </svg>
-                    <p className='relative'>
-                      Tincidunt integer commodo, cursus etiam aliquam neque, et. Consectetur pretium in volutpat, diam. Montes, magna cursus
-                      nulla feugiat dignissim id lobortis amet.
-                    </p>
+                    <p className='relative'>We will not waste a breath of our lives at HopeHire, we seek to empower those around us.</p>
                   </div>
 
                   <footer className='mt-4'>
-                    <p className='text-base font-semibold text-indigo-200'>Sarah Williams, CEO at Workcation</p>
+                    <p className='text-base font-semibold text-indigo-200'>Cui Shenyi, CEO at HopeHire</p>
                   </footer>
                 </blockquote>
               </div>
@@ -75,19 +70,18 @@ const Employers = () => {
             <h2 className='text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl'>On a mission to help others</h2>
             <div className='mt-6 space-y-6 text-gray-500'>
               <p className='text-lg'>
-                Sagittis scelerisque nulla cursus in enim consectetur quam. Dictum urna sed consectetur neque tristique pellentesque.
-                Blandit amet, sed aenean erat arcu morbi. Cursus faucibus nunc nisl netus morbi vel porttitor vitae ut. Amet vitae fames
-                senectus vitae.
+                Employers who partner with HopeHire are not only making a positive impact on the lives of kidney patients, but they&#39;re
+                also benefiting from the unique skills and experience that these individuals can bring to the workplace.
               </p>
               <p className='text-base leading-7'>
-                Sollicitudin tristique eros erat odio sed vitae, consequat turpis elementum. Lorem nibh vel, eget pretium arcu vitae. Eros
-                eu viverra donec ut volutpat donec laoreet quam urna. Sollicitudin tristique eros erat odio sed vitae, consequat turpis
-                elementum. Lorem nibh vel, eget pretium arcu vitae. Eros eu viverra donec ut volutpat donec laoreet quam urna.
+                Our job portal is specifically designed to serve as a bridge between employers and job seekers in the kidney patient
+                community. By working with us, you&#39;re tapping into a valuable pool of talent and skills that you may not have otherwise
+                considered. We ensure that each job applicant is matched to positions that fit their skillset, experience, and health needs.
               </p>
               <p className='text-base leading-7'>
-                Rhoncus nisl, libero egestas diam fermentum dui. At quis tincidunt vel ultricies. Vulputate aliquet velit faucibus semper.
-                Pellentesque in venenatis vestibulum consectetur nibh id. In id ut tempus egestas. Enim sit aliquam nec, a. Morbi enim
-                fermentum lacus in. Viverra.
+                By providing accommodations to these employees, you can build a more diverse, inclusive, and empathetic workforce that can
+                help to drive innovation and success in your business. At HopeHire, we&#39;re committed to connecting kidney patients with
+                employers who are dedicated to accommodating their needs and empowering them to succeed.
               </p>
             </div>
           </div>
