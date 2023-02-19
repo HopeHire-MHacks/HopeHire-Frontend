@@ -5,11 +5,16 @@ import Accordion from '../Accordion';
 
 interface Props {
   job: JobData;
+  defaultOpen?: boolean;
 }
 
-const JobDetails = ({ job }: Props) => {
+const JobDetails = ({ job, defaultOpen = true }: Props) => {
   return (
-    <Accordion title='Job Information' description='Get the inside scoop on your next career move with our comprehensive job listing.'>
+    <Accordion
+      defaultOpen={defaultOpen}
+      title='Job Information'
+      description='Get the inside scoop on your next career move with our comprehensive job listing.'
+    >
       <div className='border-t border-gray-200'>
         <dl>
           <div className='bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
@@ -47,7 +52,7 @@ const JobDetails = ({ job }: Props) => {
 
           <div className='bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
             <dt className='text-md font-medium text-gray-500'>Part Time / Full Time</dt>
-            <dd className='mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0'>{job.scheduledType}</dd>
+            <dd className='mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0'>{job.jobType}</dd>
           </div>
           <div className='bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
             <dt className='text-md font-medium text-gray-500'>Salary Type</dt>

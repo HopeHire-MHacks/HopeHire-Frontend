@@ -110,7 +110,7 @@ const SideNav = (RenderComponent: React.ComponentType, navigation: NavigationPro
                       <div className='flex flex-shrink-0 items-center px-4'>
                         <Logo fill='#FFFFFF' className='h-10 w-10' />
                       </div>
-                      <div className='h-full mt-5 h-0 flex-1 overflow-y-auto'>
+                      <div className='h-full mt-5 flex-1 overflow-y-auto'>
                         <nav className='space-y-1 px-2'>
                           {navigation.map(item => (
                             <NavLink

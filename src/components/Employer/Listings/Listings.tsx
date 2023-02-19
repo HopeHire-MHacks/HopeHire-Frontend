@@ -44,7 +44,7 @@ const Listings = () => {
   }, []);
 
   return (
-    <div className='m-5 w-full'>
+    <div className='m-5'>
       <h2 className='text-3xl font-bold leading-10 tracking-tight text-gray-900'>Your Listings</h2>
       <div className='mt-5 overflow-hidden bg-white shadow sm:rounded-md w-full'>
         <ul role='list' className='divide-y divide-gray-200 w-full cursor-pointer'>

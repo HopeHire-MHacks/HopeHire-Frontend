@@ -4,6 +4,7 @@ import { useApi } from '@/api/ApiHandler';
 import UserService from '@/api/User/UserService';
 import { userAtom } from '@/utils/atoms/user';
 import { useRecoilState } from 'recoil';
+import EmployerDetails from '../EmployerDetails';
 
 const EmployerProfile = () => {
   const [user, setUser] = useRecoilState(userAtom);
@@ -50,51 +51,7 @@ const EmployerProfile = () => {
             </div>
           </div>
         </div>
-        <div className='overflow-hidden bg-white shadow sm:rounded-lg w-full m-5'>
-          <div className='px-4 py-5 sm:px-6 w-full'>
-            <h3 className='text-lg font-medium leading-6 text-gray-900'>Company Information</h3>
-            <p className='mt-1 max-w-2xl text-md text-gray-500'>
-              Keep your company&apos;s information up to date so that you can attract the best talent.
-            </p>
-          </div>
-          <div className='border-t border-gray-200'>
-            <dl>
-              <div className='bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
-                <dt className='text-md font-medium text-gray-500'>Company Name</dt>
-                <dd className='mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0'>{user.employer.name}</dd>
-              </div>
-              <div className='bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
-                <dt className='text-md font-medium text-gray-500'>Website</dt>
-                <dd className='mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0 underline'>
-                  <a href={user.employer.webAddress}>{user.employer.webAddress}</a>
-                </dd>
-              </div>
-
-              <div className='bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
-                <dt className='text-md font-medium text-gray-500'>Company Description</dt>
-                <dd className='mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0'>{user.employer.companyDescription}</dd>
-              </div>
-              <div className='bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
-                <dt className='text-md font-medium text-gray-500'>Company address</dt>
-                <dd className='mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0'>
-                  {user.employer.address +
-                    ', ' +
-                    user.employer.city +
-                    ', ' +
-                    user.employer.state +
-                    ', ' +
-                    user.employer.country +
-                    ', ' +
-                    user.employer.postalCode}
-                </dd>
-              </div>
-              <div className='bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
-                <dt className='text-md font-medium text-gray-500'>Number of Employees</dt>
-                <dd className='mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0'>{user.employer.numberOfEmployees}</dd>
-              </div>
-            </dl>
-          </div>
-        </div>
+        <EmployerDetails employer={user.employer} />
       </>
     )
   );

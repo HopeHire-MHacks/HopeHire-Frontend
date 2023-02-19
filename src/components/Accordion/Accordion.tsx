@@ -7,8 +7,8 @@ interface Props {
   children: ReactNode;
 }
 
-function Accordion({ title, defaultOpen, description, children }: Props) {
-  const [isOpen, setIsOpen] = useState<boolean>(defaultOpen || true);
+function Accordion({ title, defaultOpen = true, description, children }: Props) {
+  const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
 
   return (
     <div className='overflow-hidden bg-white shadow sm:rounded-lg m-5'>
