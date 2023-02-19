@@ -8,6 +8,7 @@ import { useHistory } from 'react-router-dom';
 import { routes } from '@/constants/routes';
 import { JobData } from '@/api/Jobs/JobService';
 import { salaryString } from '@/components/JobDetails/JobDetails';
+import { ApplicationData } from '@/api/Applications/ApplicationService';
 
 const statusColor = (status: string) => {
   switch (status) {
@@ -22,17 +23,9 @@ const statusColor = (status: string) => {
   }
 };
 
-interface Application {
-  id: number;
-  employeeId: number;
-  jobId: number;
-  remarks: string;
-  status: string;
-}
-
 interface Props {
   position: JobData;
-  application?: Application;
+  application?: ApplicationData;
 }
 
 const ListingItem = ({ position, application }: Props) => {

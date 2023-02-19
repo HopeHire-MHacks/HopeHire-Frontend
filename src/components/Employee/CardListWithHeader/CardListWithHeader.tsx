@@ -32,7 +32,7 @@ const CardListWithHeader = ({ header, description, buttonText, buttonOnClick, ch
             </div>
           </div>
         </div>
-        <div className=' divide-gray-200 border-t border-gray-200 bg-gray-50 sm:grid-cols-3 sm:divide-y-0 sm:divide-x'>
+        <div className=' divide-gray-200 border-t border-gray-200 bg-gray-50 sm:grid-cols-3 sm:divide-y-0 sm:divide-x mt-5'>
           <div className='overflow-hidden bg-white shadow sm:rounded-md'>
             <ul role='list' className='divide-y divide-gray-200'>
               {children}

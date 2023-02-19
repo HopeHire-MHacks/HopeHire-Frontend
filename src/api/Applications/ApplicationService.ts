@@ -1,10 +1,12 @@
 import ApiService, { ApiData } from '@/api/ApiService';
-import { routes } from '@/constants/routes';
+import { JobData } from '../Jobs/JobService';
 
 export type ApplicationData = {
+  id: number;
   jobId: number;
   remarks: string;
   status: string;
+  job?: JobData;
 };
 
 export type CreateApplicationData = {
@@ -68,11 +70,11 @@ export default class ApplicationService {
     }
   }
 
-  public static async getApplicationByEmployeeId(): Promise<ApiData> {
+  public static async getApplicationByEmployeeId(id: number): Promise<ApiData> {
     try {
       const response = await ApiService.request(
         {
-          url: `${routes.employee}/${this.getApplicationUrl()}`,
+          url: `employees/${id}/${this.getApplicationUrl()}`,
           method: 'GET',
         },
         true,

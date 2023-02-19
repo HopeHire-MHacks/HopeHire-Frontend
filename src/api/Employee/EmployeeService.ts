@@ -3,6 +3,7 @@ import { EventData } from '@/components/Calendar';
 import { Buffer } from 'buffer';
 
 export type EmployeeData = {
+  id: number;
   name: string;
   userId: number;
   personalStatement: string;
