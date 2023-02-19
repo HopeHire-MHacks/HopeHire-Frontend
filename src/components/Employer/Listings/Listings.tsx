@@ -1,4 +1,11 @@
-import { BriefcaseIcon, CalendarIcon, CurrencyDollarIcon, HeartIcon, ClipboardDocumentCheckIcon } from '@heroicons/react/20/solid';
+import {
+  BriefcaseIcon,
+  CalendarIcon,
+  CurrencyDollarIcon,
+  HeartIcon,
+  ClipboardDocumentCheckIcon,
+  MapPinIcon,
+} from '@heroicons/react/20/solid';
 
 import React, { useEffect, useState } from 'react';
 import { routes } from '@/constants/routes';
@@ -44,7 +51,7 @@ const Listings = () => {
           {positions.map(position => (
             <li key={position.id}>
               <a onClick={() => onClick(position.id)} className='block hover:bg-gray-50'>
-                <div className='px-4 py-4 sm:px-6'>
+                <div className='px-4 py-6 sm:px-6'>
                   <div className='flex items-center justify-between'>
                     <p className='truncate text-lg font-semibold text-indigo-600'>{position.positionName}</p>
                     <div className='ml-2 flex flex-shrink-0'>
@@ -67,18 +74,37 @@ const Listings = () => {
                       <p className='mt-2 flex items-center text-xs text-gray-500 sm:mt-0 sm:ml-6'>
                         <CurrencyDollarIcon className='mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400' aria-hidden='true' />
                         SGD{' '}
-                        {position.salaryType == 'Fixed'
+                        {position.salaryType == 'fixed'
                           ? position.salaryRange[0]
                           : position.salaryRange[0] + ' ~ ' + position.salaryRange[1]}
                       </p>
                       <p className='mt-2 flex items-center text-xs text-gray-500 sm:mt-0 sm:ml-6'>
-                        <HeartIcon className='mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400' aria-hidden='true' />
-                        Dialysis Support: {position.hasDialysisSupport ? 'Yes' : 'No'}
+                        <MapPinIcon className='mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400' aria-hidden='true' />
+                        {position.city}
                       </p>
-                      <p className='mt-2 flex items-center text-xs text-gray-500 sm:mt-0 sm:ml-6'>
-                        <ClipboardDocumentCheckIcon className='mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400' aria-hidden='true' />
-                        Flexible: {position.hasFlexibleSchedule ? 'Yes' : 'No'}
-                      </p>
+                      {position.hasDialysisSupport ? (
+                        <p className='mt-2 flex items-center text-xs text-pink-500 sm:mt-0 sm:ml-6'>
+                          <HeartIcon className='mr-1.5 h-5 w-5 flex-shrink-0 text-pink-400' />
+                          Dialysis Support: Yes
+                        </p>
+                      ) : (
+                        <p className='mt-2 flex items-center text-xs text-gray-500 sm:mt-0 sm:ml-6'>
+                          <HeartIcon className='mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400' />
+                          Dialysis Support: No
+                        </p>
+                      )}
+
+                      {position.hasFlexibleSchedule ? (
+                        <p className='mt-2 flex items-center text-xs text-teal-500 sm:mt-0 sm:ml-6'>
+                          <ClipboardDocumentCheckIcon className='mr-1.5 h-5 w-5 flex-shrink-0 text-teal-500' aria-hidden='true' />
+                          Flexible: Yes
+                        </p>
+                      ) : (
+                        <p className='mt-2 flex items-center text-xs text-gray-500 sm:mt-0 sm:ml-6'>
+                          <ClipboardDocumentCheckIcon className='mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400' aria-hidden='true' />
+                          Flexible: No
+                        </p>
+                      )}
                     </div>
                     <div className='mt-2 flex items-center text-xs text-gray-500 sm:mt-0'>
                       <CalendarIcon className='mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400' aria-hidden='true' />

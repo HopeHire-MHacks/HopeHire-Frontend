@@ -7,8 +7,7 @@ import SideNav from '@/components/SideNav';
 import JobListings from '@/components/Employee/JobListings';
 import Applications from '@/components/Applications';
 import JobListing from '@/components/JobListing';
-
-const EmptyComponent = () => <></>;
+import EmployeeProfile from '@/components/Employee/EmployeeProfile';
 
 const navigation = [
   { name: 'Listings', href: routes.employee.base + routes.employee.listings, icon: PlusCircleIcon, current: true },
@@ -25,7 +24,7 @@ const Employee: React.FC = () => {
           <JobListing />
         </Route>
         <Route exact path={routes.employee.base + routes.employee.applications} component={Applications} />
-        <Route exact path={routes.employee.base + routes.employee.profile} component={EmptyComponent} />
+        <Route exact path={routes.employee.base + routes.employee.profile} component={EmployeeProfile} />
         <Route exact path='*'>
           <Redirect to={routes.employee.base + routes.employee.listings} />
         </Route>
