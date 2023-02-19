@@ -6,7 +6,7 @@ export const employerOnboardAtom = atom<CreateEmployerData>({
   default: {
     name: '',
     companyDescription: '',
-    logo: '',
+    logo: null,
     webAddress: '',
     country: '',
     city: '',

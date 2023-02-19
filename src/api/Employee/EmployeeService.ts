@@ -1,6 +1,6 @@
 import ApiService, { ApiData } from '@/api/ApiService';
 import { EventData } from '@/components/Calendar';
-import { convertToBlob } from '@/utils/miscellaneous';
+import { Buffer } from 'buffer';
 
 export type EmployeeData = {
   name: string;
@@ -14,6 +14,8 @@ export type EmployeeData = {
   availableTimes: string[];
   preferredLocation: number[];
   dialysisFrequency: number;
+  profilePhoto: { type: 'Buffer'; data: number[] };
+  resume: { type: 'Buffer'; data: number[] };
   country: string;
   city: string;
   state: string;
@@ -31,8 +33,8 @@ export type CreateEmployeeData = {
   availableTimes: string[];
   preferredLocation: number[];
   dialysisFrequency: number;
-  profilePhoto: string;
-  resume: string;
+  profilePhoto: ArrayBuffer | null;
+  resume: ArrayBuffer | null;
   country: string;
   city: string;
   state: string;
@@ -48,8 +50,8 @@ export default class EmployeeService {
   }
 
   public static async createEmployee(createEmployerData: CreateEmployeeData): Promise<ApiData> {
-    const imageBlob = convertToBlob(createEmployerData.profilePhoto);
-    const resumeBlob = convertToBlob(createEmployerData.resume);
+    const profilePictureBuffer = createEmployerData.profilePhoto != null ? Buffer.from(createEmployerData.profilePhoto) : null;
+    const resumeBuffer = createEmployerData.resume != null ? Buffer.from(createEmployerData.resume) : null;
 
     try {
       const response = await ApiService.request(
@@ -67,8 +69,8 @@ export default class EmployeeService {
             availableTimes: createEmployerData.availableTimes,
             preferredLocation: createEmployerData.preferredLocation,
             dialysisFrequency: createEmployerData.dialysisFrequency,
-            profilePicture: imageBlob,
-            resume: resumeBlob,
+            profilePicture: profilePictureBuffer,
+            resume: resumeBuffer,
             country: createEmployerData.country,
             city: createEmployerData.city,
             state: createEmployerData.state,
