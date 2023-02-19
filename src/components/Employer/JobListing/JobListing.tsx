@@ -41,26 +41,26 @@ const JobListing = () => {
     setImageUrl(URL.createObjectURL(blob));
   }, [user.employer?.logo]);
 
-  type EmployeeData = {
-    name: string;
-    userId: number;
-    personalStatement: string;
-    skills: number[];
-    interests: number[];
-    isAvailable: boolean;
-    dateOfBirth: string;
-    remarks: string;
-    availableTimes: string[];
-    preferredLocation: number[];
-    dialysisFrequency: number;
-    profilePhoto: { type: 'Buffer'; data: number[] };
-    resume: { type: 'Buffer'; data: number[] };
-    country: string;
-    city: string;
-    state: string;
-    postalCode: string;
-    address: string;
-  };
+  // type EmployeeData = {
+  //   name: string;
+  //   userId: number;
+  //   personalStatement: string;
+  //   skills: number[];
+  //   interests: number[];
+  //   isAvailable: boolean;
+  //   dateOfBirth: string;
+  //   remarks: string;
+  //   availableTimes: string[];
+  //   preferredLocation: number[];
+  //   dialysisFrequency: number;
+  //   profilePhoto: { type: 'Buffer'; data: number[] };
+  //   resume: { type: 'Buffer'; data: number[] };
+  //   country: string;
+  //   city: string;
+  //   state: string;
+  //   postalCode: string;
+  //   address: string;
+  // };
 
   return (
     <div>
