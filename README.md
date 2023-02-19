@@ -1,8 +1,12 @@
-# Application Frontend
+# HopeHire Frontend
 
-_Application Description_
+HopeHire is a job portal that's specifically designed with the health and physical conditions of kidney patients in mind. Our recommendation AI serves potential job opportunities that match their skillset, experience, and their health needs.
 
-## Inital setup
+This repository contains the frontend code for HopeHire. We built this frontend using React and Tailwind CSS, making use of their respective features to create a responsive and user-friendly interface. The code is organized into reusable components, making it easy to maintain and add new features.
+
+The frontend is integrated with the HopeHire backend, which runs on Express. The backend provides the API for our recommendation AI and handles user authentication and job applications. If you'd like to explore/contribute to the backend, please see the [HopeHire Backend](https://github.com/HopeHire-MHacks/HopeHire-Backend) repository.
+
+## Getting Started
 
 **Prerequisites NodeJS LTS v18.14.0**
 
@@ -15,8 +19,10 @@ _Application Description_
 
 ## Documentation
 
-- [**Live Site**]()
-- [**Figma Design**]()
+- [**Live Site**](https://hopehire.netlify.app/) - Try it out!
+- [**Figma Design**](https://www.figma.com/file/VPFHrIqfnLzlkXe09shSU3/HopeHire-MHacks?node-id=0%3A1&t=G6MDG9Qt7TWcVDED-0) - Take a look at our design!
+
+## Contributing
 
 ### File Structure and Naming Convention
 
