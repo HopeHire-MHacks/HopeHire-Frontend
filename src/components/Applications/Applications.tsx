@@ -25,7 +25,7 @@ const Applications = () => {
 
   useEffect(() => {
     getApplications();
-  });
+  }, []);
   return (
     <CardListWithHeader
       header='Sent Applications'
