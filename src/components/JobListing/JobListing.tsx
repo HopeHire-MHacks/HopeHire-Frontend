@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import EmployerProfile from '../Employer/EmployerProfile';
 import industryTypes from '@/constants/industryTypes';
 import { useParams } from 'react-router-dom';
+import EmployerDetails from '../Employer/EmployerDetails';
 
 const job = {
   id: 4,
@@ -167,7 +167,7 @@ const JobListing = () => {
         </div>
       </div>
 
-      <EmployerProfile employer={job.employer} />
+      <EmployerDetails employer={job.employer} />
     </div>
   );
 };
