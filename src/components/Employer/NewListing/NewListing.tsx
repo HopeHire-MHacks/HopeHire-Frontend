@@ -56,25 +56,53 @@ const NewListing = () => {
       state,
     } = newListingState;
 
-    if (
-      address.length === 0 ||
-      city.length === 0 ||
-      country.length === 0 ||
-      jobDescription.length === 0 ||
-      jobRequirements.length === 0 ||
-      openingTime.length === 0 ||
-      positionName.length === 0 ||
-      postalCode.length === 0 ||
-      skills.length === 0 ||
-      state.length === 0 ||
-      isSalaryEmptyError(salaryRange, salaryType) ||
-      availableTimes.length === 0 ||
-      physicalDemands.length === 0 ||
-      jobFlexibility.length === 0
-    ) {
-      return false;
+    let errMsg = 'Something Went Wrong';
+    let isValid = true;
+    if (address.length === 0) {
+      errMsg = 'Please enter an address';
+      isValid = false;
+    } else if (city.length === 0) {
+      errMsg = 'Please enter a city';
+      isValid = false;
+    } else if (country.length === 0) {
+      errMsg = 'Please enter a country';
+      isValid = false;
+    } else if (jobDescription.length === 0) {
+      errMsg = 'Please enter a job description';
+      isValid = false;
+    } else if (jobRequirements.length === 0) {
+      errMsg = 'Please enter job requirements';
+      isValid = false;
+    } else if (openingTime.length === 0) {
+      errMsg = 'Please enter an opening time';
+      isValid = false;
+    } else if (positionName.length === 0) {
+      errMsg = 'Please enter a position name';
+      isValid = false;
+    } else if (postalCode.length === 0) {
+      errMsg = 'Please enter a postal code';
+      isValid = false;
+    } else if (skills.length === 0) {
+      errMsg = 'Please enter at least one skill';
+      isValid = false;
+    } else if (state.length === 0) {
+      errMsg = 'Please enter a state';
+      isValid = false;
+    } else if (isSalaryEmptyError(salaryRange, salaryType)) {
+      errMsg = 'Please enter a salary range';
+      isValid = false;
+    } else if (availableTimes.length === 0) {
+      errMsg = 'Please enter available times';
+      isValid = false;
+    } else if (physicalDemands.length === 0) {
+      errMsg = 'Please enter physical demands';
+      isValid = false;
+    } else if (jobFlexibility.length === 0) {
+      errMsg = 'Please enter job flexibility';
+      isValid = false;
     }
-    return true;
+    setToaster({ type: ToasterType.ERROR, title: 'Error', message: errMsg, isShown: true });
+    return isValid;
   };
 
   useEffect(() => {
@@ -89,7 +117,6 @@ const NewListing = () => {
   const onSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     if (!isValidForm()) {
-      setToaster({ type: ToasterType.ERROR, title: 'Error', message: 'Please fill out all required fields', isShown: true });
       return;
     }
 
