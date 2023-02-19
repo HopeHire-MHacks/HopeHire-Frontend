@@ -5,6 +5,7 @@ import { ReactComponent as HealthIcon } from '@/assets/health_icon.svg';
 import industryTypes from '@/constants/industryTypes';
 import { useHistory } from 'react-router-dom';
 import { routes } from '@/constants/routes';
+import { JobData } from '@/api/Jobs/JobService';
 
 const statusColor = (status: string) => {
   switch (status) {
@@ -25,34 +26,9 @@ interface Application {
   remarks: string;
   status: string;
 }
-export interface Job {
-  id: number;
-  positionName: string;
-  jobType: string;
-  industryType: number;
-  jobDescription: string;
-  jobRequirements: string;
-  jobFlexibility: string;
-  latLong: number[];
-  hasDialysisSupport: boolean;
-  hasFlexibleSchedule: boolean;
-  physicalDemands: string;
-  salaryType: string;
-  scheduledType: string;
-  openingTime: Date;
-  employerId: number;
-  isOpen: boolean;
-  salaryRange: number[];
-  skills: number[];
-  country: string;
-  city: string;
-  state: string;
-  postalCode: string;
-  address: string;
-}
 
 interface Props {
-  position: Job;
+  position: JobData;
   application?: Application;
 }
 

@@ -1,10 +1,10 @@
+import { JobData } from '@/api/Jobs/JobService';
 import industryTypes from '@/constants/industryTypes';
 import React from 'react';
 import Accordion from '../Accordion';
-import { Job } from '../Employee/ListingItem/ListingItem';
 
 interface Props {
-  job: Job;
+  job: JobData;
 }
 
 const JobDetails = ({ job }: Props) => {
