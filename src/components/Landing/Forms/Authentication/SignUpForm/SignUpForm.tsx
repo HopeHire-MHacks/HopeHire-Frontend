@@ -14,6 +14,7 @@ const SignUpForm = () => {
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [signUp] = useApi((data: UserSignUpData) => AuthService.register(data), true, true, true);
   const [getSelf] = useApi(() => UserService.getSelf(), false, false, false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setUser] = useRecoilState(userAtom);
 
   const handleSubmit = async () => {
