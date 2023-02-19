@@ -1,11 +1,12 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
-import { useRecoilState } from 'recoil';
+import { Dialog, Menu, Transition } from '@headlessui/react';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import { userAtom } from '@/utils/atoms/user';
 import { NavLink } from 'react-router-dom';
 
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftOnRectangleIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ReactComponent as Logo } from '@/assets/icon.svg';
+import AuthService from '@/api/Authentication/AuthService';
 
 interface NavigationProp {
   name: string;
@@ -18,6 +19,10 @@ interface NavigationProp {
   >;
 }
 
+function classNames(...classes: string[]) {
+  return classes.filter(Boolean).join(' ');
+}
+
 const SideNav = (RenderComponent: React.ComponentType, navigation: NavigationProp[]) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const hoc = (props: any) => {
@@ -25,6 +30,8 @@ const SideNav = (RenderComponent: React.ComponentType, navigation: NavigationPro
     const [user, _] = useRecoilState(userAtom);
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [imageUrl, setImageUrl] = useState('');
+
+    const resetUserAtom = useResetRecoilState(userAtom);
 
     useEffect(() => {
       let data = null;
@@ -41,6 +48,15 @@ const SideNav = (RenderComponent: React.ComponentType, navigation: NavigationPro
       const blob = new Blob([new Uint8Array(data)], { type: 'image/jpeg' });
       setImageUrl(URL.createObjectURL(blob));
     }, [user]);
+
+    const userLogout = () => {
+      AuthService.logout();
+      resetUserAtom();
+
+      window.setTimeout(() => {
+        window.location.reload();
+      }, 500);
+    };
 
     return (
       <div>
@@ -89,23 +105,34 @@ const SideNav = (RenderComponent: React.ComponentType, navigation: NavigationPro
                       </button>
                     </div>
                   </Transition.Child>
-                  <div className='flex flex-shrink-0 items-center px-4'>
-                    <Logo fill='#FFFFFF' className='h-10 w-10' />
-                  </div>
-                  <div className='mt-5 h-0 flex-1 overflow-y-auto'>
-                    <nav className='space-y-1 px-2'>
-                      {navigation.map(item => (
-                        <NavLink
-                          key={item.name}
-                          to={item.href}
-                          activeClassName='bg-indigo-800 text-white hover:bg-indigo-800 hover:text-white'
-                          className='text-indigo-100 hover:bg-indigo-600 flex items-center px-2 py-2 text-base font-medium rounded-md'
-                        >
-                          <item.icon className='mr-4 h-6 w-6 flex-shrink-0 true-gray-600' aria-hidden='true' />
-                          {item.name}
-                        </NavLink>
-                      ))}
-                    </nav>
+                  <div className='h-full flex flex-col justify-between'>
+                    <div className='flex-grow'>
+                      <div className='flex flex-shrink-0 items-center px-4'>
+                        <Logo fill='#FFFFFF' className='h-10 w-10' />
+                      </div>
+                      <div className='h-full mt-5 h-0 flex-1 overflow-y-auto'>
+                        <nav className='space-y-1 px-2'>
+                          {navigation.map(item => (
+                            <NavLink
+                              key={item.name}
+                              to={item.href}
+                              activeClassName='bg-indigo-800 text-white hover:bg-indigo-800 hover:text-white'
+                              className='text-indigo-100 hover:bg-indigo-600 flex items-center px-2 py-2 text-base font-medium rounded-md'
+                            >
+                              <item.icon className='mr-4 h-6 w-6 flex-shrink-0 true-gray-600' aria-hidden='true' />
+                              {item.name}
+                            </NavLink>
+                          ))}
+                        </nav>
+                      </div>
+                    </div>
+                    <button
+                      className='text-indigo-100 hover:bg-indigo-600 flex items-center px-4 py-2 text-base font-medium rounded-md'
+                      onClick={userLogout}
+                    >
+                      <ArrowLeftOnRectangleIcon className='true-gray-600 mr-4 h-6 w-6' />
+                      Logout
+                    </button>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
@@ -139,18 +166,44 @@ const SideNav = (RenderComponent: React.ComponentType, navigation: NavigationPro
                 ))}
               </nav>
             </div>
-            <div className='flex flex-shrink-0 border-t border-gray-200 p-4'>
-              <div className='flex items-center'>
-                <div>
-                  <img className='inline-block h-9 w-9 rounded-full' src={imageUrl} alt='' />
-                </div>
-                <div className='ml-3'>
-                  <p className='text-sm font-medium text-gray-700 group-hover:text-gray-900'>
-                    {user?.employee !== null ? user.employee.name : user?.employer !== null ? user.employer.name : 'Unknown User'}
-                  </p>
-                </div>
+            <Menu as='div' className='relative'>
+              <div>
+                <Menu.Button className='w-full'>
+                  <div className='w-full flex flex-shrink-0 border-t border-gray-200 p-4'>
+                    <div className='flex items-center'>
+                      <div>
+                        <img className='inline-block h-9 w-9 rounded-full' src={imageUrl} alt='' />
+                      </div>
+                      <div className='ml-3'>
+                        <p className='text-sm font-medium text-gray-700 group-hover:text-gray-900'>
+                          {user?.employee !== null ? user.employee.name : user?.employer !== null ? user.employer.name : 'Unknown User'}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </Menu.Button>
               </div>
-            </div>
+              <Transition
+                as={Fragment}
+                enter='transition ease-out duration-100'
+                enterFrom='transform opacity-0 scale-95'
+                enterTo='transform opacity-100 scale-100'
+                leave='transition ease-in duration-75'
+                leaveFrom='transform opacity-100 scale-100'
+                leaveTo='transform opacity-0 scale-95'
+              >
+                <Menu.Items className='absolute left-3 z-10 mt-2 w-48 origin-top-left -top-2 -translate-y-full rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
+                  <Menu.Item as='button' onClick={userLogout} className='w-full'>
+                    {({ active }) => (
+                      <div className={classNames(active ? 'bg-gray-100' : '', 'w-full flex items-center justify-start px-2')}>
+                        <ArrowLeftOnRectangleIcon className='text-gray-600 mr-4 h-6 w-6' />
+                        <div className='block py-2 text-sm text-gray-600'>Logout</div>
+                      </div>
+                    )}
+                  </Menu.Item>
+                </Menu.Items>
+              </Transition>
+            </Menu>
           </div>
         </div>
 
