@@ -63,4 +63,4 @@ src/
 
 ## Screenshots
 
-_[Placeholder]_
+![Screenshot 2023-02-19 at 10 57 04 PM](https://user-images.githubusercontent.com/29945147/219957429-a606bcc9-3b23-435e-879c-ca1699cd0929.png)
