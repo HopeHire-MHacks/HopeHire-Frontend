@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { newListingAtom } from '@/utils/atoms/forms/newListing';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import Calendar, { EventData } from '@/components/Calendar';
 import DateTime from '@/utils/DateTime';
 import AutoFillAddress from '@/components/Onboard/YourInformation/AutoFillAddress';
@@ -31,6 +31,7 @@ const isSalaryEmptyError = (salary: number[], salaryType: SalaryTypes) => {
 
 const NewListing = () => {
   const [newListingState, setNewListingState] = useRecoilState(newListingAtom);
+  const resetNewListingAtom = useResetRecoilState(newListingAtom);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setToaster] = useRecoilState(toasterAtom);
   const [workScheduleCalendar, setWorkScheduleCalendar] = useState<EventData[]>(newListingState.workScheduleCalendar);
@@ -124,6 +125,8 @@ const NewListing = () => {
     if (res && res.data) {
       console.log(res.data);
       history.push(routes.employer.listing);
+
+      resetNewListingAtom();
     }
   };
 
