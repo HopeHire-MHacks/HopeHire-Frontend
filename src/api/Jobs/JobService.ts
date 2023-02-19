@@ -15,7 +15,7 @@ export type JobData = {
   hasDialysisSupport: boolean;
   hasFlexibleSchedule: boolean;
   physicalDemands: string;
-  salaryType: string;
+  salaryType: SalaryTypes;
   scheduledType: string;
   openingTime: string;
   isOpen: boolean;
