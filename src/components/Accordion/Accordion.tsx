@@ -3,11 +3,12 @@ import React, { ReactNode, useState } from 'react';
 interface Props {
   title: string;
   description: string;
+  defaultOpen?: boolean;
   children: ReactNode;
 }
 
-function Accordion({ title, description, children }: Props) {
-  const [isOpen, setIsOpen] = useState(false);
+function Accordion({ title, defaultOpen, description, children }: Props) {
+  const [isOpen, setIsOpen] = useState<boolean>(defaultOpen || true);
 
   return (
     <div className='overflow-hidden bg-white shadow sm:rounded-lg m-5'>
