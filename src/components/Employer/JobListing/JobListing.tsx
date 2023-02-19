@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useApi } from '@/api/ApiHandler';
 import JobService, { JobData } from '@/api/Jobs/JobService';
-import { userAtom } from '@/utils/atoms/user';
-import { useRecoilState } from 'recoil';
 import EmployeeCard from './EmployeeCard';
 import JobDetails from '@/components/JobDetails';
 import EmployerService from '@/api/Employer/EmployerService';
