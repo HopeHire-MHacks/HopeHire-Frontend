@@ -21,13 +21,12 @@ const LoginForm = () => {
     const self = await getSelf();
     if (loginRes && loginRes.data) {
       if (self && self.data) {
-        console.log(self);
         setUser(prev => ({ ...prev, ...self.data }));
+        window.setTimeout(() => {
+          window.location.reload();
+        }, 1500);
       }
     }
-    window.setTimeout(() => {
-      window.location.reload();
-    }, 1500);
   };
 
   return (
