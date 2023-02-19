@@ -20,23 +20,47 @@ const EmployerInformation = () => {
   const [logoUrl, setLogoUrl] = useState<string>();
 
   const onSubmit = async () => {
-    if (
-      employerOnboard.name.length === 0 ||
-      employerOnboard.webAddress.length === 0 ||
-      employerOnboard.companyDescription.length === 0 ||
-      employerOnboard.logo === null ||
-      employerOnboard.numberOfEmployees === 0 ||
-      employerOnboard.postalCode.length === 0 ||
-      employerOnboard.country.length === 0 ||
-      employerOnboard.city.length === 0 ||
-      employerOnboard.address.length === 0 ||
-      employerOnboard.state.length === 0
-    ) {
-      setToaster({ isShown: true, type: ToasterType.ERROR, message: 'Please enter all fields', title: 'Error' });
+    let message = 'Something went wrong. Please try again later.';
+    let isValid = true;
+    if (employerOnboard.name.length === 0) {
+      message = 'Please enter a company name';
+      isValid = false;
+    } else if (employerOnboard.webAddress.length === 0) {
+      message = 'Please enter a company website';
+      isValid = false;
+    } else if (employerOnboard.companyDescription.length === 0) {
+      message = 'Please enter a company description';
+      isValid = false;
+    } else if (employerOnboard.logo === null) {
+      message = 'Please upload a company logo';
+      isValid = false;
+    } else if (employerOnboard.numberOfEmployees === 0) {
+      message = 'Please enter the number of employees';
+      isValid = false;
+    } else if (employerOnboard.postalCode.length === 0) {
+      message = 'Please enter a postal code';
+      isValid = false;
+    } else if (employerOnboard.country.length === 0) {
+      message = 'Please enter a country';
+      isValid = false;
+    } else if (employerOnboard.city.length === 0) {
+      message = 'Please enter a city';
+      isValid = false;
+    } else if (employerOnboard.address.length === 0) {
+      message = 'Please enter an address';
+      isValid = false;
+    } else if (employerOnboard.state.length === 0) {
+      message = 'Please enter a state';
+      isValid = false;
+    }
+
+    if (!isValid) {
+      setToaster({ isShown: true, type: ToasterType.ERROR, message, title: 'Error' });
       return;
     }
+
     const res = await createEmployer(employerOnboard);
-    if (res) {
+    if (res && res.data) {
       const user = await getSelf();
       if (user && user.data) {
         setUser(prev => ({ ...prev, ...user.data }));
@@ -119,6 +143,7 @@ const EmployerInformation = () => {
                   onSetCountry={country => setEmployerOnboard(prev => ({ ...prev, country }))}
                   onSetPostalCode={postalCode => setEmployerOnboard(prev => ({ ...prev, postalCode }))}
                   onSetState={state => setEmployerOnboard(prev => ({ ...prev, state }))}
+                  onSetLatLong={(lat, long) => setEmployerOnboard(prev => ({ ...prev, latLong: [lat, long] }))}
                 />
               </div>
             </div>

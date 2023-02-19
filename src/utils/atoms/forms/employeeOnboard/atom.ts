@@ -11,7 +11,7 @@ export const employeeOnboardAtom = atom<CreateEmployeeData>({
     dateOfBirth: '2000-11-11',
     remarks: '',
     availableTimes: [],
-    preferredLocation: [],
+    preferredLocation: [0, 0],
     dialysisFrequency: 0,
     profilePhoto: null,
     resume: null,

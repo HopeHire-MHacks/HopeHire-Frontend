@@ -160,6 +160,7 @@ const NewListing = () => {
                 onSetCountry={country => setNewListingState(prev => ({ ...prev, country }))}
                 onSetCity={city => setNewListingState(prev => ({ ...prev, city }))}
                 onSetPostalCode={postalCode => setNewListingState(prev => ({ ...prev, postalCode }))}
+                onSetLatLong={(lat, long) => setNewListingState(prev => ({ ...prev, latLong: [lat, long] }))}
               />
 
               {/* Working Hours */}

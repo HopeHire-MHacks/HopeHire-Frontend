@@ -8,12 +8,10 @@ interface Props {
 const EmployerProfile = ({ employer }: Props) => {
   return (
     <>
-      <div className='overflow-hidden bg-white shadow sm:rounded-lg w-full m-5'>
+      <div className='overflow-hidden bg-white shadow sm:rounded-lg m-5'>
         <div className='px-4 py-5 sm:px-6 w-full'>
           <h3 className='text-lg font-medium leading-6 text-gray-900'>Company Information</h3>
-          <p className='mt-1 max-w-2xl text-md text-gray-500'>
-            Discover everything you need to know about your potential employer in one place.
-          </p>
+          <p className='mt-1 max-w-2xl text-md text-gray-500'>Review the Company&apos;s information below</p>
         </div>
         <div className='border-t border-gray-200'>
           <dl>

@@ -54,6 +54,7 @@ export function useApi<T>(
         resetUserAtom();
         history.push(routes.authentication.login);
       }
+
       console.log(error);
       return { ...error?.data, isSuccess: false };
     } finally {
