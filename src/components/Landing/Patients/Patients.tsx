@@ -1,4 +1,5 @@
 import React from 'react';
+import img from '@/assets/dialysis.png';
 
 const Patients = () => {
   return (
@@ -33,7 +34,7 @@ const Patients = () => {
                 <div className='aspect-w-12 aspect-h-7 lg:aspect-none'>
                   <img
                     className='rounded-lg object-cover object-center shadow-lg'
-                    src='https://images.unsplash.com/photo-1546913199-55e06682967e?ixlib=rb-1.2.1&auto=format&fit=crop&crop=focalpoint&fp-x=.735&fp-y=.55&w=1184&h=1376&q=80'
+                    src={img}
                     alt='Whitney leaning against a railing on a downtown street'
                     width={1184}
                     height={1376}

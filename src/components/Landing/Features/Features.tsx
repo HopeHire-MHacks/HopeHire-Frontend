@@ -10,14 +10,14 @@ const features = [
     icon: CheckCircleIcon,
   },
   {
-    name: 'Inclusive profile building.',
-    description: 'We use Natural Language Processing to extract soft skills from personal statements.',
-    icon: NewspaperIcon,
-  },
-  {
     name: 'Intuitive user interface.',
     description: 'Our website is designed with everyone in mind.',
     icon: UserGroupIcon,
+  },
+  {
+    name: 'Inclusive profile building.',
+    description: 'We use Natural Language Processing to extract soft skills from personal statements. (Future Feature)',
+    icon: NewspaperIcon,
   },
 ];
 
