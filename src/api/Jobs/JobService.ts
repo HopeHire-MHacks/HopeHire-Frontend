@@ -166,4 +166,19 @@ export default class JobService {
       return Promise.reject(error);
     }
   }
+
+  public static async getOpenJobs(): Promise<ApiData> {
+    try {
+      const response = await ApiService.request(
+        {
+          url: `${this.getJobUrl()}/open`,
+          method: 'GET',
+        },
+        true,
+      );
+      return response;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
 }
