@@ -45,20 +45,44 @@ const EmployeeInformation = ({ onNext }: EmployeeInformationProps) => {
 
   const handleNext = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    if (
-      employeeOnboard.name.length === 0 ||
-      employeeOnboard.personalStatement.length === 0 ||
-      employeeOnboard.remarks.length === 0 ||
-      employeeOnboard.dialysisFrequency === 0 ||
-      employeeOnboard.profilePhoto === null ||
-      employeeOnboard.resume === null ||
-      employeeOnboard.postalCode.length === 0 ||
-      employeeOnboard.address.length === 0 ||
-      employeeOnboard.city.length === 0 ||
-      employeeOnboard.state.length === 0 ||
-      employeeOnboard.country.length === 0
-    ) {
-      setToaster({ isShown: true, type: ToasterType.ERROR, message: 'Please fill in all the fields', title: 'Error' });
+    let message = 'Something went wrong, please try again later';
+    let isValid = true;
+    if (employeeOnboard.name.length === 0) {
+      message = 'Please enter your name';
+      isValid = false;
+    } else if (employeeOnboard.personalStatement.length === 0) {
+      message = 'Please enter your personal statement';
+      isValid = false;
+    } else if (employeeOnboard.remarks.length === 0) {
+      message = 'Please enter your remarks';
+      isValid = false;
+    } else if (employeeOnboard.dialysisFrequency === 0) {
+      message = 'Please enter your dialysis frequency';
+      isValid = false;
+    } else if (employeeOnboard.profilePhoto === null) {
+      message = 'Please upload your profile photo';
+      isValid = false;
+    } else if (employeeOnboard.resume === null) {
+      message = 'Please upload your resume';
+      isValid = false;
+    } else if (employeeOnboard.postalCode.length === 0) {
+      message = 'Please enter your postal code';
+      isValid = false;
+    } else if (employeeOnboard.address.length === 0) {
+      message = 'Please enter your address';
+      isValid = false;
+    } else if (employeeOnboard.city.length === 0) {
+      message = 'Please enter your city';
+      isValid = false;
+    } else if (employeeOnboard.state.length === 0) {
+      message = 'Please enter your state';
+      isValid = false;
+    } else if (employeeOnboard.country.length === 0) {
+      message = 'Please enter your country';
+      isValid = false;
+    }
+    if (!isValid) {
+      setToaster({ isShown: true, type: ToasterType.ERROR, message, title: 'Error' });
       return;
     }
     onNext();

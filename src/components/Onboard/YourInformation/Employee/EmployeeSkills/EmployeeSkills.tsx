@@ -17,7 +17,7 @@ const EmployeeSkills = ({ onNext }: EmployeeSkillsProps) => {
   const handleNext = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     if (employeeOnboard.skills.length === 0 || employeeOnboard.interests.length === 0) {
-      setToaster({ isShown: true, type: ToasterType.ERROR, message: 'Please fill in all the fields', title: 'Error' });
+      setToaster({ isShown: true, type: ToasterType.ERROR, message: 'Please Pick at least 1 skill and interest', title: 'Error' });
       return;
     }
     onNext();
