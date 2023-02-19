@@ -36,8 +36,7 @@ const Schedule = () => {
     }
 
     const res = await createEmployee(employeeOnboard);
-    if (res) {
-      console.log(res);
+    if (res && res.data) {
       const user = await getSelf();
       if (user && user.data) {
         setUser(prev => ({ ...prev, ...user.data }));

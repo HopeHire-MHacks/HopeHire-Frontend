@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import industryTypes from '@/constants/industryTypes';
 import { useParams } from 'react-router-dom';
 import { useApi } from '@/api/ApiHandler';
 import JobService, { JobData } from '@/api/Jobs/JobService';
@@ -7,19 +6,29 @@ import { userAtom } from '@/utils/atoms/user';
 import { useRecoilState } from 'recoil';
 import { MapPinIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { ReactComponent as HealthIcon } from '@/assets/health_icon.svg';
+import JobDetails from '@/components/JobDetails';
+import EmployerService from '@/api/Employer/EmployerService';
+import Accordion from '@/components/Accordion';
 
 const JobListing = () => {
   const { id } = useParams<{ id: string }>();
   const [job, setJob] = useState<JobData>();
   const [user] = useRecoilState(userAtom);
   const [imageUrl, setImageUrl] = useState('');
-  const [getJob] = useApi((id: number) => JobService.getJobById(id), true, true, true);
+  const [getJob] = useApi((jobId: number) => JobService.getJobById(jobId), true, true, true);
+  const [getRecommendedEmployees] = useApi((jobId: number) => EmployerService.getRecommendedEmployees(jobId), true, true, true);
 
   const getJobListing = async () => {
-    const res = await getJob(Number(id));
-    if (res && res.data) {
-      setJob(res.data);
-      console.log(res.data);
+    const currJobRes = await getJob(Number(id));
+    const recommendedEmployeesRes = await getRecommendedEmployees(Number(id));
+
+    if (currJobRes && currJobRes.data) {
+      setJob(currJobRes.data);
+      // console.log(currJobRes.data);
+    }
+
+    if (recommendedEmployeesRes && recommendedEmployeesRes.data) {
+      console.log(recommendedEmployeesRes.data);
     }
   };
 
@@ -41,27 +50,6 @@ const JobListing = () => {
     setImageUrl(URL.createObjectURL(blob));
   }, [user.employer?.logo]);
 
-  // type EmployeeData = {
-  //   name: string;
-  //   userId: number;
-  //   personalStatement: string;
-  //   skills: number[];
-  //   interests: number[];
-  //   isAvailable: boolean;
-  //   dateOfBirth: string;
-  //   remarks: string;
-  //   availableTimes: string[];
-  //   preferredLocation: number[];
-  //   dialysisFrequency: number;
-  //   profilePhoto: { type: 'Buffer'; data: number[] };
-  //   resume: { type: 'Buffer'; data: number[] };
-  //   country: string;
-  //   city: string;
-  //   state: string;
-  //   postalCode: string;
-  //   address: string;
-  // };
-
   return (
     <div>
       {job ? (
@@ -78,90 +66,13 @@ const JobListing = () => {
               </div>
             </div>
           </div>
-          <div className='overflow-hidden bg-white shadow sm:rounded-lg m-5'>
-            <div className='px-4 py-5 sm:px-6'>
-              <h3 className='text-lg font-medium leading-6 text-gray-900'>Job Information</h3>
-              <p className='mt-1 max-w-2xl text-md text-gray-500'>
-                Get the inside scoop on your next career move with our comprehensive job listing.
-              </p>
-            </div>
-            <div className='border-t border-gray-200'>
-              <dl>
-                <div className='bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
-                  <dt className='text-md font-medium text-gray-500'>Position name</dt>
-                  <dd className='mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0'>{job.positionName}</dd>
-                </div>
-
-                <div className='bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
-                  <dt className='text-md font-medium text-gray-500'>Job Description</dt>
-                  <dd className='mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0'>{job.jobDescription}</dd>
-                </div>
-                <div className='bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
-                  <dt className='text-md font-medium text-gray-500'>Job Requirements</dt>
-                  <dd className='mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0'>{job.jobRequirements}</dd>
-                </div>
-                <div className='bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
-                  <dt className='text-md font-medium text-gray-500'>Industry Type</dt>
-                  <dd className='mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0'>{industryTypes[job.industryType]}</dd>
-                </div>
-
-                <div className='bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
-                  <dt className='text-md font-medium text-gray-500'>Job Flexibility</dt>
-                  <dd className='mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0'>{job.jobFlexibility}</dd>
-                </div>
-                <div className='bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
-                  <dt className='text-md font-medium text-gray-500'>Peritonial Dialysis Support</dt>
-                  <dd className='mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0'>
-                    {job.hasDialysisSupport ? 'Available' : 'Not Available'}
-                  </dd>
-                </div>
-                <div className='bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
-                  <dt className='text-md font-medium text-gray-500'>Location</dt>
-                  <dd className='mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0'>
-                    {job.address + ', ' + job.city + ', ' + job.state + ', ' + job.country + ', ' + job.postalCode}
-                  </dd>
-                </div>
-
-                <div className='bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
-                  <dt className='text-md font-medium text-gray-500'>Part Time / Full Time</dt>
-                  <dd className='mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0'>{job.jobType}</dd>
-                </div>
-                <div className='bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
-                  <dt className='text-md font-medium text-gray-500'>Salary Type</dt>
-                  <dd className='mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0'>{job.salaryType}</dd>
-                </div>
-                <div className='bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
-                  <dt className='text-md font-medium text-gray-500'>Salary Range</dt>
-                  <dd className='mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0'>
-                    {job.salaryType === 'ranged' && '$' + job.salaryRange[0] + ' - $' + job.salaryRange[1]}
-                    {job.salaryType === 'fixed' && '$' + job.salaryRange[0]}
-                    {job.salaryType === 'none-yet' && '$' + job.salaryRange[0]}
-                  </dd>
-                </div>
-
-                <div className='bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
-                  <dt className='text-md font-medium text-gray-500'>Physical Demand</dt>
-                  <dd className='mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0'>{job.physicalDemands}</dd>
-                </div>
-              </dl>
-            </div>
-          </div>
+          <JobDetails defaultOpen={false} job={job} />
         </>
       ) : (
         <div>loading...</div>
       )}
 
-      <div className='m-5 w-full'>
-        <div className='overflow-hidden rounded-lg bg-white shadow'>
-          <div className='border-b border-gray-200 bg-white px-4 py-5 sm:px-6'>
-            <div className='-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap'>
-              <div className='ml-4 mt-4'>
-                <h3 className='text-lg font-medium leading-6 text-gray-900'>Recieved Application</h3>
-                <p className='mt-1 text-md text-gray-500'>Here are some applicants that already </p>
-              </div>
-            </div>
-          </div>
-        </div>
+      <Accordion defaultOpen={false} title='Recieved Application' description='Here are some applicants that already applied'>
         <div className=' divide-gray-200 border-t border-gray-200 bg-gray-50 sm:grid-cols-3 sm:divide-y-0 sm:divide-x'>
           <div className='overflow-hidden bg-white shadow sm:rounded-md'>
             <ul role='list' className='divide-y divide-gray-200'>
@@ -208,19 +119,13 @@ const JobListing = () => {
             </ul>
           </div>
         </div>
-      </div>
+      </Accordion>
 
-      <div className='m-5 w-full'>
-        <div className='overflow-hidden rounded-lg bg-white shadow'>
-          <div className='border-b border-gray-200 bg-white px-4 py-5 sm:px-6'>
-            <div className='-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap'>
-              <div className='ml-4 mt-4'>
-                <h3 className='text-lg font-medium leading-6 text-gray-900'>Recommended Employees</h3>
-                <p className='mt-1 text-md text-gray-500'>Here are some recommended employees based on this job profile!</p>
-              </div>
-            </div>
-          </div>
-        </div>
+      <Accordion
+        defaultOpen={false}
+        title='Recommended Applicants'
+        description='Here are some recommended applicants based on your job information'
+      >
         <div className=' divide-gray-200 border-t border-gray-200 bg-gray-50 sm:grid-cols-3 sm:divide-y-0 sm:divide-x'>
           <div className='overflow-hidden bg-white shadow sm:rounded-md'>
             <ul role='list' className='divide-y divide-gray-200'>
@@ -267,7 +172,7 @@ const JobListing = () => {
             </ul>
           </div>
         </div>
-      </div>
+      </Accordion>
     </div>
   );
 };

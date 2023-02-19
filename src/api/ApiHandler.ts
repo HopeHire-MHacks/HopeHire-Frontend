@@ -48,8 +48,7 @@ export function useApi<T>(
       if (error?.data?.message && withFailureNotification) {
         setToasterState({ title: 'Error', message: error.data.message, type: ToasterType.ERROR, isShown: true });
         console.error({ message: error.data.message });
-      }
-      if (error?.status === 403 || error?.status === 401) {
+      } else if (error?.status === 403 || error?.status === 401) {
         setLocalStorageValue(ApiService.authTokenKey, undefined);
         setUser({
           id: 0,
@@ -58,6 +57,13 @@ export function useApi<T>(
           employer: null,
         });
         history.push(routes.authentication.login);
+      } else {
+        setToasterState({
+          title: 'Something Went Wrong',
+          message: 'We are not sure what went wrong... If you are uploading files it could be a filesize issue',
+          type: ToasterType.ERROR,
+          isShown: true,
+        });
       }
       console.log(error);
       return { ...error?.data, isSuccess: false };

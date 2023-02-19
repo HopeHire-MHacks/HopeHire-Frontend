@@ -35,10 +35,8 @@ const EmployerInformation = () => {
       setToaster({ isShown: true, type: ToasterType.ERROR, message: 'Please enter all fields', title: 'Error' });
       return;
     }
-    console.log('what');
     const res = await createEmployer(employerOnboard);
-    if (res) {
-      console.log(res);
+    if (res && res.data) {
       const user = await getSelf();
       if (user && user.data) {
         setUser(prev => ({ ...prev, ...user.data }));
