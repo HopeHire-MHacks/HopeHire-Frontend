@@ -55,7 +55,11 @@ const JobDetails = ({ job }: Props) => {
           </div>
           <div className='bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
             <dt className='text-md font-medium text-gray-500'>Salary Range</dt>
-            <dd className='mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0'>{'$' + job.salaryRange[0] + ' - $' + job.salaryRange[1]}</dd>
+            <dd className='mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0'>
+              {job.salaryType === 'ranged' && '$' + job.salaryRange[0] + ' - $' + job.salaryRange[1]}
+              {job.salaryType === 'fixed' && '$' + job.salaryRange[0]}
+              {job.salaryType === 'none-yet' && '$' + job.salaryRange[0]}
+            </dd>
           </div>
 
           <div className='bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
