@@ -29,9 +29,9 @@ const Applications = () => {
       buttonText='Find more Jobs'
       buttonOnClick={onClick}
     >
-      {positions.map(position => (
-        <ListingItem key={position.id} position={position} application={applications[0]} />
-      ))}
+      {/* {positions.map(position => (
+        // <ListingItem key={position.id} position={position} application={applications[0]} />
+      ))} */}
     </CardListWithHeader>
   );
 };
