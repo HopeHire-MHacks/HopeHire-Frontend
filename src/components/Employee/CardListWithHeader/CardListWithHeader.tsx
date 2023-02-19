@@ -17,8 +17,8 @@ const CardListWithHeader = ({ header, description, buttonText, buttonOnClick, ch
           <div className='border-b border-gray-200 bg-white px-4 py-5 sm:px-6'>
             <div className='-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap'>
               <div className='ml-4 mt-4'>
-                <h3 className='text-lg font-medium leading-6 text-gray-900'>{header}</h3>
-                <p className='mt-1 text-md text-gray-500'>{description}</p>
+                <h3 className='text-xl font-medium leading-6 text-gray-900'>{header}</h3>
+                <p className='mt-1 text-base text-gray-500'>{description}</p>
               </div>
               <div className='ml-4 mt-4 flex-shrink-0'>
                 <button
@@ -32,7 +32,7 @@ const CardListWithHeader = ({ header, description, buttonText, buttonOnClick, ch
             </div>
           </div>
         </div>
-        <div className=' divide-gray-200 border-t border-gray-200 bg-gray-50 sm:grid-cols-3 sm:divide-y-0 sm:divide-x'>
+        <div className=' divide-gray-200 border-t border-gray-200 bg-gray-50 sm:grid-cols-3 sm:divide-y-0 sm:divide-x mt-5'>
           <div className='overflow-hidden bg-white shadow sm:rounded-md'>
             <ul role='list' className='divide-y divide-gray-200'>
               {children}

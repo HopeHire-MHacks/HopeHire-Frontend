@@ -8,6 +8,18 @@ interface Props {
   defaultOpen?: boolean;
 }
 
+export const salaryString = (salaryType: string, salaryRange: number[]) => {
+  console.log(salaryType);
+  switch (salaryType) {
+    case 'Ranged':
+      return '$' + salaryRange[0] + ' - $' + salaryRange[1];
+    case 'Fixed':
+      return '$' + salaryRange[0];
+    default:
+      return '$' + salaryRange[0];
+  }
+};
+
 const JobDetails = ({ job, defaultOpen = true }: Props) => {
   return (
     <Accordion
@@ -60,11 +72,7 @@ const JobDetails = ({ job, defaultOpen = true }: Props) => {
           </div>
           <div className='bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
             <dt className='text-md font-medium text-gray-500'>Salary Range</dt>
-            <dd className='mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0'>
-              {job.salaryType === 'ranged' && '$' + job.salaryRange[0] + ' - $' + job.salaryRange[1]}
-              {job.salaryType === 'fixed' && '$' + job.salaryRange[0]}
-              {job.salaryType === 'none-yet' && '$' + job.salaryRange[0]}
-            </dd>
+            <dd className='mt-1 text-md text-gray-900 sm:col-span-2 sm:mt-0'>{salaryString(job.salaryType, job.salaryRange)}</dd>
           </div>
 
           <div className='bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>

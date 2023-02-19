@@ -3,6 +3,7 @@ import { EventData } from '@/components/Calendar';
 import { Buffer } from 'buffer';
 
 export type EmployeeData = {
+  id: number;
   name: string;
   userId: number;
   personalStatement: string;
@@ -21,7 +22,6 @@ export type EmployeeData = {
   state: string;
   postalCode: string;
   address: string;
-  id: number;
 };
 
 export type CreateEmployeeData = {

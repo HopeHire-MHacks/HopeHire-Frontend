@@ -41,6 +41,45 @@ interface CalendarProps {
   periodTitle: string;
 }
 
+export function convertDateTimeStringsToEventData(dateTimeStrings: string[]): EventData[] {
+  const events: EventData[] = [];
+  const now = new Date();
+  const weekStart = new Date(now.getFullYear(), now.getMonth(), now.getDate() - now.getDay());
+  const weekEnd = new Date(now.getFullYear(), now.getMonth(), weekStart.getDate() + 6);
+
+  for (let i = 0; i < dateTimeStrings.length; i += 2) {
+    const start = new Date(dateTimeStrings[i]);
+    const end = new Date(dateTimeStrings[i + 1]);
+
+    // Adjust start and end dates to the same day of the week within the current week
+    const dayOfWeek = start.getDay();
+    const adjustedStart = new Date(weekStart);
+    adjustedStart.setDate(adjustedStart.getDate() + dayOfWeek);
+    adjustedStart.setHours(start.getHours(), start.getMinutes(), start.getSeconds(), start.getMilliseconds());
+
+    const adjustedEnd = new Date(weekStart);
+    adjustedEnd.setDate(adjustedEnd.getDate() + dayOfWeek);
+    adjustedEnd.setHours(end.getHours(), end.getMinutes(), end.getSeconds(), end.getMilliseconds());
+
+    // If the adjusted start and end dates are still outside of the current week, skip this event
+    if (adjustedStart < weekStart || adjustedEnd > weekEnd) {
+      continue;
+    }
+
+    const id = uuid();
+    const event: EventData = {
+      id,
+      title: 'Available',
+      start: adjustedStart,
+      end: adjustedEnd,
+      editable: false,
+    };
+    events.push(event);
+  }
+
+  return events;
+}
+
 const Calendar = ({ availabilities, setAvailabilities, periodTitle }: CalendarProps) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setModalState] = useRecoilState(modalAtom);
