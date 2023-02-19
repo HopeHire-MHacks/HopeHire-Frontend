@@ -41,7 +41,7 @@ const JobListing = () => {
   };
 
   return (
-    <div>
+    <div className='w-full'>
       {job ? (
         <>
           <div className='flex-wrap items-center justify-between sm:flex-nowrap bg-gray-50 shadow sm:rounded-lg m-5 p-2'>
