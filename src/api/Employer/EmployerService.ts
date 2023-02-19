@@ -97,13 +97,11 @@ export default class EmployerService {
   }
 
   public static async getRecommendedEmployees(jobId: number): Promise<ApiData> {
+    console.log(jobId);
     try {
       const response = await ApiService.request(
         {
-          url: `employees/recommended/jobs`,
-          data: {
-            job_id: jobId,
-          },
+          url: `employees/recommended/jobs/${jobId}`,
           method: 'GET',
         },
         true,

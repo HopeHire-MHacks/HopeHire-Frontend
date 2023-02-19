@@ -53,14 +53,8 @@ export function useApi<T>(
         removeLocalStorageValue(ApiService.authTokenKey);
         resetUserAtom();
         history.push(routes.authentication.login);
-      } else {
-        setToasterState({
-          title: 'Something Went Wrong',
-          message: 'We are not sure what went wrong... If you are uploading files it could be a filesize issue',
-          type: ToasterType.ERROR,
-          isShown: true,
-        });
       }
+
       console.log(error);
       return { ...error?.data, isSuccess: false };
     } finally {
