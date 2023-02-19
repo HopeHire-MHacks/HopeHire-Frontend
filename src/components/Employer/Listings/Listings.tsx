@@ -27,7 +27,6 @@ const Listings = () => {
   const history = useHistory();
 
   const onClick = (jobId: number) => {
-    console.log('here');
     history.push(routes.employer.base + routes.employer.listings + '/' + jobId);
   };
 

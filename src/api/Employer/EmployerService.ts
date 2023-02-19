@@ -97,7 +97,6 @@ export default class EmployerService {
   }
 
   public static async getRecommendedEmployees(jobId: number): Promise<ApiData> {
-    console.log(jobId);
     try {
       const response = await ApiService.request(
         {

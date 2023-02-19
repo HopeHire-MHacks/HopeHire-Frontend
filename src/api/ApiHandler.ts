@@ -29,19 +29,14 @@ export function useApi<T>(
   async function fetchApi(data?: any): Promise<ApiData<T> & isSuccess> {
     if (withLoadingNotification) {
       setToasterState({ title: 'Information', message: 'Loading Response...', type: ToasterType.INFO, isShown: true });
-      console.log('Loading...');
     }
     try {
       const response = await apiPromise(data);
-      console.log(response);
       if (response?.message && withSuccessNotification) {
         setToasterState({ title: 'Success', message: response.message, type: ToasterType.SUCCESS, isShown: true });
-        console.log({ message: response.message });
       } else if (response && withSuccessNotification) {
         setToasterState({ title: 'Success', message: 'API Call Successful', type: ToasterType.SUCCESS, isShown: true });
-        console.log({ message: 'API Call Successful' });
       }
-      console.log(response);
       return { ...response, isSuccess: true };
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {

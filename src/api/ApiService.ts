@@ -23,7 +23,6 @@ export default class ApiService {
     contentType = 'application/json',
   ): Promise<any> {
     const accessToken: string | null = getLocalStorageValue(this.authTokenKey) ?? null;
-    console.log(altUrl);
     if (isAuth && !accessToken) {
       return Promise.reject({ data: { message: 'Not authenticated' } });
     }

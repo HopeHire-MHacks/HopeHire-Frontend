@@ -1,8 +1,10 @@
 import ApiService, { ApiData } from '@/api/ApiService';
+import { EmployeeData } from '../Employee/EmployeeService';
 import { JobData } from '../Jobs/JobService';
 
 export type ApplicationData = {
   id: number;
+  employee?: EmployeeData;
   jobId: number;
   remarks: string;
   status: string;

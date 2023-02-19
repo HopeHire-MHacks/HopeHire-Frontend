@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useApi } from '@/api/ApiHandler';
@@ -7,7 +8,7 @@ import { useRecoilState } from 'recoil';
 import EmployeeCard from './EmployeeCard';
 import JobDetails from '@/components/JobDetails';
 import EmployerService from '@/api/Employer/EmployerService';
-import ApplicationService from '@/api/Applications/ApplicationService';
+import ApplicationService, { ApplicationData } from '@/api/Applications/ApplicationService';
 import Accordion from '@/components/Accordion';
 import { EmployeeData } from '@/api/Employee/EmployeeService';
 import { useHistory } from 'react-router-dom';
@@ -17,7 +18,7 @@ const JobListing = () => {
   const { id } = useParams<{ id: string }>();
   const [job, setJob] = useState<JobData>();
   const [recommendedEmployees, setRecommendedEmployees] = useState<EmployeeData[]>();
-  const [applicants, setApplicants] = useState<EmployeeData[]>();
+  const [applicants, setApplicants] = useState<ApplicationData[]>();
   const [user] = useRecoilState(userAtom);
   const [imageUrl, setImageUrl] = useState('');
   const history = useHistory();
@@ -87,11 +88,11 @@ const JobListing = () => {
             <div className='overflow-hidden bg-white shadow sm:rounded-md'>
               <ul role='list' className='divide-y divide-gray-200'>
                 {applicants.length !== 0 ? (
-                  applicants.map(employee => (
+                  applicants.map(application => (
                     <EmployeeCard
-                      onClick={() => history.push(`${routes.employer.base}${routes.employer.listing}/employee/${employee.id}`)}
-                      key={employee.userId}
-                      employee={employee}
+                      onClick={() => history.push(`${routes.employer.base}${routes.employer.listing}/employee/${application.employee!.id}`)}
+                      key={application.employee!.userId}
+                      employee={application.employee!}
                     />
                   ))
                 ) : (
