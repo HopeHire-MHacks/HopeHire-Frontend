@@ -35,8 +35,8 @@ const SideNav = (RenderComponent: React.ComponentType, navigation: NavigationPro
 
     useEffect(() => {
       let data = null;
-      if (user.employee?.profilePhoto != null) {
-        data = user.employee.profilePhoto.data;
+      if (user.employee?.profilePicture != null) {
+        data = user.employee.profilePicture.data;
       } else if (user.employer?.logo != null) {
         data = user.employer.logo.data;
       }

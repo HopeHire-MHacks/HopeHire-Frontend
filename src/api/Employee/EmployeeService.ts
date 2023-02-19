@@ -14,7 +14,7 @@ export type EmployeeData = {
   availableTimes: string[];
   preferredLocation: number[];
   dialysisFrequency: number;
-  profilePhoto: { type: 'Buffer'; data: number[] };
+  profilePicture: { type: 'Buffer'; data: number[] };
   resume: { type: 'Buffer'; data: number[] };
   country: string;
   city: string;
